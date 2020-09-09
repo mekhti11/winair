@@ -1,0 +1,90 @@
+variables:
+  SONAR_URL: "http://sonar.pinsoft.ist/sonar"
+  SONAR_LOGIN: "63936c821afb4c731fbaba69359ac2dbd0c6bd7c"
+  SONAR_PROJECT_KEY: "com.hititcs.boarding.android"
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+#LC_ALL & LANG are mandatory fastlane variables
+
+stages:
+  - build
+  - sonar_test
+  - ui_test
+  - distribute_internal
+  - distribute_external
+  - release
+
+#Fastlane configs are in before script too.
+before_script:
+  - gem install bundler
+  - bundle install
+
+build_feature_develop:
+  stage: build
+  only:
+    - /^feature\/*/
+    - develop
+  script:
+    - echo "DEVELOP_BRANCH -> Building debug with gradle"
+    - fastlane build_debug
+    - echo "DEVELOP_BRANCH -> Building debug with gradle -> SUCCESS!"
+
+#build_beta:
+#  stage: build
+#  only:
+#    - beta
+#  script:
+
+#build_master:
+#  stage: build
+#  only:
+#    - master
+#  script:
+
+sonarqube_feature_with_preview:
+  stage: sonar_test
+  only:
+    - /^feature\/*/
+  script:
+    - git checkout origin/develop
+    - git merge $CI_COMMIT_SHA --no-commit --no-ff
+    - ./gradlew sonarqube --stacktrace -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME -Dsonar.gitlab.disable_proxy=true -Dsonar.verbose=true
+
+sonarqube_develop:
+  stage: sonar_test
+  only:
+    - develop
+  script:
+    - ./gradlew sonarqube --stacktrace -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME -Dsonar.gitlab.disable_proxy=true -Dsonar.verbose=true
+
+ui_test:
+  stage: ui_test
+  when: manual
+  only:
+    - develop
+  script:
+    - echo "There is no UI test defined right now."
+#    - echo "DEVELOP_BRANCH -> Building debug with gradle"
+#    - fastlane build_debug
+#    - echo "DEVELOP_BRANCH -> Building debug with gradle -> SUCCESS!"
+#    - java -jar automationtests.jar android "HUAWEI FIG-LX1" 8 com.hititcs.pegasus.smartops.debug $CI_PROJECT_DIR/app/build/outputs/apk/debug/app-debug.apk com.hititcs.crew.view.splash.SplashScreenActivity 8201 -Dlogback.configurationFile=/logback.xml 
+
+distribute_internal:
+  stage: distribute_internal
+  when: manual
+  script:
+    - echo "Internal beta distribution"
+#    - fastlane betaPin
+
+distribute_external:
+  stage: distribute_external
+  when: manual
+  script:
+    - echo "External beta distribution not defined in .gitlab-ci.yml"
+#    - fastlane beta_external
+
+#release:
+#  stage: release
+#  only:
+#    - master
+#  script:
