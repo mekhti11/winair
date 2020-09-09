@@ -14,11 +14,6 @@ stages:
   - distribute_external
   - release
 
-#Fastlane configs are in before script too.
-before_script:
-  - gem install bundler
-  - bundle install
-
 build_feature_develop:
   stage: build
   only:
@@ -26,8 +21,8 @@ build_feature_develop:
     - develop
   script:
     - echo "DEVELOP_BRANCH -> Building debug with gradle"
-    - fastlane build_debug
-    - echo "DEVELOP_BRANCH -> Building debug with gradle -> SUCCESS!"
+#    - fastlane build_debug
+#    - echo "DEVELOP_BRANCH -> Building debug with gradle -> SUCCESS!"
 
 #build_beta:
 #  stage: build
