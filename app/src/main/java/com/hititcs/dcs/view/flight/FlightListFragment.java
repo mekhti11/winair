@@ -34,8 +34,6 @@ import static com.hititcs.dcs.view.flight.detail.FlightDetailActivity.FLIGHT_SUM
 public class FlightListFragment extends BaseFragment<FlightListFragment> implements FlightListView,
     FlightListAdapter.FlightOnClickListener {
 
-  private static final String STATE_SELECTED_DATE = "state:selectedDate";
-  private static final String STATE_FLIGHT_LIST = "state:flightList";
   @BindView(R.id.rcw_flights)
   RecyclerView recyclerViewFlights;
   @BindView(R.id.tw_current_date)
@@ -157,20 +155,6 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
   }
 
   private List<FlightSummary> filterFlightsByFlightNumber(String number) {
-    number = number.trim();
-    if (number.equals("")) {
-      return flightList;
-    }
-    List<FlightSummary> filteredList = new ArrayList<>();
-    for (int i = 0; i < flightList.size(); i++) {
-      if (flightList.get(i).getFlightNumber().startsWith(number)) {
-        filteredList.add(flightList.get(i));
-      }
-    }
-    return filteredList;
-  }
-
-  private List<FlightSummary> filterFlightsByFlightNumberEditText(String number) {
     number = number.trim();
     if (number.equals("")) {
       return flightList;
