@@ -20,6 +20,10 @@ import timber.log.Timber;
 
 public class ImageUtils {
 
+  private ImageUtils(){
+
+  }
+
   public static Drawable loadImageUriAsDrawable(Context context, Uri uri){
     try {
       InputStream inputStream = context.getContentResolver().openInputStream(uri);

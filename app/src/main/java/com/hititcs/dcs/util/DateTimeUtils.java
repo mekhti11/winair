@@ -9,6 +9,10 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 public class DateTimeUtils {
 
+    private DateTimeUtils(){
+
+    }
+
     public static String getDepArrTimes(FlightSummary flightSummary) {
         String date = flightSummary.getDepTime().substring(8, 10) + new DateFormatSymbols().getMonths()[Integer.valueOf(flightSummary.getDepTime().substring(5, 7))-1].substring(0, 3);;
         String depTime = flightSummary.getDepTime().substring(11,16);

@@ -85,9 +85,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   @Inject
   ScanBarcodePresenter scanBarcodePresenter;
 
-  public ScanBarcodeFragment() {
-  }
-
   public static ScanBarcodeFragment newInstance(String flightId, String boardedCountStart) {
     Bundle args = new Bundle();
     ScanBarcodeFragment fragment = new ScanBarcodeFragment();
@@ -132,13 +129,10 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     super.onActivityCreated(savedInstanceState);
     if (ContextCompat.checkSelfPermission(getActivity(), permission.CAMERA)
         != PackageManager.PERMISSION_GRANTED) {
-      // Permission is not granted
       ActivityCompat
           .requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
               MY_PERMISSIONS_REQUEST_CAMERA);
     }
-
-    //    scanBarcodePresenter.scanBarcode();
     if (savedInstanceState != null) {
       mFlashOpen = savedInstanceState.getBoolean(STATE_FLASH_OPEN, false);
       mCameraPause = savedInstanceState.getBoolean(STATE_CAMERA_PAUSE, false);
@@ -247,41 +241,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   }
 
   @Override
-  public void showLoading() {
-
-  }
-
-  @Override
-  public void showProgressDialog(int title, int message) {
-
-  }
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
-  public void hideLoading() {
-
-  }
-
-  @Override
-  public void showError(String message) {
-
-  }
-
-  @Override
-  public void showError(int messageId) {
-
-  }
-
-  @Override
   public void showBarcodeResult(BoardingResponse data) {
     boardedCount.setText(MessageUtils.getStringFromList(data.getFlightDetail().getBoarded()));
     showResultIcon(true, null);
@@ -315,6 +274,16 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
       Timber.e(e);
     }
     showResultIcon(true, null);
+
+  }
+
+  @Override
+  public void showError(String message) {
+
+  }
+
+  @Override
+  public void showError(int messageId) {
 
   }
 

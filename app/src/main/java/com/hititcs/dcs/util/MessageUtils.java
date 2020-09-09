@@ -6,6 +6,10 @@ import java.util.List;
 
 public class MessageUtils {
 
+  private MessageUtils(){
+
+  }
+
   public static String getMessage(String httpResponse) {
 
     if (!TextUtils.isEmpty(httpResponse)) {

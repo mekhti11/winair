@@ -192,8 +192,9 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
           startActivity(intent3);
           finish();
           return true;
+        default:
+          return true;
       }
-      return false;
     }
   };
 
