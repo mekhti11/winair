@@ -1,5 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+apply plugin: "org.sonarqube"
+
 buildscript {
     ext.kotlin_version = '1.3.20'
     repositories {
@@ -24,6 +26,18 @@ allprojects {
         mavenLocal()
         jcenter()
         google()
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Boarding DCS Android V2"
+        property "sonar.projectKey", "com.hititcs.boarding.android"
+        property "sonar.host.url", "http://sonar.pinsoft.ist/sonar"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/java"
+        property "sonar.login", "63936c821afb4c731fbaba69359ac2dbd0c6bd7c"
+        property "sonar.exclusions", "**/*Generated.java"
     }
 }
 
