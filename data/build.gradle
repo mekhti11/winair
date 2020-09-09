@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+    compile project(':domain')
+
+//    compile rootProject.ext.javaxAnnotation
+
+    implementation rootProject.ext.MODULE_DATA_IMPL_DEPS
+
+    testImplementation rootProject.ext.MODULE_DATA_TEST_DEPS
+
+}

@@ -1,0 +1,36 @@
+<resources>
+  <string name="app_name">Crane DCS</string>
+  <string name="please_wait">Please Wait</string>
+  <string name="progress_login">Progressing</string>
+
+  <string name="title_flight_details">Flight Details</string>
+  <string name="home_flights_found">flights found for this day</string>
+  <string name="home_today_label">TODAY</string>
+  <string name="item_flight_boarding_time">Boarding Time</string>
+  <string name="item_flight_flight_status">Flight Status</string>
+
+
+  <string name="flights_flight_no">Flight No:</string>
+  <string name="flights_gate">Gate:</string>
+
+  <string name="main_welcome_logo_text">Welcome To Airport DCS</string>
+  <string name="main_sign_in">Sign-In</string>
+  <string name="main_login_username">USERNAME</string>
+  <string name="main_login_password">PASSWORD</string>
+  <string name="main_login_button">LOGIN</string>
+
+  <string name="detail_boarding">Boarding</string>
+  <string name="detail_board_pax">BOARD PAX</string>
+  <string name="detail_flight_type">Flight Type: </string>
+  <string name="detail_aircraft">Aircraft: </string>
+  <string name="detail_flight_status">Flight Status: </string>
+  <string name="detail_reg">Reg: </string>
+  <string name="detail_gate">Gate: </string>
+  <string name="detail_check_in">Check-In: </string>
+  <string name="detail_unboarded">Unboarded: </string>
+  <string name="detail_boarded">Boarded: </string>
+  <string name="detail_boarding_gate">Boarding Gate: </string>
+  <string name="detail_delay_time">Delay Time: </string>
+
+  <string name="list_hint_search_flight_no">Search Flight No</string>
+</resources>

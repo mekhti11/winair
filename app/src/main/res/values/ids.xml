@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="app_bar" type="id"/>
+  <item name="toolbar" type="id" />
+  <item name="toolbar_title" type="id" />
+  <item name="content_frame" type="id" />
+  <item name="drawer_layout" type="id"/>
+  <item name="nav_view" type="id"/>
+  <item name="recycler_view" type="id"/>
+
+  <item name="menu_notification" type="id"/>
+  <item name="menu_settings" type="id"/>
+
+  <item name="ic_group_count" type="id"/>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#f86e69</color>
+  <color name="colorPrimaryDark">#f86e69</color>
+  <color name="colorSecondary">#30454E</color>
+  <color name="colorAccent">@color/colorPrimary</color>
+  <color name="buttonColor">@color/colorSecondary</color>
+  <color name="text_color_primary">@color/black</color>
+  <color name="text_color_secondary">@color/white</color>
+  <color name="company_dropdown_bg_not_selected">@color/colorSecondary</color>
+  <color name="company_dropdown_bg_selected">@color/colorPrimary</color>
+  <color name="white">#FFFFFF</color>
+  <color name="black">#000000</color>
+  <color name="orange">#EEB040</color>
+  <color name="transparent">#00000000</color>
+  <color name="grey_inactive_text">#c4c4c4</color>
+  <color name="input_border_color">#242D36</color>
+  <color name="bg_logo_color">#41242D36</color>
+  <color name="dropdown_color">#2A2F39</color>
+
+  <color name="barcode_success">#4CAF50</color>
+  <color name="barcode_fail">#F44336</color>
+
+  <color name="main_logo_bg_color">@color/white</color>
+  <color name="main_welcome_text_color">@color/white</color>
+  <color name="main_sign_in_color">@color/white</color>
+</resources>

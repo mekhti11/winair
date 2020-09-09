@@ -1,0 +1,130 @@
+<resources>
+  <style name="AppToolBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="colorControlNormal">@android:color/white</item>
+  </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:statusBarColor">@color/black</item>
+    <item name="android:forceDarkAllowed">false</item>
+  </style>
+  <style name="AppTextErrorStyle" parent="TextAppearance.Design.Error">
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textSize">@dimen/text_size_xxsmall</item>
+  </style>
+  <style name="DayOffHintTextAppearance" parent="TextAppearance.AppCompat.Caption">
+    <item name="android:fontFamily">@font/poppins_bold</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">@dimen/text_size_medium</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+  <style name="AppTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/spacing_xxxlarge</item>
+    <item name="android:textColorHint">@color/black</item>
+    <item name="boxStrokeColor">@color/input_border_color</item>
+    <item name="hintTextAppearance">@style/TextAppearance.App.Medium.Inverse.Bold</item>
+    <item name="errorTextAppearance">@style/AppTextErrorStyle</item>
+  </style>
+  <style name="TextAppearance.App.Large" parent="TextAppearance.AppCompat.Large">
+    <item name="android:textSize">@dimen/text_size_slarge</item>
+  </style>
+
+  <style name="TextAppearance.App.Large.Bold">
+    <item name="android:fontFamily">@font/poppins_bold</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextAppearance.App.Large.Regular">
+    <item name="android:fontFamily">@font/poppins_regular</item>
+    <item name="android:textStyle">normal</item>
+  </style>
+
+  <style name="TextAppearance.App.Large.Inverse" parent="TextAppearance.AppCompat.Large.Inverse">
+    <item name="android:textSize">@dimen/text_size_slarge</item>
+  </style>
+
+  <style name="TextAppearance.App.Large.Inverse.Bold">
+    <item name="android:fontFamily">@font/poppins_bold</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <style name="TextAppearance.App.Medium.Inverse.Bold">
+    <item name="android:fontFamily">@font/poppins_bold</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextAppearance.App.Medium.Regular">
+    <item name="android:fontFamily">@font/poppins_regular</item>
+    <item name="android:textStyle">normal</item>
+  </style>
+  <style name="TextAppearance.App.Medium.ExtraLight">
+    <item name="android:fontFamily">@font/poppins_extra_light</item>
+    <item name="android:textStyle">normal</item>
+  </style>
+  <style name="TextAppearance.App.Medium" parent="TextAppearance.AppCompat.Medium">
+    <item name="android:textSize">@dimen/text_size_small</item>
+  </style>
+
+  <style name="TextAppearance.App.Medium.Inverse" parent="TextAppearance.AppCompat.Medium.Inverse">
+    <item name="android:textSize">@dimen/text_size_medium</item>
+  </style>
+
+  <style name="TextAppearance.App.Medium.Bold">
+    <item name="android:fontFamily">@font/poppins_bold</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">@dimen/text_size_medium</item>
+  </style>
+  <style name="AppTextInputEditTextLogin" parent="Base.Widget.MaterialComponents.TextInputEditText">
+    <item name="android:textSize">@dimen/text_size_small</item>
+    <item name="android:fontFamily">@font/poppins_regular</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="AppTextInputEditTextLoginCompany" parent="Base.Widget.MaterialComponents.TextInputEditText">
+    <item name="android:textSize">@dimen/text_size_small</item>
+    <item name="android:fontFamily">@font/poppins_regular</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textColor">@color/text_color_primary</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="AppTextInputLayout.Login">
+    <item name="hintTextAppearance">@style/DayOffHintTextAppearance</item>
+    <item name="android:textStyle">bold</item>
+    <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+    <item name="android:textColorHint">@color/black</item>
+  </style>
+  <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/rounded_shape</item>
+  </style>
+  <style name="AppTheme.RoundedCornerMaterialButtonLogin" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/rounded_shape_login</item>
+  </style>
+  <style name="AppTheme.BottomRoundedCornerButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/ic_bottom_rounded_button</item>
+  </style>
+  <style name="AppTheme.RightRoundedCornerButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/ic_right_rounded_button</item>
+  </style>
+  <style name="AppTheme.LeftRoundedCornerButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/ic_left_rounded_button</item>
+  </style>
+  <style name="CircleProgressDialogStyle">
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowTitleStyle">@null</item>
+    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="android:backgroundDimEnabled">false</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
+</resources>

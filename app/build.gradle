@@ -1,0 +1,131 @@
+plugins {
+    id "com.android.application"
+    id "org.sonarqube"
+    id "com.google.firebase.crashlytics"
+}
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        boardingBeta {
+            keyAlias 'boarding'
+            keyPassword 'boarding123'
+            storeFile file('boarding-beta.jsk')
+            storePassword 'boarding123'
+        }
+        boardingProd {
+            keyAlias 'boarding'
+            keyPassword 'boarding20191605'
+            storeFile file('boarding-global-prod.jsk')
+            storePassword 'boarding_g_2020'
+        }
+    }
+
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
+    defaultConfig {
+        applicationId "com.hititcs.boarding"
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        resConfigs 'en'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "API_BASE_URL", debugUrl
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            ext.enableCrashlytics = false
+        }
+        beta {
+            buildConfigField "String", "API_BASE_URL", debugUrl
+            applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
+            debuggable true
+            signingConfig signingConfigs.boardingBeta
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            lintOptions {
+                disable 'MissingTranslation'
+            }
+        }
+        release {
+            buildConfigField "String", "API_BASE_URL", releaseUrl
+            useProguard false
+            signingConfig signingConfigs.boardingProd
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            lintOptions {
+                disable 'MissingTranslation'
+            }
+        }
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'
+    }
+
+}
+
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Boarding DCS Android"
+        property "sonar.projectKey", "boarding-dcs-android"
+        property "sonar.host.url", "http://159.69.212.144:9000/sonar"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "admin"
+        property "sonar.password", "admin123!!"
+    }
+}
+
+dependencies {
+    def dependencies = rootProject.ext
+
+    implementation project(':data')
+    implementation project(':cache')
+    implementation project(':remote')
+
+    implementation rootProject.ext.MODULE_UI_IMPL_DEPS
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.android.support:appcompat-v7:25.3.1'   // Minimum 23+ is required
+
+    implementation 'com.google.android.material:material:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+
+    annotationProcessor dependencies.roomCompiler
+    annotationProcessor dependencies.parcelerProcessor
+    annotationProcessor dependencies.daggerCompiler
+    annotationProcessor dependencies.daggerProcessor
+    annotationProcessor dependencies.butterProcessor
+    annotationProcessor dependencies.glideCompiler
+
+    testImplementation dependencies.junit
+
+    androidTestImplementation dependencies.junit
+    androidTestImplementation(dependencies.espressoCore) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(dependencies.androidRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
+
+apply plugin: "com.google.gms.google-services"

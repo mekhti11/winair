@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+    compile project(':data')
+
+    implementation rootProject.ext.MODULE_REMOTE_IMPL_DEPS
+
+    testImplementation rootProject.ext.MODULE_REMOTE_TEST_DEPS
+}

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_xsmall"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+
+    <RelativeLayout
+        android:id="@+id/fl_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/spacing_xxmmlarge"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bg_logo"
+        >
+
+      <ImageView
+          android:id="@+id/iv_company_logo"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/spacing_26"
+          android:layout_marginEnd="@dimen/spacing_smedium"
+          android:layout_marginStart="@dimen/spacing_smedium"
+          android:maxWidth="@dimen/spacing_xxxxlarge"
+          android:adjustViewBounds="true"
+          android:layout_centerInParent="true"
+          app:srcCompat="@drawable/logo_main"
+          android:visibility="invisible"
+          tools:visibility="visible"
+          />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/fl_logo"
+        >
+
+      <TextView
+          android:id="@+id/tv_flight_no_header"
+          style="@style/TextAppearance.App.Medium.Bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_msmall"
+          android:layout_toStartOf="@+id/tv_flight_no"
+          android:text="@string/flights_flight_no"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_flight_no"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_marginStart="@dimen/spacing_medium"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_msmall"
+          android:layout_marginEnd="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:text="TK1235"
+          android:textColor="@color/black"
+          android:textSize="14sp"
+          />
+
+      <TextView
+          android:id="@+id/tv_gate_header"
+          style="@style/TextAppearance.App.Medium.Bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv_flight_no"
+          android:layout_marginTop="3dp"
+          android:layout_marginEnd="7dp"
+          android:layout_toStartOf="@+id/tv_gate"
+          android:text="@string/flights_gate"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/tv_gate"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv_flight_no"
+          android:layout_alignParentEnd="true"
+          android:layout_marginStart="@dimen/spacing_medium"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_msmall"
+          android:layout_marginEnd="8dp"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:text="X"
+          android:textColor="@color/black"
+          android:textSize="14sp"
+          />
+    </RelativeLayout>
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/spacing_medium"
+      android:paddingLeft="@dimen/spacing_medium"
+      android:paddingTop="@dimen/spacing_medium"
+      android:paddingEnd="@dimen/spacing_medium"
+      android:paddingRight="@dimen/spacing_medium"
+      android:paddingBottom="@dimen/spacing_lmedium"
+      >
+
+    <LinearLayout
+        android:id="@+id/ln_dep_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:gravity="start"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/tv_dep_port"
+          style="@style/TextAppearance.App.Medium.Bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/black"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          android:includeFontPadding="false"
+          tools:text="VIE"
+          />
+
+      <TextView
+          android:id="@+id/tv_dep_date"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:includeFontPadding="false"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          tools:text="16:30"
+          />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_arr_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/tv_arr_port"
+          style="@style/TextAppearance.App.Medium.Bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:includeFontPadding="false"
+          android:textColor="@color/black"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          tools:text="IST"
+          />
+
+      <TextView
+          android:id="@+id/tv_arr_date"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:includeFontPadding="false"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          tools:text="18:30"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:layout_toStartOf="@+id/ln_arr_info"
+        android:layout_toEndOf="@+id/ln_dep_info"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/tv_boarding_time"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          tools:text="Boarding Time: 17:30"
+          />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_circle_left"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/ic_circle"
+            tools:text="VIE"
+            />
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/iv_circle_right"
+            android:layout_toEndOf="@+id/iv_circle_left"
+            android:layerType="software"
+            android:src="@drawable/ic_dotted_line"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_circle_right"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_circle"
+            tools:text="VIE"
+            />
+
+      </RelativeLayout>
+
+      <TextView
+          android:id="@+id/tv_flight_status"
+          style="@style/TextAppearance.App.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textColor="@color/black"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          tools:text="Flight Status: CI"
+          />
+
+    </LinearLayout>
+
+  </RelativeLayout>
+
+</LinearLayout>

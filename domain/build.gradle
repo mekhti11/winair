@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    implementation rootProject.ext.MODULE_DOMAIN_IMPL_DEPS
+
+    testImplementation rootProject.ext.MODULE_DOMAIN_TEST_DEPS
+}
+
+
