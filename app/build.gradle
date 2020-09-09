@@ -83,19 +83,6 @@ android {
 
 }
 
-
-sonarqube {
-    properties {
-        property "sonar.projectName", "Boarding DCS Android"
-        property "sonar.projectKey", "boarding-dcs-android"
-        property "sonar.host.url", "http://159.69.212.144:9000/sonar"
-        property "sonar.language", "java"
-        property "sonar.sources", "src/main/"
-        property "sonar.login", "admin"
-        property "sonar.password", "admin123!!"
-    }
-}
-
 dependencies {
     def dependencies = rootProject.ext
 
