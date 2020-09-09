@@ -73,8 +73,6 @@ public class MainActivity extends BaseActivity<MainActivity> {
   LoginUseCase loginUseCase;
   @Inject
   GetCompaniesUseCase getCompaniesUseCase;
-  @Inject
-  AuthManager authManager;
 
   private CompanyArrayAdapter adapter;
   private CompositeDisposable compositeDisposable;
@@ -86,10 +84,10 @@ public class MainActivity extends BaseActivity<MainActivity> {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     bindView();
-    if (authManager.isContain()) {
+    if (getAuthManager().isContain()) {
       navigateToFlightListActivity();
     } else {
-      authManager.clear();
+      getAuthManager().clear();
     }
     firebaseStorage = FirebaseStorage.getInstance();
     firebaseStorageRef = firebaseStorage.getReference();
@@ -146,7 +144,7 @@ public class MainActivity extends BaseActivity<MainActivity> {
 
     File localFile = new File(rootPath, "companyLogo.png");
     if (localFile != null && localFile.exists()) {
-      boolean result = localFile.delete();
+      localFile.delete();
       localFile = new File(rootPath, "companyLogo.png");
     }
     StorageReference tempStorageReference;

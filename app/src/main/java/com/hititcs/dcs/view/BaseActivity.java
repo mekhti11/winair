@@ -92,6 +92,10 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     super.onSaveInstanceState(outState);
   }
 
+  protected AuthManager getAuthManager(){
+    return authManager;
+  }
+
   @Override
   protected void onRestoreInstanceState(Bundle savedInstanceState) {
     super.onRestoreInstanceState(savedInstanceState);

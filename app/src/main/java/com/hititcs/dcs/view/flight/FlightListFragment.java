@@ -196,33 +196,8 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
   }
 
   @Override
-  public void showProgressDialog(int title, int message) {
-
-  }
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
   public void hideLoading() {
     super.hideLoading();
-  }
-
-  @Override
-  public void showError(String message) {
-
-  }
-
-  @Override
-  public void showError(int messageId) {
-
   }
 
   @Override
@@ -263,5 +238,15 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
       twTodayLabel.setVisibility(View.INVISIBLE);
     }
     flightListAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void showError(String message) {
+
+  }
+
+  @Override
+  public void showError(int messageId) {
+
   }
 }

@@ -207,21 +207,6 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   }
 
   @Override
-  public void showProgressDialog(int title, int message) {
-
-  }
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
   public void showError(String message) {
 
   }

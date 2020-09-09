@@ -15,11 +15,7 @@ public class PermissionUtils {
   public static boolean checkPermission(AppCompatActivity activity, int requestId,
                                         String permission) {
     if (!isPermissionGranted(activity, permission)) {
-      if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-        ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
-      } else {
-        ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
-      }
+      ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
       return false;
     } else {
       return true;

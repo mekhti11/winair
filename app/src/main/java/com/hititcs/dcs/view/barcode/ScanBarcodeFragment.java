@@ -37,7 +37,8 @@ import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> implements ScanBarcodeView,
+public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> implements
+    ScanBarcodeView,
     DecoratedBarcodeView.TorchListener {
 
   private static final String STATE_FLASH_OPEN = "state:flashOpen";
@@ -327,7 +328,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
     @Override
     public void barcodeResult(BarcodeResult result) {
-      if (scanBarcodeFragmentWeakReference.get() == null || !scanBarcodeFragmentWeakReference.get().isAttached()) {
+      if (scanBarcodeFragmentWeakReference.get() == null || !scanBarcodeFragmentWeakReference.get()
+          .isAttached()) {
         return;
       }
       if (scanBarcodeFragmentWeakReference.get().mCameraPause) {
@@ -344,7 +346,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
         boardWithBarcodeRequest.setBarcode(resultText);
         boardWithBarcodeRequest.setFlightId(scanBarcodeFragmentWeakReference.get().flightId);
         scanBarcodeFragmentWeakReference.get().scanBarcodePresenter
-            .scanBarcode(boardWithBarcodeRequest, new BarcodeReadListener(scanBarcodeFragmentWeakReference.get()));
+            .scanBarcode(boardWithBarcodeRequest,
+                new BarcodeReadListener(scanBarcodeFragmentWeakReference.get()));
       }
     }
 
@@ -364,7 +367,7 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     }
 
     @Override
-    public void onResponse(@Nullable BoardingResponse response) {
+    public void onResponse(BoardingResponse response) {
       if (mBarcodeScannerProductViewWeakReference.get() != null
           && mBarcodeScannerProductViewWeakReference.get().isAttached()) {
         mBarcodeScannerProductViewWeakReference.get().onBarcodeResult(response);
@@ -408,7 +411,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
     @Override
     public void run() {
-      if (scanBarcodeFragmentWeakReference.get() != null && scanBarcodeFragmentWeakReference.get().isAttached()) {
+      if (scanBarcodeFragmentWeakReference.get() != null && scanBarcodeFragmentWeakReference.get()
+          .isAttached()) {
         scanBarcodeFragmentWeakReference.get().imgBarcodeSuccess.setVisibility(View.GONE);
         scanBarcodeFragmentWeakReference.get().imgBarcodeError.setVisibility(View.GONE);
         scanBarcodeFragmentWeakReference.get().barcodeErrorTxt.setVisibility(View.GONE);
