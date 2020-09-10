@@ -6,6 +6,10 @@ public class AnimUtils {
 
   public static final long SHOW_HIDE_ANIM_DURATION = 350;
 
+  private AnimUtils(){
+
+  }
+
   public static void animateShowView(final View view) {
     animateShowView(view, SHOW_HIDE_ANIM_DURATION);
   }

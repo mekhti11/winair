@@ -36,9 +36,9 @@ public interface Presenter<T extends BaseView> {
 
   default void showTokenErrorAndNavigateToLogin() {
     if (getView() != null) {
-      getView().showError("Token expired, please login again.");
       Intent intent = new Intent(getView().context(), MainActivity.class);
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      intent.setAction(MainActivity.TOKEN_ERROR_ACTION);
       getView().context().startActivity(intent);
     }
   }

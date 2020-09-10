@@ -34,8 +34,6 @@ import static com.hititcs.dcs.view.flight.detail.FlightDetailActivity.FLIGHT_SUM
 public class FlightListFragment extends BaseFragment<FlightListFragment> implements FlightListView,
     FlightListAdapter.FlightOnClickListener {
 
-  private static final String STATE_SELECTED_DATE = "state:selectedDate";
-  private static final String STATE_FLIGHT_LIST = "state:flightList";
   @BindView(R.id.rcw_flights)
   RecyclerView recyclerViewFlights;
   @BindView(R.id.tw_current_date)
@@ -170,20 +168,6 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
     return filteredList;
   }
 
-  private List<FlightSummary> filterFlightsByFlightNumberEditText(String number) {
-    number = number.trim();
-    if (number.equals("")) {
-      return flightList;
-    }
-    List<FlightSummary> filteredList = new ArrayList<>();
-    for (int i = 0; i < flightList.size(); i++) {
-      if (flightList.get(i).getFlightNumber().startsWith(number)) {
-        filteredList.add(flightList.get(i));
-      }
-    }
-    return filteredList;
-  }
-
   public void hideFlightList() {
     twTotalNumberOfFlights.setVisibility(View.INVISIBLE);
     recyclerViewFlights.setVisibility(View.GONE);
@@ -196,33 +180,8 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
   }
 
   @Override
-  public void showProgressDialog(int title, int message) {
-
-  }
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
   public void hideLoading() {
     super.hideLoading();
-  }
-
-  @Override
-  public void showError(String message) {
-
-  }
-
-  @Override
-  public void showError(int messageId) {
-
   }
 
   @Override
@@ -263,5 +222,15 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
       twTodayLabel.setVisibility(View.INVISIBLE);
     }
     flightListAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void showError(String message) {
+
+  }
+
+  @Override
+  public void showError(int messageId) {
+
   }
 }

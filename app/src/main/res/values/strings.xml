@@ -32,5 +32,10 @@
   <string name="detail_boarding_gate">Boarding Gate: </string>
   <string name="detail_delay_time">Delay Time: </string>
 
+  <string name="general_popup_ok">OK</string>
+  <string name="general_popup_cancel">CANCEL</string>
+  <string name="general_token_error_popup_title">Warning</string>
+  <string name="general_token_error_popup_message">Token expired, please login again.</string>
+
   <string name="list_hint_search_flight_no">Search Flight No</string>
 </resources>

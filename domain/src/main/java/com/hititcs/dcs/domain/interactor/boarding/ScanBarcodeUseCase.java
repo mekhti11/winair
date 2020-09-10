@@ -5,7 +5,6 @@ import com.hititcs.dcs.domain.executor.ThreadExecutor;
 import com.hititcs.dcs.domain.interactor.SingleWithParamUseCase;
 import com.hititcs.dcs.domain.model.BoardWithBarcodeRequest;
 import com.hititcs.dcs.domain.model.BoardingResponse;
-import com.hititcs.dcs.domain.model.ResponseEntity;
 import com.hititcs.dcs.domain.repository.BoardingRepository;
 
 import javax.inject.Inject;

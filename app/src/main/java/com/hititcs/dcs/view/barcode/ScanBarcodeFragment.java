@@ -37,7 +37,8 @@ import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> implements ScanBarcodeView,
+public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> implements
+    ScanBarcodeView,
     DecoratedBarcodeView.TorchListener {
 
   private static final String STATE_FLASH_OPEN = "state:flashOpen";
@@ -84,9 +85,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   @Inject
   ScanBarcodePresenter scanBarcodePresenter;
 
-  public ScanBarcodeFragment() {
-  }
-
   public static ScanBarcodeFragment newInstance(String flightId, String boardedCountStart) {
     Bundle args = new Bundle();
     ScanBarcodeFragment fragment = new ScanBarcodeFragment();
@@ -131,13 +129,10 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     super.onActivityCreated(savedInstanceState);
     if (ContextCompat.checkSelfPermission(getActivity(), permission.CAMERA)
         != PackageManager.PERMISSION_GRANTED) {
-      // Permission is not granted
       ActivityCompat
           .requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
               MY_PERMISSIONS_REQUEST_CAMERA);
     }
-
-    //    scanBarcodePresenter.scanBarcode();
     if (savedInstanceState != null) {
       mFlashOpen = savedInstanceState.getBoolean(STATE_FLASH_OPEN, false);
       mCameraPause = savedInstanceState.getBoolean(STATE_CAMERA_PAUSE, false);
@@ -246,41 +241,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   }
 
   @Override
-  public void showLoading() {
-
-  }
-
-  @Override
-  public void showProgressDialog(int title, int message) {
-
-  }
-
-  @Override
-  public void showProgressDialog() {
-
-  }
-
-  @Override
-  public void hideProgressDialog() {
-
-  }
-
-  @Override
-  public void hideLoading() {
-
-  }
-
-  @Override
-  public void showError(String message) {
-
-  }
-
-  @Override
-  public void showError(int messageId) {
-
-  }
-
-  @Override
   public void showBarcodeResult(BoardingResponse data) {
     boardedCount.setText(MessageUtils.getStringFromList(data.getFlightDetail().getBoarded()));
     showResultIcon(true, null);
@@ -317,6 +277,16 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
   }
 
+  @Override
+  public void showError(String message) {
+
+  }
+
+  @Override
+  public void showError(int messageId) {
+
+  }
+
   static class BarcodeCallbackImpl implements BarcodeCallback {
 
     private WeakReference<ScanBarcodeFragment> scanBarcodeFragmentWeakReference;
@@ -327,7 +297,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
     @Override
     public void barcodeResult(BarcodeResult result) {
-      if (scanBarcodeFragmentWeakReference.get() == null || !scanBarcodeFragmentWeakReference.get().isAttached()) {
+      if (scanBarcodeFragmentWeakReference.get() == null || !scanBarcodeFragmentWeakReference.get()
+          .isAttached()) {
         return;
       }
       if (scanBarcodeFragmentWeakReference.get().mCameraPause) {
@@ -344,7 +315,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
         boardWithBarcodeRequest.setBarcode(resultText);
         boardWithBarcodeRequest.setFlightId(scanBarcodeFragmentWeakReference.get().flightId);
         scanBarcodeFragmentWeakReference.get().scanBarcodePresenter
-            .scanBarcode(boardWithBarcodeRequest, new BarcodeReadListener(scanBarcodeFragmentWeakReference.get()));
+            .scanBarcode(boardWithBarcodeRequest,
+                new BarcodeReadListener(scanBarcodeFragmentWeakReference.get()));
       }
     }
 
@@ -364,7 +336,7 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     }
 
     @Override
-    public void onResponse(@Nullable BoardingResponse response) {
+    public void onResponse(BoardingResponse response) {
       if (mBarcodeScannerProductViewWeakReference.get() != null
           && mBarcodeScannerProductViewWeakReference.get().isAttached()) {
         mBarcodeScannerProductViewWeakReference.get().onBarcodeResult(response);
@@ -408,7 +380,8 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
     @Override
     public void run() {
-      if (scanBarcodeFragmentWeakReference.get() != null && scanBarcodeFragmentWeakReference.get().isAttached()) {
+      if (scanBarcodeFragmentWeakReference.get() != null && scanBarcodeFragmentWeakReference.get()
+          .isAttached()) {
         scanBarcodeFragmentWeakReference.get().imgBarcodeSuccess.setVisibility(View.GONE);
         scanBarcodeFragmentWeakReference.get().imgBarcodeError.setVisibility(View.GONE);
         scanBarcodeFragmentWeakReference.get().barcodeErrorTxt.setVisibility(View.GONE);

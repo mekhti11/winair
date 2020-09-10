@@ -2,6 +2,7 @@ package com.hititcs.dcs.util;
 
 import android.text.InputFilter;
 import android.text.Spanned;
+import timber.log.Timber;
 
 public class InputFilterMinMax implements InputFilter {
   private int minimumValue;
@@ -20,6 +21,7 @@ public class InputFilterMinMax implements InputFilter {
         return null;
     }
     catch (NumberFormatException nfe) {
+      Timber.e(nfe);
     }
     return "";
   }

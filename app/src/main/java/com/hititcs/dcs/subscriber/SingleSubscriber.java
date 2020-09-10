@@ -42,9 +42,8 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
       return;
     }
     presenter.hideViewLoading();
-    if (e instanceof HttpException) {
-      // We had non-2XX http error
 
+    if (e instanceof HttpException) {
       switch (((HttpException) e).code()) {
         case 404:
           presenter.show404Error();
@@ -60,13 +59,13 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
             try {
               errorResponseBody = Objects.requireNonNull(((HttpException) e).response().errorBody()).string();
             } catch (IOException e1) {
-              e1.printStackTrace();
+              Timber.e(e1);
             }
             Timber.d("Error response body %s", errorResponseBody);
             try {
               errorMessage = new JSONObject(errorResponseBody).getString("message");
             } catch (JSONException e1) {
-              e1.printStackTrace();
+              Timber.e(e1);
             }
           } else {
             errorMessage = e.getMessage();
@@ -93,13 +92,13 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
       try {
         errorResponseBody = Objects.requireNonNull(((HttpException) e).response().errorBody()).string();
       } catch (IOException e1) {
-        e1.printStackTrace();
+        Timber.e(e1);
       }
       Timber.d("Error response body %s", errorResponseBody);
       try {
         errorMessage = new JSONObject(errorResponseBody).getString("message");
       } catch (JSONException e1) {
-        e1.printStackTrace();
+        Timber.e(e1);
       }
     }
 

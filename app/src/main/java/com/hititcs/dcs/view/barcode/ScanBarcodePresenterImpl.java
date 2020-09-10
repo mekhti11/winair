@@ -47,7 +47,6 @@ public class ScanBarcodePresenterImpl implements ScanBarcodePresenter {
 
       @Override
       public void onError(Throwable e) {
-        // super.onError(e);
         responseListener.onError(MessageUtils.getMessage(super.getErrorMessage(e)));
       }
     }, request);

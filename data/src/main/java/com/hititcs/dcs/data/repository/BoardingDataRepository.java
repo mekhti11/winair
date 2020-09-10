@@ -3,7 +3,6 @@ package com.hititcs.dcs.data.repository;
 import com.hititcs.dcs.data.remote.BoardingRemote;
 import com.hititcs.dcs.domain.model.BoardWithBarcodeRequest;
 import com.hititcs.dcs.domain.model.BoardingResponse;
-import com.hititcs.dcs.domain.model.ResponseEntity;
 import com.hititcs.dcs.domain.repository.BoardingRepository;
 
 import javax.inject.Inject;

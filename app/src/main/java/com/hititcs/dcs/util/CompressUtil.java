@@ -9,6 +9,9 @@ import java.io.IOException;
 
 public class CompressUtil {
 
+  private CompressUtil(){
+
+  }
 
   public static Bitmap deCompressBitmap(String base64Image) throws IOException {
     Bitmap decodedBitmap = null;
