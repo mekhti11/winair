@@ -15,6 +15,13 @@
     <item name="android:textColor">@color/colorPrimary</item>
     <item name="android:textSize">@dimen/text_size_xxsmall</item>
   </style>
+  <style name="NativeAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="android:popupBackground">@null</item>
+    <item name="android:background">@color/white</item>
+  </style>
+
   <style name="DayOffHintTextAppearance" parent="TextAppearance.AppCompat.Caption">
     <item name="android:fontFamily">@font/poppins_bold</item>
     <item name="android:textStyle">bold</item>

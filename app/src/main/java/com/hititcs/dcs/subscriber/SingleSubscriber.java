@@ -42,9 +42,8 @@ public abstract class SingleSubscriber<T> implements SingleObserver<T>, MySubscr
       return;
     }
     presenter.hideViewLoading();
-    if (e instanceof HttpException) {
-      // We had non-2XX http error
 
+    if (e instanceof HttpException) {
       switch (((HttpException) e).code()) {
         case 404:
           presenter.show404Error();
