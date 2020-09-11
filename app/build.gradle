@@ -52,7 +52,7 @@ android {
             ext.enableCrashlytics = false
         }
         beta {
-            resValue "string", "app_name", "Crane DCS Dev"
+            resValue "string", "app_name", "Crane DCS Beta"
             buildConfigField "String", "API_BASE_URL", debugUrl
             applicationIdSuffix ".beta"
             versionNameSuffix "-beta"
@@ -65,7 +65,7 @@ android {
             }
         }
         release {
-            resValue "string", "app_name", "Crane DCS Dev"
+            resValue "string", "app_name", "Crane DCS"
             buildConfigField "String", "API_BASE_URL", releaseUrl
             useProguard false
             signingConfig signingConfigs.boardingProd
