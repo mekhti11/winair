@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity<MainActivity> {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     bindView();
-    if (getIntent().getAction().equals(TOKEN_ERROR_ACTION)) {
+    if (getIntent().getAction() != null && getIntent().getAction().equals(TOKEN_ERROR_ACTION)) {
       getAuthManager().clear();
       showTokenErrorDialog();
     }
