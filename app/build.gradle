@@ -2,6 +2,8 @@ plugins {
     id "com.android.application"
     id "org.sonarqube"
     id "com.google.firebase.crashlytics"
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -85,6 +87,11 @@ android {
         }
     }
 
+    kotlinOptions {
+        freeCompilerArgs += '-Xjvm-default=enable'
+        jvmTarget = "1.8"
+    }
+
     lintOptions {
         quiet true
         abortOnError false
@@ -96,6 +103,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.fragment:fragment-ktx:1.3.4'
     def dependencies = rootProject.ext
 
     implementation project(':data')
@@ -112,12 +120,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 
-    annotationProcessor dependencies.roomCompiler
-    annotationProcessor dependencies.parcelerProcessor
-    annotationProcessor dependencies.daggerCompiler
-    annotationProcessor dependencies.daggerProcessor
-    annotationProcessor dependencies.butterProcessor
-    annotationProcessor dependencies.glideCompiler
+    kapt dependencies.roomCompiler
+    kapt dependencies.parcelerProcessor
+    kapt dependencies.daggerCompiler
+    kapt dependencies.daggerProcessor
+    kapt dependencies.butterProcessor
+    kapt dependencies.glideCompiler
 
     testImplementation dependencies.junit
 

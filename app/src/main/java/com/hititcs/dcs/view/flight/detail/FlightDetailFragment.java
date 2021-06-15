@@ -24,6 +24,7 @@ import com.hititcs.dcs.util.MessageUtils;
 import com.hititcs.dcs.util.ParcelUtils;
 import com.hititcs.dcs.view.BaseFragment;
 import com.hititcs.dcs.view.Presenter;
+import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanActivity;
 import com.hititcs.dcs.view.barcode.ScanBarcodeActivity;
 import javax.inject.Inject;
 
@@ -221,6 +222,12 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
     intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
     intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    startActivity(intent);
+  }
+
+  @OnClick(R.id.btn_scan_baggage)
+  public void onPressedBaggageTrackBtn() {
+    Intent intent = new Intent(getActivity(), BaggageTrackScanActivity.class);
     startActivity(intent);
   }
 }

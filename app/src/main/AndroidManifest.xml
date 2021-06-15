@@ -35,6 +35,7 @@
       android:launchMode="singleTask" />
     <activity android:name=".view.flight.detail.FlightDetailActivity" />
     <activity android:name=".view.barcode.ScanBarcodeActivity" />
+    <activity android:name=".view.baggagetracking.view.BaggageTrackScanActivity" />
 
     <service
       android:name="com.hititcs.dcs.view.BoardingDcsFirebaseService"
