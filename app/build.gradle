@@ -49,6 +49,9 @@ android {
             shrinkResources false
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+            firebaseCrashlytics {
+                mappingFileUploadEnabled false
+            }
             ext.enableCrashlytics = false
         }
         beta {
@@ -60,6 +63,9 @@ android {
             signingConfig signingConfigs.boardingBeta
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+            }
             lintOptions {
                 disable 'MissingTranslation'
             }
@@ -70,6 +76,9 @@ android {
             useProguard false
             signingConfig signingConfigs.boardingProd
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+            }
             lintOptions {
                 disable 'MissingTranslation'
             }
@@ -92,6 +101,9 @@ dependencies {
     implementation project(':data')
     implementation project(':cache')
     implementation project(':remote')
+
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation rootProject.ext.MODULE_UI_IMPL_DEPS
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
@@ -119,3 +131,7 @@ dependencies {
 }
 
 apply plugin: "com.google.gms.google-services"
+apply plugin: 'kotlin-android'
+repositories {
+  mavenCentral()
+}

@@ -351,8 +351,6 @@
           android:layout_marginStart="@dimen/spacing_mxlarge"
           android:layout_marginEnd="@dimen/spacing_mxlarge"
           android:orientation="vertical"
-          android:visibility="gone"
-          tools:visibility="visible"
           >
 
         <LinearLayout
@@ -364,6 +362,7 @@
             >
 
           <LinearLayout
+              android:id="@+id/btn_scan_baggage"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginEnd="@dimen/spacing_lmedium"
