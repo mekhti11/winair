@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg_main"
     >
 
   <androidx.core.widget.NestedScrollView
@@ -148,6 +148,9 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/spacing_xxxlarge"
           android:layout_alignParentBottom="true"
+          android:layout_marginStart="@dimen/spacing_large"
+          android:layout_marginEnd="@dimen/spacing_large"
+          android:layout_marginBottom="@dimen/spacing_large"
           android:background="@drawable/rounded_shape_login"
           android:text="@string/main_login_button"
           android:textColor="@color/white"

@@ -1,10 +1,9 @@
-package com.hititcs.dcs.view.main;
+package com.hititcs.dcs.view.login;
 
 import com.hititcs.dcs.domain.executor.PostExecutionThread;
 import com.hititcs.dcs.domain.executor.ThreadExecutor;
 import com.hititcs.dcs.domain.interactor.login.LoginUseCase;
 import com.hititcs.dcs.domain.repository.LoginRepository;
-
 import dagger.Module;
 import dagger.Provides;
 

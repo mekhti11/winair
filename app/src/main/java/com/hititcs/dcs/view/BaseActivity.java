@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -23,7 +22,7 @@ import com.hititcs.dcs.Injectable;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.data.shared.AuthManager;
 import com.hititcs.dcs.view.flight.FlightListActivity;
-import com.hititcs.dcs.view.main.MainActivity;
+import com.hititcs.dcs.view.login.LoginActivity;
 import com.hititcs.dcs.widget.CustomCircleLoading;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
@@ -186,7 +185,7 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
           return true;
         case R.id.navigation_sign_out:
           authManager.clear();
-          Intent intent3 = new Intent(getActivity(), MainActivity.class);
+          Intent intent3 = new Intent(getActivity(), LoginActivity.class);
           intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
               | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent3);

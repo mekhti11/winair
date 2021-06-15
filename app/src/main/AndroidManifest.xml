@@ -20,10 +20,9 @@
     android:theme="@style/AppTheme"
     android:usesCleartextTraffic="true">
     <activity
-      android:name=".view.main.MainActivity"
-      android:screenOrientation="portrait"
-      android:noHistory="true"
-      >
+        android:name=".view.login.LoginActivity"
+        android:screenOrientation="portrait"
+        android:noHistory="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +30,16 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".view.flight.FlightListActivity"
-      android:launchMode="singleTask" />
+        android:name=".view.home.view.HomeActivity"
+        android:launchMode="singleTask" />
+    <activity android:name=".view.flight.FlightListActivity" />
     <activity android:name=".view.flight.detail.FlightDetailActivity" />
     <activity android:name=".view.barcode.ScanBarcodeActivity" />
     <activity android:name=".view.baggagetracking.view.BaggageTrackScanActivity" />
 
     <service
-      android:name="com.hititcs.dcs.view.BoardingDcsFirebaseService"
-      android:permission="com.google.android.c2dm.permission.SEND">
+        android:name="com.hititcs.dcs.view.BoardingDcsFirebaseService"
+        android:permission="com.google.android.c2dm.permission.SEND">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
       </intent-filter>

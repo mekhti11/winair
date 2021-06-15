@@ -8,8 +8,9 @@
     </solid>
 
     <corners
-        android:topRightRadius="@dimen/spacing_mlarge"
-        android:topLeftRadius="@dimen/spacing_mlarge">
-    </corners>
+        android:topRightRadius="@dimen/spacing_slarge"
+        android:topLeftRadius="@dimen/spacing_slarge"
+        android:bottomLeftRadius="@dimen/spacing_slarge"
+        android:bottomRightRadius="@dimen/spacing_slarge"></corners>
 
 </shape>

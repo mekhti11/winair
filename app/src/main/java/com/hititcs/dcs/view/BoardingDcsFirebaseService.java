@@ -14,7 +14,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hititcs.dcs.R;
-import com.hititcs.dcs.view.main.MainActivity;
+import com.hititcs.dcs.view.login.LoginActivity;
 import timber.log.Timber;
 
 public class BoardingDcsFirebaseService extends FirebaseMessagingService {
@@ -42,7 +42,7 @@ public class BoardingDcsFirebaseService extends FirebaseMessagingService {
   private void sendNotification(String messageBody) {
     try {
       Timber.d("New Notification");
-      Intent intent = new Intent(this, MainActivity.class);
+      Intent intent = new Intent(this, LoginActivity.class);
       TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
       stackBuilder.addNextIntentWithParentStack(intent);
 

@@ -4,6 +4,8 @@
   <color name="colorPrimaryDark">#f86e69</color>
   <color name="colorSecondary">#30454E</color>
   <color name="colorAccent">@color/colorPrimary</color>
+  <color name="colorBgStart">#FF512F</color>
+  <color name="colorBgEnd">#DD2476</color>
   <color name="buttonColor">@color/colorSecondary</color>
   <color name="text_color_primary">@color/black</color>
   <color name="text_color_secondary">@color/white</color>

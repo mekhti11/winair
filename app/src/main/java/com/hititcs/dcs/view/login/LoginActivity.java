@@ -1,38 +1,27 @@
-package com.hititcs.dcs.view.main;
+package com.hititcs.dcs.view.login;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.res.ResourcesCompat;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FileDownloadTask.TaskSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.hititcs.dcs.DcsApplication;
 import com.hititcs.dcs.R;
-import com.hititcs.dcs.data.shared.AuthManager;
 import com.hititcs.dcs.domain.interactor.airline.GetCompaniesUseCase;
 import com.hititcs.dcs.domain.interactor.login.LoginUseCase;
 import com.hititcs.dcs.domain.model.Airline;
@@ -43,23 +32,17 @@ import com.hititcs.dcs.util.AppUtils;
 import com.hititcs.dcs.util.DialogUtil;
 import com.hititcs.dcs.util.StringUtils;
 import com.hititcs.dcs.view.BaseActivity;
-import com.hititcs.dcs.view.flight.FlightListActivity;
-
+import com.hititcs.dcs.view.home.view.HomeActivity;
 import com.hititcs.dcs.widget.AutoCompleteDropDown;
+import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
-
-import androidx.appcompat.widget.AppCompatButton;
-import butterknife.BindView;
-import butterknife.OnClick;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity<MainActivity> {
+public class LoginActivity extends BaseActivity<LoginActivity> {
 
   public static final String TOKEN_ERROR_ACTION = "tokenErrorAction";
 
@@ -152,7 +135,8 @@ public class MainActivity extends BaseActivity<MainActivity> {
 
       @Override
       public void onError(Throwable e) {
-        Toast.makeText(MainActivity.this, "INVALID USERNAME OR PASSWORD", Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, "INVALID USERNAME OR PASSWORD", Toast.LENGTH_LONG)
+            .show();
         hideProgressDialog();
       }
     }, request);
@@ -214,7 +198,7 @@ public class MainActivity extends BaseActivity<MainActivity> {
   }
 
   @Override
-  protected MainActivity getActivity() {
+  protected LoginActivity getActivity() {
     return this;
   }
 
@@ -227,7 +211,7 @@ public class MainActivity extends BaseActivity<MainActivity> {
   }
 
   private void jump() {
-    startActivity(new Intent(this, FlightListActivity.class));
+    startActivity(new Intent(this, HomeActivity.class));
     finish();
   }
 

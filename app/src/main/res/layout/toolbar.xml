@@ -5,15 +5,15 @@
   android:id="@id/app_bar"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="@android:color/transparent"
-  app:elevation="0dp">
+    android:background="@null"
+    app:elevation="0dp">
 
   <androidx.appcompat.widget.Toolbar
     android:id="@id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:theme="@style/AppToolBarTheme">
+      android:layout_height="wrap_content"
+      tools:background="@drawable/bg_main"
+      android:theme="@style/AppToolBarTheme">
 
     <TextView
       android:id="@id/toolbar_title"

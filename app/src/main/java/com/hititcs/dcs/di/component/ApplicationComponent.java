@@ -11,6 +11,7 @@ import com.hititcs.dcs.di.module.DataModule;
 import com.hititcs.dcs.di.module.RemoteModule;
 import com.hititcs.dcs.domain.executor.PostExecutionThread;
 import com.hititcs.dcs.view.baggagetracking.di.BaggageTrackModule;
+import com.hititcs.dcs.view.home.di.HomeModule;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
@@ -21,7 +22,8 @@ import javax.inject.Singleton;
 @Singleton
 @Component(modules = {
     AndroidSupportInjectionModule.class, ApplicationModule.class, ActivityBuilder.class,
-    CacheModule.class, DataModule.class, RemoteModule.class, BaggageTrackModule.class
+    CacheModule.class, DataModule.class, RemoteModule.class, BaggageTrackModule.class,
+    HomeModule.class
 })
 public interface ApplicationComponent extends AndroidInjector<DaggerApplication> {
 

@@ -10,9 +10,8 @@ import com.hititcs.dcs.view.flight.FlightListActivity;
 import com.hititcs.dcs.view.flight.FlightListModule;
 import com.hititcs.dcs.view.flight.detail.FlightDetailActivity;
 import com.hititcs.dcs.view.flight.detail.FlightDetailModule;
-import com.hititcs.dcs.view.main.LoginModule;
-import com.hititcs.dcs.view.main.MainActivity;
-
+import com.hititcs.dcs.view.login.LoginActivity;
+import com.hititcs.dcs.view.login.LoginModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -21,7 +20,7 @@ public abstract class ActivityBuilder {
 
   @LoginScope
   @ContributesAndroidInjector(modules = LoginModule.class)
-  abstract MainActivity bindLoginActivity();
+  abstract LoginActivity bindLoginActivity();
 
   @FlightListScope
   @ContributesAndroidInjector(modules = FlightListModule.class)

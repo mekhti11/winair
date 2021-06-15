@@ -2,8 +2,7 @@ package com.hititcs.dcs.view;
 
 import android.content.Intent;
 import androidx.annotation.StringRes;
-import com.hititcs.dcs.view.flight.FlightListActivity;
-import com.hititcs.dcs.view.main.MainActivity;
+import com.hititcs.dcs.view.login.LoginActivity;
 
 public interface Presenter<T extends BaseView> {
 
@@ -36,9 +35,9 @@ public interface Presenter<T extends BaseView> {
 
   default void showTokenErrorAndNavigateToLogin() {
     if (getView() != null) {
-      Intent intent = new Intent(getView().context(), MainActivity.class);
+      Intent intent = new Intent(getView().context(), LoginActivity.class);
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      intent.setAction(MainActivity.TOKEN_ERROR_ACTION);
+      intent.setAction(LoginActivity.TOKEN_ERROR_ACTION);
       getView().context().startActivity(intent);
     }
   }

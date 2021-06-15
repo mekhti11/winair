@@ -232,7 +232,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   }
 
   private fun sendBaggageBarcodeScanRequest(barcodeTagNo: String) {
-    presenter.scanBaggageBarcode("", "", barcodeTagNo)
+    presenter.scanBaggageBarcode("CHECK_IN", "CK", barcodeTagNo.takeLast(6))
   }
 
   override fun getFragment(): BaggageTrackScanFragment {
