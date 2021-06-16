@@ -1,8 +1,5 @@
 package com.hititcs.dcs.view.barcode;
 
-import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_COUNT_START;
-import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.FLIGHT_ID;
-
 import android.Manifest;
 import android.Manifest.permission;
 import android.content.pm.PackageManager;
@@ -36,6 +33,9 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
+
+import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_COUNT_START;
+import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.FLIGHT_ID;
 
 public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> implements
     ScanBarcodeView,
@@ -99,9 +99,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     super.onCreate(savedInstanceState);
     flightId = getArguments().getString(FLIGHT_ID);
     boardedCountStart = getArguments().getString(BOARDED_COUNT_START);
-
-    successSound = MediaPlayer.create(getContext(), R.raw.success);
-    failSound = MediaPlayer.create(getContext(), R.raw.error);
   }
 
   @Override

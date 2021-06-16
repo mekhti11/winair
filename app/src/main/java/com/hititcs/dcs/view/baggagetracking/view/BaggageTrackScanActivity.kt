@@ -2,27 +2,30 @@ package com.hititcs.dcs.view.baggagetracking.view
 
 import android.os.Bundle
 import com.hititcs.dcs.R
+import com.hititcs.dcs.R.layout
 import com.hititcs.dcs.view.BaseActivity
 
 class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
-/*  companion object {
-    var EXTRA_FLIGHT_ID: String = "EXTRA_FLIGHT_ID." + BaggageTrackActivity::
+  companion object {
+    var EXTRA_LOCATION_NAME: String = "EXTRA_LOCATION_NAME." + BaggageTrackScanActivity::
     class.java.simpleName
-    var STATE_FLIGHT_ID: String =
-      "STATE_FLIGHT_ID." + BaggageTrackActivity::class.java.simpleName
-    var EXTRA_BOARDED_COUNT_START: String = "EXTRA_BOARDED_COUNT." + BaggageTrackActivity::
+    var STATE_LOCATION_NAME: String =
+      "STATE_LOCATION_NAME." + BaggageTrackScanActivity::class.java.simpleName
+    var EXTRA_LOCATION_CODE: String = "EXTRA_LOCATION_CODE." + BaggageTrackScanActivity::
     class.java.simpleName
-    var STATE_BOARDED_COUNT_START: String =
-      "STATE_BOARDED_COUNT." + BaggageTrackActivity::class.java.simpleName
+    var STATE_LOCATION_CODE: String =
+      "STATE_LOCATION_CODE." + BaggageTrackScanActivity::class.java.simpleName
   }
 
-  var flightId: String? = null
-  var boardedCountStart: String? = null*/
+  var locationName: String? = null
+  var locationCode: String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_scan_barcode)
+    setContentView(layout.activity_scan_baggage)
     bindView()
+    setToolbar()
+    hideToolbar()
     setUpFragment()
   }
 
@@ -37,11 +40,11 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
       .commit()
   }
 
-/*  override fun onSaveInstanceState(outState: Bundle) {
-    outState.putString(STATE_FLIGHT_ID, flightId)
-    outState.putString(STATE_BOARDED_COUNT_START, boardedCountStart)
+  override fun onSaveInstanceState(outState: Bundle) {
+    outState.putString(STATE_LOCATION_CODE, locationCode)
+    outState.putString(STATE_LOCATION_NAME, locationName)
     super.onSaveInstanceState(outState)
-  }*/
+  }
 
   override fun getActivity(): BaggageTrackScanActivity {
     return this
