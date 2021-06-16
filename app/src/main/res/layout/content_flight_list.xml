@@ -13,10 +13,32 @@
     android:paddingRight="@dimen/spacing_lmedium"
     >
 
+  <EditText
+      android:id="@+id/edt_search"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/spacing_xxlarge"
+      android:layout_marginTop="@dimen/spacing_medium"
+      android:background="@drawable/rounded_search_bar"
+      android:digits="0123456789"
+      android:drawableStart="@drawable/ic_search"
+      android:drawablePadding="@dimen/spacing_medium"
+      android:fontFamily="@font/poppins_font"
+      android:gravity="center_vertical"
+      android:hint="@string/list_hint_search_flight_no"
+      android:inputType="number"
+      android:paddingStart="@dimen/spacing_medium"
+      android:paddingTop="@dimen/spacing_medium"
+      android:paddingEnd="@dimen/spacing_medium"
+      android:paddingBottom="@dimen/spacing_medium"
+      android:textColorHint="@color/grey_inactive_text"
+      android:textSize="@dimen/text_size_medium"
+      />
+
   <LinearLayout
       android:id="@+id/ln_availablity_header"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_lmedium"
       android:gravity="bottom"
       android:orientation="horizontal"
       android:weightSum="3"
@@ -112,27 +134,6 @@
 
   </LinearLayout>
 
-  <EditText
-      android:id="@+id/edt_search"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/spacing_xxmlarge"
-      android:layout_marginTop="@dimen/spacing_medium"
-      android:background="@drawable/rounded_search_bar"
-      android:digits="0123456789"
-      android:drawableStart="@drawable/ic_search"
-      android:drawablePadding="@dimen/spacing_medium"
-      android:fontFamily="@font/poppins_font"
-      android:gravity="center_vertical"
-      android:hint="@string/list_hint_search_flight_no"
-      android:inputType="number"
-      android:paddingStart="@dimen/spacing_medium"
-      android:paddingTop="@dimen/spacing_medium"
-      android:paddingEnd="@dimen/spacing_medium"
-      android:paddingBottom="@dimen/spacing_medium"
-      android:textColorHint="@color/grey_inactive_text"
-      android:textSize="@dimen/text_size_medium"
-      />
-
   <TextView
       android:id="@+id/tw_total_number_of_flights"
       android:layout_width="match_parent"
@@ -151,7 +152,7 @@
       android:fadeScrollbars="true"
       android:scrollbarFadeDuration="200"
       android:scrollbarSize="@dimen/spacing_xsmall"
-      android:scrollbarThumbVertical="@android:color/white"
+      android:scrollbarThumbVertical="@color/white"
       android:scrollbars="vertical"
       android:visibility="gone"
       tools:itemCount="6"

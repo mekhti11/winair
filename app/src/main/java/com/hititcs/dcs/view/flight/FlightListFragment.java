@@ -149,7 +149,7 @@ public class FlightListFragment extends BaseFragment<FlightListFragment> impleme
     recyclerViewFlights.scrollToPosition(0);
     recyclerViewFlights.setVisibility(View.VISIBLE);
     twTotalNumberOfFlights.setText(String
-        .format("%d %s", flightList.size(), getString(R.string.home_flights_found)));
+        .format("%d %s", flightListAdapter.getItemCount(), getString(R.string.home_flights_found)));
     twTotalNumberOfFlights.setVisibility(View.VISIBLE);
     AnimUtils.animateShowView(recyclerViewFlights);
   }

@@ -5,41 +5,55 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import butterknife.OnClick
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hititcs.dcs.R
-import com.hititcs.dcs.R.layout
+import com.hititcs.dcs.view.BaseActivity
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
 import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanActivity
 import com.hititcs.dcs.view.flight.FlightListActivity
-import com.hititcs.dcs.view.home.view.HomeContract.HomePresenter
-import com.hititcs.dcs.view.home.view.HomeContract.HomeView
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment<HomeFragment>(), HomeView {
+class HomeFragment : BaseFragment<HomeFragment>(), HomeContract.HomeView {
 
-  @Inject lateinit var presenter: HomePresenter
+  @Inject lateinit var presenter: HomeContract.HomePresenter
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val fragmentView = inflater.inflate(layout.content_home, container, false)
+    val fragmentView = inflater.inflate(R.layout.content_home, container, false)
     bindView(fragmentView)
     return fragmentView
   }
 
-  @OnClick(R.id.btn_flights)
+  @OnClick(R.id.rlt_home_flights)
   fun onPressedBtnFlights() {
     val intent = Intent(context, FlightListActivity::class.java)
     startActivity(intent)
   }
 
-  @OnClick(R.id.btn_baggage_tracking)
+  @OnClick(R.id.rlt_baggage_tracking)
   fun onPressedBtnBaggageTracking() {
     val intent = Intent(context, BaggageTrackScanActivity::class.java)
     startActivity(intent)
+  }
+
+  @OnClick(R.id.iv_menu_expand)
+  fun onPressedMenuExpand() {
+    createAndShowExpandMenu()
+  }
+
+  private fun createAndShowExpandMenu() {
+    val bottomSheetDialog = BottomSheetDialog(context(), R.style.CustomSheetDialog)
+    bottomSheetDialog.setContentView(R.layout.home_expand_menu)
+    var rltLogout = bottomSheetDialog.findViewById<RelativeLayout>(R.id.rlt_logout)
+    rltLogout!!.setOnClickListener { (activity as BaseActivity<*>?)!!.logout() }
+    //TODO fix this make logout composable in BaseActivity
+    bottomSheetDialog.show()
   }
 
   override fun getFragment(): HomeFragment {

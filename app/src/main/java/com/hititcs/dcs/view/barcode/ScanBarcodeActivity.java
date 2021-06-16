@@ -1,13 +1,9 @@
 package com.hititcs.dcs.view.barcode;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
-
+import androidx.annotation.Nullable;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.view.BaseActivity;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
 
 import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_COUNT_START;
 import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.FLIGHT_ID;
@@ -24,8 +20,8 @@ public class ScanBarcodeActivity extends BaseActivity<ScanBarcodeActivity> {
         flightId = getIntent().getStringExtra(FLIGHT_ID);
         boardedCountStart = getIntent().getStringExtra(BOARDED_COUNT_START);
         bindView();
-
-
+        setToolbar();
+        hideToolbar();
         setUpFragment();
     }
 

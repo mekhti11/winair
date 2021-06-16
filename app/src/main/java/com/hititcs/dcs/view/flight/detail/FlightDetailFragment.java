@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,6 @@ import com.hititcs.dcs.util.MessageUtils;
 import com.hititcs.dcs.util.ParcelUtils;
 import com.hititcs.dcs.view.BaseFragment;
 import com.hititcs.dcs.view.Presenter;
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanActivity;
 import com.hititcs.dcs.view.barcode.ScanBarcodeActivity;
 import javax.inject.Inject;
 
@@ -74,8 +74,8 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   TextView tvBoardingGate;
   @BindView(R.id.tv_delay_time)
   TextView tvDelayTime;
-  @BindView(R.id.ln_boarding)
-  LinearLayout lnBoarding;
+  @BindView(R.id.rlt_flight_detail)
+  RelativeLayout rltFlightDetail;
   @BindView(R.id.tv_flight_status)
   TextView tvTopFlightStatus;
   @BindView(R.id.tv_flight_status_data)
@@ -127,7 +127,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   }
 
   public void hideBoarding() {
-    lnBoarding.setVisibility(View.GONE);
+    rltFlightDetail.setVisibility(View.GONE);
   }
 
   @Override
@@ -192,8 +192,8 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     tvTopFlightStatus.setText(String.format("%s: %s", getString(R.string.item_flight_flight_status),
         flightsOutputDto.getFlightSummary().getFlightStatus()));
     tvFlightStatus.setText(flightsOutputDto.getFlightSummary().getFlightStatus());
-    lnBoarding.setVisibility(View.VISIBLE);
-    AnimUtils.animateShowView(lnBoarding);
+    rltFlightDetail.setVisibility(View.VISIBLE);
+    AnimUtils.animateShowView(rltFlightDetail);
   }
 
   @Override
@@ -222,12 +222,6 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
     intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
     intent.putExtra(BOARDED_COUNT_START, boardedCount);
-    startActivity(intent);
-  }
-
-  @OnClick(R.id.btn_scan_baggage)
-  public void onPressedBaggageTrackBtn() {
-    Intent intent = new Intent(getActivity(), BaggageTrackScanActivity.class);
     startActivity(intent);
   }
 }

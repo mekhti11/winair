@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_history_menu_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/transparent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:background="@drawable/bg_bottom_menu"
+      android:paddingBottom="@dimen/spacing_mslarge"
+      android:paddingLeft="@dimen/spacing_large"
+      android:paddingRight="@dimen/spacing_large"
+      >
+
+    <RelativeLayout
+        android:id="@+id/rlt_settings"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_primary"
+        android:layout_marginTop="@dimen/spacing_xmlarge"
+        android:background="@drawable/bg_btn_radius_secondary"
+        android:textAlignment="viewStart"
+        android:drawablePadding="@dimen/spacing_medium"
+        android:drawableStart="@drawable/ic_flight"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@+id/iv_flight"
+          android:layout_centerVertical="true"
+          android:layout_alignParentStart="true"
+          style="@style/AppTextStyle.Bold"
+          android:layout_marginStart="@dimen/spacing_sxlarge"
+          android:textColor="@color/text_color_secondary"
+          android:includeFontPadding="false"
+          android:textSize="@dimen/text_size_medium"
+          android:text="@string/side_menu_settings"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_marginRight="@dimen/spacing_large"
+          android:background="@drawable/ic_settings"
+          android:backgroundTint="@color/white"
+          android:layout_centerVertical="true"
+          />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlt_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_primary"
+        android:background="@drawable/bg_btn_radius_secondary"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="@dimen/spacing_mslarge"
+        android:drawablePadding="@dimen/spacing_medium"
+        android:drawableStart="@drawable/ic_flight"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@+id/iv_flight"
+          android:layout_centerVertical="true"
+          android:layout_alignParentStart="true"
+          style="@style/AppTextStyle.Bold"
+          android:layout_marginStart="@dimen/spacing_sxlarge"
+          android:textColor="@color/text_color_secondary"
+          android:includeFontPadding="false"
+          android:textSize="@dimen/text_size_medium"
+          android:text="@string/side_menu_log_out"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_marginRight="@dimen/spacing_large"
+          android:background="@drawable/ic_settings"
+          android:backgroundTint="@color/white"
+          android:layout_centerVertical="true"
+          />
+
+    </RelativeLayout>
+  </LinearLayout>
+</LinearLayout>

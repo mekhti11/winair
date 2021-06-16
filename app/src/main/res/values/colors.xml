@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#f86e69</color>
-  <color name="colorPrimaryDark">#f86e69</color>
+  <color name="colorPrimary">#F26575</color>
+  <color name="colorPrimaryDark">#F26575</color>
   <color name="colorSecondary">#30454E</color>
   <color name="colorAccent">@color/colorPrimary</color>
   <color name="colorBgStart">#FF512F</color>
   <color name="colorBgEnd">#DD2476</color>
-  <color name="buttonColor">@color/colorSecondary</color>
+  <color name="button_color_primary">@color/colorSecondary</color>
+  <color name="button_color_secondary">@color/white</color>
+  <color name="button_color_tertiary">@color/colorPrimary</color>
   <color name="text_color_primary">@color/black</color>
   <color name="text_color_secondary">@color/white</color>
   <color name="company_dropdown_bg_not_selected">@color/colorSecondary</color>
@@ -19,6 +21,8 @@
   <color name="input_border_color">#242D36</color>
   <color name="bg_logo_color">#41242D36</color>
   <color name="dropdown_color">#2A2F39</color>
+
+  <color name="line_color_primary">#F9A5AB</color>
 
   <color name="barcode_success">#4CAF50</color>
   <color name="barcode_fail">#F44336</color>

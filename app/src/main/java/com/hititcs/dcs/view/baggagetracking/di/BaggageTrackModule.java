@@ -6,12 +6,9 @@ import com.hititcs.dcs.view.baggagetracking.data.repository.BaggageTrackDataRepo
 import com.hititcs.dcs.view.baggagetracking.domain.repository.BaggageTrackRepository;
 import com.hititcs.dcs.view.baggagetracking.remote.impl.BaggageTrackRemoteImpl;
 import com.hititcs.dcs.view.baggagetracking.remote.service.BaggageTrackService;
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanActivity;
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanModule;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.ContributesAndroidInjector;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -31,7 +28,4 @@ public abstract class BaggageTrackModule {
       @Named("default") ServiceCreator serviceCreator) {
     return serviceCreator.createService(BaggageTrackService.class);
   }
-
-  @ContributesAndroidInjector(modules = BaggageTrackScanModule.class)
-  abstract BaggageTrackScanActivity bindBaggageTrackScanActivity();
 }

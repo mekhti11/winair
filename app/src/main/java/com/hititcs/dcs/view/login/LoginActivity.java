@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
       showTokenErrorDialog();
     }
     if (getAuthManager().isContain()) {
-      navigateToFlightListActivity();
+      navigateToHomeActivity();
     } else {
       getAuthManager().clear();
     }
