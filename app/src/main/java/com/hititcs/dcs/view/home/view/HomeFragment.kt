@@ -12,7 +12,7 @@ import com.hititcs.dcs.R
 import com.hititcs.dcs.view.BaseActivity
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackScanActivity
+import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackMainActivity
 import com.hititcs.dcs.view.flight.FlightListActivity
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment<HomeFragment>(), HomeContract.HomeView {
 
   @OnClick(R.id.rlt_baggage_tracking)
   fun onPressedBtnBaggageTracking() {
-    val intent = Intent(context, BaggageTrackScanActivity::class.java)
+    val intent = Intent(context, BaggageTrackMainActivity::class.java)
     startActivity(intent)
   }
 

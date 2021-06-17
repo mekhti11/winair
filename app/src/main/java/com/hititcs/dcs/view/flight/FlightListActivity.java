@@ -14,7 +14,7 @@ public class FlightListActivity extends BaseActivity<FlightListActivity> {
     setContentView(R.layout.activity_content);
     bindView();
     setToolbar();
-    setTitle(R.string.page_title_flights);
+    setTitle(getString(R.string.page_title_flights));
     if (savedInstanceState == null) {
       setUpFragment();
     }

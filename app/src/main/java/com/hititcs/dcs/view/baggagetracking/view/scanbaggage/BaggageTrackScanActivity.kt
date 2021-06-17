@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view
+package com.hititcs.dcs.view.baggagetracking.view.scanbaggage
 
 import android.os.Bundle
 import com.hititcs.dcs.R
@@ -23,6 +23,8 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_scan_baggage)
+    locationName = intent.getStringExtra(EXTRA_LOCATION_NAME)
+    locationCode = intent.getStringExtra(EXTRA_LOCATION_CODE)
     bindView()
     setToolbar()
     hideToolbar()
@@ -34,7 +36,7 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
       .beginTransaction()
       .replace(
         R.id.content_frame,
-        BaggageTrackScanFragment.newInstance(),
+        BaggageTrackScanFragment.newInstance(locationCode!!, locationName!!),
         BaggageTrackScanFragment::class.java.simpleName
       )
       .commit()

@@ -41,7 +41,7 @@
           android:textColor="@color/text_color_secondary"
           android:includeFontPadding="false"
           android:textSize="@dimen/text_size_medium"
-          android:text="@string/side_menu_settings"
+          android:text="@string/home_side_menu_settings"
           />
 
       <androidx.appcompat.widget.AppCompatImageView
@@ -78,7 +78,7 @@
           android:textColor="@color/text_color_secondary"
           android:includeFontPadding="false"
           android:textSize="@dimen/text_size_medium"
-          android:text="@string/side_menu_log_out"
+          android:text="@string/home_side_menu_log_out"
           />
 
       <androidx.appcompat.widget.AppCompatImageView
@@ -86,7 +86,7 @@
           android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
           android:layout_marginRight="@dimen/spacing_large"
-          android:background="@drawable/ic_settings"
+          android:background="@drawable/ic_logout"
           android:backgroundTint="@color/white"
           android:layout_centerVertical="true"
           />

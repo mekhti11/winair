@@ -37,7 +37,6 @@ android {
         targetSdkVersion globalConfiguration["targetSdkVersion"]
         versionCode 1
         versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         resConfigs 'en'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -116,9 +115,6 @@ dependencies {
     implementation rootProject.ext.MODULE_UI_IMPL_DEPS
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.android.support:appcompat-v7:25.3.1'   // Minimum 23+ is required
-
-    implementation 'com.google.android.material:material:1.0.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 
     kapt dependencies.roomCompiler
     kapt dependencies.parcelerProcessor

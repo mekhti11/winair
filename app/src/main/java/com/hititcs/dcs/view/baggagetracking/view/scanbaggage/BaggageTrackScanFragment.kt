@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view
+package com.hititcs.dcs.view.baggagetracking.view.scanbaggage
 
 import android.Manifest.permission
 import android.content.pm.PackageManager
@@ -22,7 +22,10 @@ import com.hititcs.dcs.domain.model.BoardingResponse
 import com.hititcs.dcs.util.MessageUtils
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
-import com.hititcs.dcs.view.baggagetracking.domain.model.GetTrackingBaggageLocationNamesOutputDto
+import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_CODE
+import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_NAME
+import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanContract.BaggageTrackScanPresenter
+import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanContract.BaggageTrackScanView
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
@@ -31,9 +34,19 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
-  BaggageTrackScanContract.BaggageTrackView,
+  BaggageTrackScanView,
   TorchListener,
   BarcodeCallback {
+
+  val EXTRA_LOCATION_NAME: String =
+    "EXTRA_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
+  val EXTRA_LOCATION_CODE: String =
+    "EXTRA_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
+  private val STATE_LOCATION_NAME: String =
+    "STATE_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
+  private val STATE_LOCATION_CODE: String =
+    "STATE_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
+
   private val STATE_FLASH_OPEN = "state:flashOpen"
   private val STATE_CAMERA_PAUSE = "state:cameraPause"
   val MY_PERMISSIONS_REQUEST_CAMERA = 124
@@ -48,7 +61,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   private var mPauseDrawable: Drawable? = null
   private var mPlayDrawable: Drawable? = null
 
-  @Inject lateinit var presenter: BaggageTrackScanContract.BaggageTrackPresenter
+  @Inject lateinit var presenter: BaggageTrackScanPresenter
 
   @BindView(R.id.tw_boarded_count) lateinit var twBoardedCount: TextView
   @BindView(R.id.zxing_barcode_scanner) lateinit var zxingBarcodeScanner: DecoratedBarcodeView
@@ -59,13 +72,24 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   @BindView(R.id.img_barcode_error) lateinit var imgBarcodeError: AppCompatImageView
   @BindView(R.id.barcode_error_txt) lateinit var barcodeErrorTxt: TextView
 
+  private var locationCode: String? = null
+  private var locationName: String? = null
+
   companion object {
-    fun newInstance(): Fragment {
+    fun newInstance(locationCode: String, locationName: String): Fragment {
       val args = Bundle()
       val fragment = BaggageTrackScanFragment()
+      args.putString(EXTRA_LOCATION_CODE, locationCode)
+      args.putString(EXTRA_LOCATION_NAME, locationName)
       fragment.arguments = args
       return fragment
     }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    locationCode = arguments?.getString(EXTRA_LOCATION_CODE)
+    locationName = arguments?.getString(EXTRA_LOCATION_NAME)
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -102,7 +126,6 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     imgPause.setOnClickListener { onClickPause() }
     imgClose.setOnClickListener { onClickClose() }
     zxingBarcodeScanner.decodeContinuous(this)
-    presenter.getLocationNamesAndCodes()
   }
 
   override fun onDestroy() {
@@ -257,14 +280,9 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     showResultIcon(true, null)
   }
 
-  override fun setLocationNamesAndCodes(locationAndNameCode: GetTrackingBaggageLocationNamesOutputDto) {
-  }
-
   override fun showError(message: String?) {
-    TODO("Not yet implemented")
   }
 
   override fun showError(messageId: Int) {
-    TODO("Not yet implemented")
   }
 }

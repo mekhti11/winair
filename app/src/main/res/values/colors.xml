@@ -27,6 +27,10 @@
   <color name="barcode_success">#4CAF50</color>
   <color name="barcode_fail">#F44336</color>
 
+  <color name="app_text_input_layout_error_text_color">@color/colorPrimary</color>
+  <color name="app_text_input_layout_hint_text_color">@color/colorPrimary</color>
+  <color name="app_text_input_layout_placeholder_text_color">@color/colorPrimary</color>
+
   <color name="main_logo_bg_color">@color/white</color>
   <color name="main_welcome_text_color">@color/white</color>
   <color name="main_sign_in_color">@color/white</color>

@@ -35,7 +35,8 @@
     <activity android:name=".view.flight.FlightListActivity" />
     <activity android:name=".view.flight.detail.FlightDetailActivity" />
     <activity android:name=".view.barcode.ScanBarcodeActivity" />
-    <activity android:name=".view.baggagetracking.view.BaggageTrackScanActivity" />
+    <activity android:name=".view.baggagetracking.view.BaggageTrackMainActivity" />
+    <activity android:name=".view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity" />
 
     <service
         android:name="com.hititcs.dcs.view.BoardingDcsFirebaseService"
@@ -44,6 +45,6 @@
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
       </intent-filter>
     </service>
-    </application>
+  </application>
 
 </manifest>
