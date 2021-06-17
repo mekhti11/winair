@@ -1,7 +1,7 @@
 package com.hititcs.dcs.view.home.view;
 
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanFragment;
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanFragmentModule;
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragment;
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragmentModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

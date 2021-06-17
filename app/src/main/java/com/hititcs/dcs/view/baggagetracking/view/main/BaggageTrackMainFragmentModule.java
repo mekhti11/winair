@@ -1,6 +1,7 @@
-package com.hititcs.dcs.view.baggagetracking.view;
+package com.hititcs.dcs.view.baggagetracking.view.main;
 
 import com.hititcs.dcs.view.baggagetracking.domain.interceptor.GetLocationNamesUseCase;
+import com.hititcs.dcs.view.baggagetracking.domain.interceptor.ScanBaggageBarcodeUseCase;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -11,12 +12,13 @@ public abstract class BaggageTrackMainFragmentModule {
   @Provides
   static BaggageTrackMainContract.BaggageTrackMainPresenter provideBaggageTrackMainPresenter(
       BaggageTrackMainContract.BaggageTrackMainView view,
-      GetLocationNamesUseCase getLocationNamesUseCase) {
+      GetLocationNamesUseCase getLocationNamesUseCase,
+      ScanBaggageBarcodeUseCase scanBaggageBarcodeUseCase) {
     return new BaggageTrackMainPresenterImpl(view,
-        getLocationNamesUseCase);
+        getLocationNamesUseCase, scanBaggageBarcodeUseCase);
   }
 
   @Binds
   abstract BaggageTrackMainContract.BaggageTrackMainView bindBaggageTrackMainView(
-      BaggageTrackMainMainFragment baggageTrackMainFragment);
+      BaggageTrackMainFragment baggageTrackMainFragment);
 }

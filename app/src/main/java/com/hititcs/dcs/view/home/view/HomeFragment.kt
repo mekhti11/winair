@@ -12,7 +12,7 @@ import com.hititcs.dcs.R
 import com.hititcs.dcs.view.BaseActivity
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackMainActivity
+import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainActivity
 import com.hititcs.dcs.view.flight.FlightListActivity
 import javax.inject.Inject
 

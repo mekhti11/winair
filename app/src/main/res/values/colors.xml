@@ -10,6 +10,7 @@
   <color name="button_color_secondary">@color/white</color>
   <color name="button_color_tertiary">@color/colorPrimary</color>
   <color name="text_color_primary">@color/black</color>
+  <color name="text_color_hint_primary">#C2C5C9</color>
   <color name="text_color_secondary">@color/white</color>
   <color name="company_dropdown_bg_not_selected">@color/colorSecondary</color>
   <color name="company_dropdown_bg_selected">@color/colorPrimary</color>
@@ -29,9 +30,8 @@
 
   <color name="app_text_input_layout_error_text_color">@color/colorPrimary</color>
   <color name="app_text_input_layout_hint_text_color">@color/colorPrimary</color>
-  <color name="app_text_input_layout_placeholder_text_color">@color/colorPrimary</color>
+  <color name="app_text_input_layout_placeholder_text_color">@color/text_color_hint_primary</color>
 
   <color name="main_logo_bg_color">@color/white</color>
   <color name="main_welcome_text_color">@color/white</color>
-  <color name="main_sign_in_color">@color/white</color>
 </resources>

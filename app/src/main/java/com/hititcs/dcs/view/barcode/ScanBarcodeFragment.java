@@ -342,7 +342,7 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
 
     @Override
     public void onError(String errorMessage) {
-      Timber.d("onError: " + errorMessage);
+      Timber.d("onError: " + errorMessage);//TODO change all this crap fragment
       if (mBarcodeScannerProductViewWeakReference.get() != null
           && mBarcodeScannerProductViewWeakReference.get().isAttached()) {
         mBarcodeScannerProductViewWeakReference.get().onError(errorMessage);

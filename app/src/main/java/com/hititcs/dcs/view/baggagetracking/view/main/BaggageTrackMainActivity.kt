@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view
+package com.hititcs.dcs.view.baggagetracking.view.main
 
 import android.os.Bundle
 import com.hititcs.dcs.R
@@ -21,8 +21,8 @@ class BaggageTrackMainActivity : BaseActivity<BaggageTrackMainActivity>() {
       .beginTransaction()
       .replace(
         R.id.content_frame,
-        BaggageTrackMainMainFragment.newInstance(),
-        BaggageTrackMainMainFragment::class.java.simpleName
+        BaggageTrackMainFragment.newInstance(),
+        BaggageTrackMainFragment::class.java.simpleName
       )
       .commit()
   }

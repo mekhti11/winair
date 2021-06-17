@@ -37,12 +37,17 @@
     <item name="hintTextAppearance">@style/TextAppearance.App.Medium.Inverse.Bold</item>
     <item name="errorTextAppearance">@style/AppTextErrorStyle</item>
   </style>
+
   <style name="TextAppearance.App.Large" parent="TextAppearance.AppCompat.Large">
     <item name="android:textSize">@dimen/text_size_slarge</item>
   </style>
 
   <style name="AppTextStyle.Bold" parent="TextAppearance.AppCompat">
     <item name="android:fontFamily">@font/poppins_bold</item>
+  </style>
+
+  <style name="AppTextStyle.Regular" parent="TextAppearance.AppCompat">
+    <item name="android:fontFamily">@font/poppins_regular</item>
   </style>
 
   <style name="TextAppearance.App.Large.Regular">
@@ -84,7 +89,8 @@
     <item name="android:textStyle">bold</item>
     <item name="android:textSize">@dimen/text_size_medium</item>
   </style>
-  <style name="AppTextInputEditTextLogin" parent="Base.Widget.MaterialComponents.TextInputEditText">
+
+  <style name="AppTextInputEditTextGeneral" parent="Base.Widget.MaterialComponents.TextInputEditText">
     <item name="android:textSize">@dimen/text_size_small</item>
     <item name="android:fontFamily">@font/poppins_regular</item>
     <item name="android:textStyle">bold</item>
@@ -151,10 +157,10 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="boxBackgroundColor">@color/transparent</item>
-    <item name="boxCornerRadiusBottomStart">@dimen/spacing_msmall</item>
-    <item name="boxCornerRadiusBottomEnd">@dimen/spacing_msmall</item>
-    <item name="boxCornerRadiusTopStart">@dimen/spacing_msmall</item>
-    <item name="boxCornerRadiusTopEnd">@dimen/spacing_msmall</item>
+    <item name="boxCornerRadiusBottomStart">@dimen/spacing_slarge</item>
+    <item name="boxCornerRadiusBottomEnd">@dimen/spacing_slarge</item>
+    <item name="boxCornerRadiusTopStart">@dimen/spacing_slarge</item>
+    <item name="boxCornerRadiusTopEnd">@dimen/spacing_slarge</item>
     <item name="boxStrokeColor">@color/text_input_box_stroke</item>
     <item name="boxStrokeWidthFocused">@dimen/spacing_xxsmall</item>
     <item name="boxStrokeWidth">@dimen/spacing_xxsmall</item>
@@ -163,7 +169,7 @@
     <item name="errorTextColor">@color/app_text_input_layout_error_text_color</item>
     <item name="hintTextAppearance">@style/AppHintTextStyle</item>
     <item name="hintTextColor">@color/app_text_input_layout_hint_text_color</item>
-    <item name="android:textColorHint">@color/grey_inactive_text</item>
+    <item name="android:textColorHint">@color/text_color_primary</item>
     <item name="android:paddingTop">@dimen/spacing_lmedium</item>
     <item name="android:paddingBottom">@dimen/spacing_lmedium</item>
     <item name="placeholderTextColor">@color/app_text_input_layout_placeholder_text_color</item>

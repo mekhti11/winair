@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view.scanbaggage;
+package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage;
 
 import com.hititcs.dcs.subscriber.SingleSubscriber;
 import com.hititcs.dcs.view.baggagetracking.domain.interceptor.ScanBaggageBarcodeUseCase;

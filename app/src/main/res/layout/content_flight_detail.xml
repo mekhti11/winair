@@ -10,7 +10,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@drawable/bg_content"
-      android:layout_marginTop="@dimen/spacing_large"
       android:fillViewport="true"
       android:orientation="vertical"
       >
@@ -314,7 +313,7 @@
           android:layout_marginEnd="@dimen/spacing_large"
           android:layout_marginBottom="@dimen/spacing_large"
           android:background="@drawable/bg_button_tertiary"
-          android:text="@string/main_login_button"
+          android:text="@string/login_button"
           android:textColor="@color/white"
           android:textSize="@dimen/text_size_mlarge"
           >

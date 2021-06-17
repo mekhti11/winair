@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view.scanbaggage
+package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
 
 import android.os.Bundle
 import com.hititcs.dcs.R

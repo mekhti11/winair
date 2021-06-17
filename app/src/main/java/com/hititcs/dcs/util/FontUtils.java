@@ -6,6 +6,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import androidx.annotation.FontRes;
 import androidx.core.content.res.ResourcesCompat;
+import com.google.android.material.textfield.TextInputLayout;
 import com.hititcs.dcs.widget.CustomTypeFaceSpan;
 import timber.log.Timber;
 
@@ -30,5 +31,13 @@ public class FontUtils {
           Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
     return spannableString;
+  }
+
+  public static void setTextInputLayoutHintBold(Context context, @FontRes int fontId,
+      TextInputLayout... textInputLayouts) {
+    Typeface fontBold = ResourcesCompat.getFont(context, fontId);
+    for (TextInputLayout textInputLayout : textInputLayouts) {
+      textInputLayout.setTypeface(fontBold);
+    }
   }
 }

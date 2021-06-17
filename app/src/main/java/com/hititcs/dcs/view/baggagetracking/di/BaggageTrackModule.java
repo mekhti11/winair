@@ -6,10 +6,10 @@ import com.hititcs.dcs.view.baggagetracking.data.repository.BaggageTrackDataRepo
 import com.hititcs.dcs.view.baggagetracking.domain.repository.BaggageTrackRepository;
 import com.hititcs.dcs.view.baggagetracking.remote.impl.BaggageTrackRemoteImpl;
 import com.hititcs.dcs.view.baggagetracking.remote.service.BaggageTrackService;
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackMainActivity;
-import com.hititcs.dcs.view.baggagetracking.view.BaggageTrackMainModule;
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity;
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanModule;
+import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainActivity;
+import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainModule;
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity;
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanModule;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;

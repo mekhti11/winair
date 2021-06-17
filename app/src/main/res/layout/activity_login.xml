@@ -75,36 +75,38 @@
           >
 
         <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/txt_input_company"
-          style="@style/AppTextInputLayout.Login"
-          android:layout_marginTop="@dimen/spacing_mlarge"
-          android:hint="AIRLINE"
-          >
+            android:id="@+id/txt_input_company"
+            style="@style/AppTextInputLayoutStyle"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:hint="AIRLINE"
+            >
 
-        <com.hititcs.dcs.widget.AutoCompleteDropDown
-          android:id="@+id/auto_drop"
-          style="@style/AppTextInputEditTextLoginCompany"
-          android:layout_marginTop="@dimen/spacing_xxslarge"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:dropDownIconColor="@color/colorSecondary"
+          <com.hititcs.dcs.widget.AutoCompleteDropDown
+              android:id="@+id/auto_drop"
+              style="@style/AppTextInputEditTextLoginCompany"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:dropDownIconColor="@color/colorSecondary"
           />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_username"
-            style="@style/AppTextInputLayout.Login"
+            style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_company"
-            android:layout_marginTop="@dimen/spacing_22"
-            android:hint="@string/main_login_username"
-            app:boxStrokeColor="@color/black"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:hint="@string/login_username"
+            app:hintTextColor="@color/text_color_primary"
+            app:placeholderText="@string/login_username_hint"
+            app:placeholderTextColor="@color/text_color_hint_primary"
             app:hintEnabled="true"
             >
 
           <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/edt_username"
-              style="@style/AppTextInputEditTextLogin"
+              style="@style/AppTextInputEditTextGeneral"
               android:inputType="text"
               android:maxLines="1"
               />
@@ -112,10 +114,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_password"
-            style="@style/AppTextInputLayout.Login"
+            style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_username"
-            android:layout_marginTop="@dimen/spacing_22"
-            android:hint="@string/main_login_password"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:hint="@string/login_password"
+            app:hintTextColor="@color/text_color_primary"
+            app:placeholderText="@string/login_password_hint"
+            app:placeholderTextColor="@color/text_color_hint_primary"
             app:hintEnabled="true"
             app:passwordToggleDrawable="@drawable/ic_pass_hide"
             app:passwordToggleEnabled="true"
@@ -124,7 +129,7 @@
 
           <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/edt_password"
-              style="@style/AppTextInputEditTextLogin"
+              style="@style/AppTextInputEditTextGeneral"
               android:inputType="textPassword"
               android:maxLines="1"
               />
@@ -141,7 +146,8 @@
           android:layout_marginEnd="@dimen/spacing_large"
           android:layout_marginBottom="@dimen/spacing_large"
           android:background="@drawable/bg_button_tertiary"
-          android:text="@string/main_login_button"
+          android:textAllCaps="false"
+          android:text="@string/login_button"
           android:textColor="@color/white"
           android:textSize="@dimen/text_size_mlarge"
           />

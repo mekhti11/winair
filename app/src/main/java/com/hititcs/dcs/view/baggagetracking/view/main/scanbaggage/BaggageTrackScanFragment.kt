@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view.scanbaggage
+package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
 
 import android.Manifest.permission
 import android.content.pm.PackageManager
@@ -22,10 +22,10 @@ import com.hititcs.dcs.domain.model.BoardingResponse
 import com.hititcs.dcs.util.MessageUtils
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_CODE
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_NAME
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanContract.BaggageTrackScanPresenter
-import com.hititcs.dcs.view.baggagetracking.view.scanbaggage.BaggageTrackScanContract.BaggageTrackScanView
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_CODE
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_NAME
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanPresenter
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanView
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView

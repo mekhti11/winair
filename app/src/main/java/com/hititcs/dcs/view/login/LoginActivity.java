@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_login);
     bindView();
     if (getIntent().getAction() != null && getIntent().getAction().equals(TOKEN_ERROR_ACTION)) {
       getAuthManager().clear();
