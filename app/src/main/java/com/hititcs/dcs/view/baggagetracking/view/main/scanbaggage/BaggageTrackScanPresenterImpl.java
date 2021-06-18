@@ -21,20 +21,20 @@ public class BaggageTrackScanPresenterImpl
 
   @Override
   public void scanBaggageBarcode(String locationName, String locationCode, String barcodeTagNo) {
-    showViewLoading();
+    view.showProgressDialog();
     ScanBaggageRequest request = new ScanBaggageRequest();
     request.setLocationCode(locationCode);
     request.setLocationName(locationName);
     request.setTagNo(barcodeTagNo);
     scanBaggageBarcodeUseCase.execute(new SingleSubscriber<ScanBaggageOutputDto>(this) {
       @Override public void onResponse(ScanBaggageOutputDto data) {
-        hideViewLoading();
-        view.showScanBaggageBarcodeResponse(true, "");
+        view.hideProgressDialog();
+        view.scannedBaggageTag(barcodeTagNo, true, null);
       }
 
       @Override public void onError(Throwable e) {
-        hideViewLoading();
-        view.showScanBaggageBarcodeResponse(false, e.getMessage());
+        view.hideProgressDialog();
+        view.scannedBaggageTag(barcodeTagNo, false, super.getErrorMessage(e));
       }
     }, request);
   }

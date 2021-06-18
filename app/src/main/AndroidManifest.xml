@@ -36,7 +36,7 @@
     <activity android:name=".view.flight.detail.FlightDetailActivity" />
     <activity android:name=".view.barcode.ScanBarcodeActivity" />
     <activity android:name=".view.baggagetracking.view.main.BaggageTrackMainActivity" />
-    <activity android:name="com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity" />
+    <activity android:name=".view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity" />
 
     <service
         android:name="com.hititcs.dcs.view.BoardingDcsFirebaseService"

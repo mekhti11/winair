@@ -1,5 +1,7 @@
 package com.hititcs.dcs.view.baggagetracking.view.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,8 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.google.android.material.textfield.TextInputLayout
 import com.hititcs.dcs.R
+import com.hititcs.dcs.util.AnimUtils
+import com.hititcs.dcs.util.AppUtils
 import com.hititcs.dcs.util.FontUtils
 import com.hititcs.dcs.util.StringUtils
 import com.hititcs.dcs.view.BaseFragment
@@ -21,12 +25,17 @@ import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
 import com.hititcs.dcs.view.baggagetracking.domain.model.TrackBaggageLocationDto
 import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.BaggageTrackMainPresenter
 import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.BaggageTrackMainView
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragment
 import com.hititcs.dcs.widget.AutoCompleteDropDown
 import com.hititcs.dcs.widget.GeneralTextWatcher
+import java.io.Serializable
 import javax.inject.Inject
 
 class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   BaggageTrackMainView {
+
+  private val SCAN_WITH_CAMERA_REQUEST_CODE = 1255;
 
   @BindView(R.id.dropdown_bag_area_location)
   lateinit var dropdownBagAreaLocation: AutoCompleteDropDown
@@ -88,8 +97,8 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   private fun setupLastThreeItems() {
     rcvLastThree.layoutManager = LinearLayoutManager(context)
     lastThreeBagAdapter = LastThreeBagAdapter()
-    lastThreeBagAdapter.itemList = scannedTagList
     rcvLastThree.adapter = lastThreeBagAdapter
+    lastThreeBagAdapter.itemList = scannedTagList
   }
 
   private fun setupTextInputLayoutsTitles() {
@@ -118,6 +127,13 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
 
   private fun isValidToSend(): Boolean {
     if (StringUtils.isEmpty(edtBagTagNo.text.toString()) || edtBagTagNo.text.toString().length < 6 || selectedLocationNameIndex == -1 || selectedLocationCodeIndex == -1) {
+      return false
+    }
+    return true
+  }
+
+  private fun isValidToScanTagWithCamera(): Boolean {
+    if (selectedLocationNameIndex == -1 || selectedLocationCodeIndex == -1) {
       return false
     }
     return true
@@ -157,6 +173,8 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       selectedLocationNameIndex = selectedIndex
       selectedLocationCodeIndex = -1
       dropdownBagAreaCode.setTextAdapter("")
+      tilBagAreaCode.visibility = View.VISIBLE
+      AnimUtils.animateShowView(tilBagAreaCode)
       updateSendButtonState()
       setupBagAreaCodeDropdown()
       false
@@ -182,8 +200,43 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     val scannedTag = ScannedTag()
     scannedTag.success = isSuccess
     scannedTag.tagNo = tagNo
-    scannedTagList.add(scannedTag)
+    scannedTagList.add(0, scannedTag)
     lastThreeBagAdapter.notifyDataSetChanged()
+    AnimUtils.animateShowView(rcvLastThree)
+  }
+
+  @OnClick(R.id.iv_scan_baggage)
+  fun onPressedIvScanBaggage() {
+    if (!isValidToScanTagWithCamera()) {
+      return
+    }
+    AppUtils.hideKeyboardFrom(context(), this.view)
+    var intent = Intent(context(), BaggageTrackScanActivity::class.java)
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_NAME,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[0].locationName
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_CODE,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[selectedLocationCodeIndex].locationCode
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_SCANNED_TAG_LIST,
+      scannedTagList as Serializable
+    )
+    startActivityForResult(intent, SCAN_WITH_CAMERA_REQUEST_CODE)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == SCAN_WITH_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      scannedTagList =
+        data!!.getSerializableExtra(BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>)
+      rcvLastThree.adapter = lastThreeBagAdapter
+      lastThreeBagAdapter.itemList = scannedTagList
+      lastThreeBagAdapter.notifyDataSetChanged()
+      AnimUtils.animateShowView(rcvLastThree)
+    }
   }
 
   override fun showError(message: String?) {

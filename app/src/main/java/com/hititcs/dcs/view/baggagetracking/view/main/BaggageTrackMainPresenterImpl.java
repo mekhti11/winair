@@ -28,12 +28,12 @@ public class BaggageTrackMainPresenterImpl
   }
 
   @Override public void getLocationNamesAndCodes() {
-    showViewLoading();
+    view.showProgressDialog();
     getLocationNamesUseCase.execute(
         new SingleSubscriber<GetTrackingBaggageLocationNamesOutputDto>(this) {
           @Override public void onResponse(GetTrackingBaggageLocationNamesOutputDto data) {
             view.setLocationNamesAndCodes(filterNoisyData(data.getTrackBaggageLocationDtoList()));
-            hideViewLoading();
+            view.hideProgressDialog();
           }
         });
   }
@@ -51,7 +51,7 @@ public class BaggageTrackMainPresenterImpl
 
   @Override
   public void scanSingleBaggageTag(String tagNo, String locationCode, String locationName) {
-    showViewLoading();
+    view.showProgressDialog();
     ScanBaggageRequest request = new ScanBaggageRequest();
     request.setLocationCode(locationCode);
     request.setLocationName(locationName);
@@ -59,12 +59,12 @@ public class BaggageTrackMainPresenterImpl
     scanBaggageBarcodeUseCase.execute(new SingleSubscriber<ScanBaggageOutputDto>(this) {
       @Override public void onResponse(ScanBaggageOutputDto data) {
         view.scannedBaggageTag(tagNo, true);
-        hideViewLoading();
+        view.hideProgressDialog();
       }
 
       @Override public void onError(Throwable e) {
         view.scannedBaggageTag(tagNo, false);
-        hideViewLoading();
+        view.hideProgressDialog();
       }
     }, request);
   }

@@ -30,6 +30,7 @@ import com.hititcs.dcs.domain.model.AuthModel;
 import com.hititcs.dcs.domain.model.LoginRequest;
 import com.hititcs.dcs.util.AppUtils;
 import com.hititcs.dcs.util.DialogUtil;
+import com.hititcs.dcs.util.FontUtils;
 import com.hititcs.dcs.util.StringUtils;
 import com.hititcs.dcs.view.BaseActivity;
 import com.hititcs.dcs.view.home.view.HomeActivity;
@@ -56,6 +57,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   AutoCompleteDropDown dropDown;
   @BindView(R.id.txt_input_company)
   TextInputLayout txtInputCompany;
+  @BindView(R.id.txt_input_username)
+  TextInputLayout tilInputUsername;
+  @BindView(R.id.txt_input_password)
+  TextInputLayout tilInputPassword;
 
   @Inject
   LoginUseCase loginUseCase;
@@ -112,7 +117,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     if (!validate()) {
       return;
     }
-    showProgressDialog();
+    this.showProgressDialog();
     LoginRequest request = new LoginRequest();
     request.setAirline("test");
     request.setUsername(twUsername.getText().toString());
@@ -143,8 +148,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private void downloadCompanyLogoFromStorage() {
+    this.showProgressDialog();
     File rootPath = new File(context().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
-
     File localFile = new File(rootPath, "companyLogo.png");
     if (localFile != null && localFile.exists()) {
       localFile.delete();
@@ -155,12 +160,14 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         .child(String.format("%s.png", adapter.getItem(dropDown.getPosition()).getAirlineCode()));
     File finalLocalFile = localFile;
     tempStorageReference.getFile(localFile).addOnSuccessListener(uri -> {
+      hideProgressDialog();
       jump();
     }).addOnFailureListener(
         e -> {
           Timber.e("Error getting companyLogo from firebase");
           Toast.makeText(context(), "Something went wrong, please try again.", Toast.LENGTH_LONG)
               .show();
+          hideProgressDialog();
         });
   }
 
@@ -195,6 +202,15 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
       return false;
     });
     dropDown.showDropDown();
+  }
+
+  private void setupTextInputLayoutsTitles() {
+    FontUtils.setTextInputLayoutHintBold(
+        context(),
+        R.font.poppins_bold,
+        tilInputUsername,
+        tilInputPassword
+    );
   }
 
   @Override

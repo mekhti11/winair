@@ -1,6 +1,8 @@
 package com.hititcs.dcs.view.baggagetracking.domain.model;
 
-public class ScannedTag {
+import java.io.Serializable;
+
+public class ScannedTag implements Serializable {
   private String tagNo;
   private Boolean isSuccess;
 

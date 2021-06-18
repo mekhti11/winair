@@ -43,7 +43,7 @@ public class BagAreaCodeAdapter extends ArrayAdapter<TrackBaggageLocationCodeDto
     } else {
       textView.setChecked(false);
       textView.setTypeface(extraLight);
-      textView.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color_primary));
+      textView.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color_secondary));
     }
     return view;
   }

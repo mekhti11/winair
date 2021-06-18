@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/grey_inactive_text"
     >
 
   <com.journeyapps.barcodescanner.DecoratedBarcodeView
@@ -18,6 +20,30 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:src="@drawable/ic_flashlight_white_48dp"
+      />
+
+  <LinearLayout
+      android:id="@+id/ln_baggage_scan_success"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_baggage_scan_success"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/spacing_xxxxxlarge"
+      android:layout_below="@+id/img_switch_flashlight"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+  <LinearLayout
+      android:id="@+id/ln_baggage_scan_fail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_baggage_scan_fail"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/spacing_xxxxxlarge"
+      android:layout_below="@+id/img_switch_flashlight"
+      android:visibility="gone"
+      tools:visibility="visible"
       />
 
   <androidx.appcompat.widget.AppCompatImageView
@@ -42,12 +68,15 @@
       android:id="@+id/barcode_error_txt"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="150dp"
       android:gravity="center"
+      style="@style/AppTextStyle.Regular"
       android:text="Test"
-      android:textColor="@color/colorPrimaryDark"
-      android:textSize="35sp"
+      android:layout_below="@+id/ln_baggage_scan_fail"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_xxlarge"
       android:visibility="gone"
+      tools:visibility="visible"
       />
 
   <androidx.appcompat.widget.AppCompatImageView
@@ -58,15 +87,6 @@
       android:layout_alignParentRight="true"
       android:layout_centerHorizontal="true"
       android:src="@drawable/ic_close_white_48dp"
-      />
-
-  <TextView
-      android:id="@+id/tw_boarded_count"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textColor="@color/white"
-      android:gravity="center"
-      android:textSize="28sp"
       />
 
   <androidx.appcompat.widget.AppCompatImageView
@@ -122,5 +142,28 @@
       android:textColor="@color/colorPrimaryDark"
       android:textSize="36dp"
       android:visibility="gone"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/rcv_last_three_items_camera"
+      android:text="@string/baggage_track_main_last_3_bagtag_no"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
+      android:layout_marginTop="@dimen/spacing_medium"
+      android:textSize="@dimen/text_size_lmedium"
+      style="@style/AppTextStyle.Bold"
+      />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rcv_last_three_items_camera"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      tools:itemCount="3"
+      tools:listitem="@layout/item_last_three_bagtag"
+      android:layout_alignParentBottom="true"
       />
 </RelativeLayout>

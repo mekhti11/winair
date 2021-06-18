@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public class LastThreeBagAdapter
     extends BaseListAdapter<ScannedTag, LastThreeBagAdapter.ScannedTagViewHolder> {
 
+  private final int SHOW_NUMBER_OF_BAGTAG_LIMIT = 3;
+
   public LastThreeBagAdapter() {
   }
 
@@ -32,6 +34,15 @@ public class LastThreeBagAdapter
   public void onBindViewHolder(@NonNull @NotNull ScannedTagViewHolder holder, int position) {
     ScannedTag scannedTag = getItem(position);
     holder.fillData(scannedTag);
+  }
+
+  @Override
+  public int getItemCount() {
+    if (getItemList().size() > SHOW_NUMBER_OF_BAGTAG_LIMIT) {
+      return SHOW_NUMBER_OF_BAGTAG_LIMIT;
+    } else {
+      return getItemList().size();
+    }
   }
 
   public class ScannedTagViewHolder extends ItemViewHolder {

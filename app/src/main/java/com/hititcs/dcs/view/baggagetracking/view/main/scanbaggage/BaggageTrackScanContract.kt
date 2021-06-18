@@ -9,6 +9,6 @@ interface BaggageTrackScanContract {
   }
 
   interface BaggageTrackScanView : LoadView {
-    fun showScanBaggageBarcodeResponse(isSuccess: Boolean, message: String?);
+    fun scannedBaggageTag(tagNo: String, isSuccess: Boolean, message: String?)
   }
 }

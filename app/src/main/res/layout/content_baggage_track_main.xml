@@ -69,6 +69,8 @@
             app:placeholderText="@string/baggage_track_main_location_code_hint"
             app:placeholderTextColor="@color/text_color_hint_primary"
             style="@style/AppTextInputLayoutStyle"
+            android:visibility="gone"
+            tools:visibility="visible"
             >
 
           <com.hititcs.dcs.widget.AutoCompleteDropDown
@@ -85,30 +87,53 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_bagtag_no"
-            style="@style/AppTextInputLayoutStyle"
-            android:layout_below="@+id/txt_input_company"
-            android:hint="@string/baggage_track_main_bagtag_no"
-            app:hintTextColor="@color/text_color_primary"
-            app:placeholderText="@string/baggage_track_main_bagtag_no_hint"
-            app:placeholderTextColor="@color/text_color_hint_primary"
-            app:hintEnabled="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
             >
 
-          <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/edt_bagtag_no"
-              style="@style/AppTextInputEditTextGeneral"
-              android:inputType="text"
-              android:maxLines="1"
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/til_bagtag_no"
+              style="@style/AppTextInputLayoutStyle"
+              android:layout_weight="9"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/txt_input_company"
+              android:hint="@string/baggage_track_main_bagtag_no"
+              app:hintTextColor="@color/text_color_primary"
+              android:layout_marginEnd="@dimen/spacing_large"
+              app:placeholderText="@string/baggage_track_main_bagtag_no_hint"
+              app:placeholderTextColor="@color/text_color_hint_primary"
+              app:hintEnabled="true"
+              >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_bagtag_no"
+                style="@style/AppTextInputEditTextGeneral"
+                android:inputType="text"
+                android:maxLines="1"
+                />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <androidx.appcompat.widget.AppCompatImageView
+              android:id="@+id/iv_scan_baggage"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              app:srcCompat="@drawable/ic_barcode_qr"
+              android:layout_gravity="center_horizontal"
+              android:layout_weight="1"
               />
-        </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/baggage_track_main_last_3_bagtag_no"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:textSize="@dimen/text_size_lmedium"
             style="@style/AppTextStyle.Bold"
             />
 
@@ -117,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="3"
+            tools:listitem="@layout/item_last_three_bagtag"
             />
 
       </LinearLayout>

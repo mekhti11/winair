@@ -1,6 +1,8 @@
 package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
 
 import android.Manifest.permission
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -9,21 +11,23 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import com.google.zxing.ResultPoint
 import com.hititcs.dcs.R
 import com.hititcs.dcs.R.layout
-import com.hititcs.dcs.domain.model.BoardingResponse
-import com.hititcs.dcs.util.MessageUtils
+import com.hititcs.dcs.util.AnimUtils
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
-import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_CODE
-import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity.Companion.EXTRA_LOCATION_NAME
+import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
+import com.hititcs.dcs.view.baggagetracking.view.main.LastThreeBagAdapter
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanPresenter
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanView
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -31,21 +35,13 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.DecoratedBarcodeView.TorchListener
 import timber.log.Timber
+import java.io.Serializable
 import javax.inject.Inject
 
 class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   BaggageTrackScanView,
   TorchListener,
   BarcodeCallback {
-
-  val EXTRA_LOCATION_NAME: String =
-    "EXTRA_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
-  val EXTRA_LOCATION_CODE: String =
-    "EXTRA_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
-  private val STATE_LOCATION_NAME: String =
-    "STATE_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
-  private val STATE_LOCATION_CODE: String =
-    "STATE_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
 
   private val STATE_FLASH_OPEN = "state:flashOpen"
   private val STATE_CAMERA_PAUSE = "state:cameraPause"
@@ -63,24 +59,38 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   @Inject lateinit var presenter: BaggageTrackScanPresenter
 
-  @BindView(R.id.tw_boarded_count) lateinit var twBoardedCount: TextView
   @BindView(R.id.zxing_barcode_scanner) lateinit var zxingBarcodeScanner: DecoratedBarcodeView
   @BindView(R.id.img_pause) lateinit var imgPause: AppCompatImageView
   @BindView(R.id.img_close) lateinit var imgClose: AppCompatImageView
   @BindView(R.id.img_switch_flashlight) lateinit var imgSwitchFlashlight: AppCompatImageView
-  @BindView(R.id.img_barcode_success) lateinit var imgBarcodeSuccess: AppCompatImageView
-  @BindView(R.id.img_barcode_error) lateinit var imgBarcodeError: AppCompatImageView
+  @BindView(R.id.ln_baggage_scan_success) lateinit var lnBaggageScanSuccess: LinearLayout
+  @BindView(R.id.ln_baggage_scan_fail) lateinit var lnBaggageScanFail: LinearLayout
   @BindView(R.id.barcode_error_txt) lateinit var barcodeErrorTxt: TextView
+  @BindView(R.id.rcv_last_three_items_camera) lateinit var rcvLastThree: RecyclerView
 
   private var locationCode: String? = null
   private var locationName: String? = null
+  var scannedTagList: MutableList<ScannedTag>? = null
+  private lateinit var lastThreeBagAdapter: LastThreeBagAdapter
 
   companion object {
-    fun newInstance(locationCode: String, locationName: String): Fragment {
+    var EXTRA_LOCATION_NAME: String =
+      "EXTRA_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
+    var EXTRA_LOCATION_CODE: String =
+      "EXTRA_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
+    var EXTRA_SCANNED_TAG_LIST: String =
+      "EXTRA_SCANNED_TAG_LIST." + BaggageTrackScanFragment.javaClass.simpleName
+
+    fun newInstance(
+      locationCode: String,
+      locationName: String,
+      scannedTagList: MutableList<ScannedTag>?
+    ): Fragment {
       val args = Bundle()
       val fragment = BaggageTrackScanFragment()
       args.putString(EXTRA_LOCATION_CODE, locationCode)
       args.putString(EXTRA_LOCATION_NAME, locationName)
+      args.putSerializable(EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
       fragment.arguments = args
       return fragment
     }
@@ -90,6 +100,8 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     super.onCreate(savedInstanceState)
     locationCode = arguments?.getString(EXTRA_LOCATION_CODE)
     locationName = arguments?.getString(EXTRA_LOCATION_NAME)
+    scannedTagList =
+      arguments?.getSerializable(EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>?)
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -110,6 +122,13 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     }
   }
 
+  private fun setupLastThreeItems() {
+    rcvLastThree.layoutManager = LinearLayoutManager(context)
+    lastThreeBagAdapter = LastThreeBagAdapter()
+    rcvLastThree.adapter = lastThreeBagAdapter
+    lastThreeBagAdapter.itemList = scannedTagList
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -122,7 +141,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initFlash()
-    twBoardedCount.text = "asd"
+    setupLastThreeItems()
     imgPause.setOnClickListener { onClickPause() }
     imgClose.setOnClickListener { onClickClose() }
     zxingBarcodeScanner.decodeContinuous(this)
@@ -191,7 +210,10 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   }
 
   private fun onClickClose() {
-    activity!!.onBackPressed()
+    var intent = Intent()
+    intent.putExtra(EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
+    activity?.let { activity?.setResult(Activity.RESULT_OK, intent) }
+    activity?.let { activity?.finish() }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -211,20 +233,15 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     super.onPause()
   }
 
-  fun showBarcodeResult(data: BoardingResponse) {
-    twBoardedCount.text = MessageUtils.getStringFromList(data.flightDetail?.boarded)
-    showResultIcon(true, null)
-  }
-
   private fun showResultIcon(success: Boolean, errorMsg: String?) {
     hideProgressDialog()
     var delayTime: Long = SUCCESS_DELAY_BETWEEN_SCANS
     if (success) {
-      imgBarcodeSuccess.visibility = View.VISIBLE
+      lnBaggageScanSuccess.visibility = View.VISIBLE
     } else {
       delayTime = ERROR_DELAY_BETWEEN_SCANS
       barcodeErrorTxt.text = errorMsg
-      imgBarcodeError.visibility = View.VISIBLE
+      lnBaggageScanFail.visibility = View.VISIBLE
       barcodeErrorTxt.visibility = View.VISIBLE
     }
     Handler().postDelayed(clearUiAfterBarcodeResponse(), delayTime)
@@ -232,9 +249,9 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   private fun clearUiAfterBarcodeResponse(): Runnable {
     return Runnable {
-      imgBarcodeSuccess.visibility = View.GONE
-      imgBarcodeError.visibility = View.GONE
-      barcodeErrorTxt.visibility = View.GONE
+      lnBaggageScanSuccess.visibility = View.GONE
+      lnBaggageScanFail.visibility = View.GONE
+      barcodeErrorTxt.visibility = View.INVISIBLE
       toggleBarcodeView(false)
     }
   }
@@ -266,18 +283,18 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     return presenter
   }
 
-  override fun showScanBaggageBarcodeResponse(isSuccess: Boolean, message: String?) {
-    var test: String = if (isSuccess)
-      "True"
-    else
-      "False"
-    Timber.d("$test $message")
-    try {
-      twBoardedCount.text = message
-    } catch (e: Exception) {
-      Timber.e(e)
+  override fun scannedBaggageTag(tagNo: String, isSuccess: Boolean, message: String?) {
+    if (isSuccess) {
+      showResultIcon(true, null)
+    } else {
+      showResultIcon(false, message)
     }
-    showResultIcon(true, null)
+    val scannedTag = ScannedTag()
+    scannedTag.success = isSuccess
+    scannedTag.tagNo = tagNo
+    scannedTagList?.add(0, scannedTag)
+    lastThreeBagAdapter.notifyDataSetChanged()
+    AnimUtils.animateShowView(rcvLastThree)
   }
 
   override fun showError(message: String?) {
