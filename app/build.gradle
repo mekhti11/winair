@@ -51,9 +51,6 @@ android {
             shrinkResources false
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-            firebaseCrashlytics {
-                mappingFileUploadEnabled false
-            }
             ext.enableCrashlytics = false
         }
         beta {
@@ -65,9 +62,6 @@ android {
             signingConfig signingConfigs.boardingBeta
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                mappingFileUploadEnabled true
-            }
             lintOptions {
                 disable 'MissingTranslation'
             }
@@ -78,9 +72,6 @@ android {
             useProguard false
             signingConfig signingConfigs.boardingProd
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                mappingFileUploadEnabled true
-            }
             lintOptions {
                 disable 'MissingTranslation'
             }
