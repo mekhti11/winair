@@ -21,11 +21,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hititcs.dcs.BuildConfig;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.domain.interactor.airline.GetCompaniesUseCase;
 import com.hititcs.dcs.domain.interactor.login.LoginUseCase;
 import com.hititcs.dcs.domain.model.Airline;
-import com.hititcs.dcs.domain.model.AirlineListResponse;
 import com.hititcs.dcs.domain.model.AuthModel;
 import com.hititcs.dcs.domain.model.LoginRequest;
 import com.hititcs.dcs.util.AppUtils;
@@ -95,6 +95,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
           }
         }
     );
+    setupTextInputLayoutsTitles();
   }
 
   private void showTokenErrorDialog() {
@@ -108,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private boolean validate() {
-    return dropDown.getPosition() >= 0 && !StringUtils.isEmpty(twUsername.getText().toString())
+    return !StringUtils.isEmpty(twUsername.getText().toString())
         && !StringUtils.isEmpty(twPassword.getText().toString());
   }
 
@@ -122,7 +123,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     request.setAirline("test");
     request.setUsername(twUsername.getText().toString());
     request.setPassword(twPassword.getText().toString());
-    request.setAirlineCode(adapter.getItem(dropDown.getPosition()).getAirlineCode());
+    request.setAirlineCode(BuildConfig.COMPANY_CODE);
     loginUseCase.execute(new SingleObserver<AuthModel>() {
       @Override
       public void onSubscribe(Disposable d) {
@@ -157,7 +158,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
     StorageReference tempStorageReference;
     tempStorageReference = firebaseStorageRef
-        .child(String.format("%s.png", adapter.getItem(dropDown.getPosition()).getAirlineCode()));
+        .child(String.format("%s.png", BuildConfig.COMPANY_CODE));
     File finalLocalFile = localFile;
     tempStorageReference.getFile(localFile).addOnSuccessListener(uri -> {
       hideProgressDialog();
@@ -172,7 +173,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private void getCompanies() {
-    showProgressDialog();
+/*    showProgressDialog();
     getCompaniesUseCase.execute(new SingleObserver<AirlineListResponse>() {
       @Override
       public void onSubscribe(Disposable d) {
@@ -189,7 +190,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
       public void onError(Throwable e) {
         hideProgressDialog();
       }
-    });
+    });*/
   }
 
   private void showCompanies(List<Airline> activeCompanies) {

@@ -35,6 +35,7 @@ android {
         applicationId "com.hititcs.boarding"
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
+        buildConfigField "String", "COMPANY_CODE", companyCode
         versionCode 1
         versionName "1.0"
         multiDexEnabled true

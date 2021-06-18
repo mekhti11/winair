@@ -1,5 +1,7 @@
 package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import com.hititcs.dcs.R
 import com.hititcs.dcs.R.layout
@@ -38,6 +40,13 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
     setToolbar()
     hideToolbar()
     setUpFragment()
+  }
+
+  override fun onBackPressed() {
+    var intent = Intent()
+    intent.putExtra(BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
+    activity?.let { activity?.setResult(Activity.RESULT_OK, intent) }
+    activity?.let { activity?.finish() }
   }
 
   private fun setUpFragment() {

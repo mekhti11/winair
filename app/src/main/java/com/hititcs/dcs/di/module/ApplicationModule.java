@@ -46,6 +46,13 @@ public abstract class ApplicationModule {
 
   @Provides
   @Singleton
+  @Named("companyCode")
+  static String provideCompanyCode() {
+    return BuildConfig.COMPANY_CODE;
+  }
+
+  @Provides
+  @Singleton
   static Gson provideGson() {
     return new Gson();
   }
