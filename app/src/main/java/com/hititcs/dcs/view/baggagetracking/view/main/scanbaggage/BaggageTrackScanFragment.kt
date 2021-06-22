@@ -2,9 +2,13 @@ package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
 
 import android.Manifest.permission
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -73,6 +77,16 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   private var locationName: String? = null
   var scannedTagList: MutableList<ScannedTag>? = null
   private lateinit var lastThreeBagAdapter: LastThreeBagAdapter
+  private lateinit var successAudioUri: Uri
+  private lateinit var failAudioUri: Uri
+  private var mediaPlayer: MediaPlayer? = MediaPlayer().apply {
+    setAudioAttributes(
+      AudioAttributes.Builder()
+        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+        .setUsage(AudioAttributes.USAGE_MEDIA)
+        .build()
+    )
+  }
 
   companion object {
     var EXTRA_LOCATION_NAME: String =
@@ -141,12 +155,26 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupAudios()
     initFlash()
     setupLastThreeItems()
     imgPause.setOnClickListener { onClickPause() }
     tvClose.setOnClickListener { onClickClose() }
     initTextViews()
     zxingBarcodeScanner.decodeContinuous(this)
+  }
+
+  private fun setupAudios() {
+    successAudioUri = Uri.Builder()
+      .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+      .authority(context().packageName)
+      .path(R.raw.success.toString())
+      .build()
+    failAudioUri = Uri.Builder()
+      .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+      .authority(context().packageName)
+      .path(R.raw.error.toString())
+      .build()
   }
 
   private fun initTextViews() {
@@ -161,6 +189,8 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
       zxingBarcodeScanner!!.barcodeView.stopDecoding()
       //binding?.barcodeScannerView = null
     }
+    mediaPlayer?.release()
+    mediaPlayer = null
     super.onDestroy()
   }
 
@@ -248,14 +278,32 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     hideProgressDialog()
     var delayTime: Long = SUCCESS_DELAY_BETWEEN_SCANS
     if (success) {
+      playSuccessAudio()
       lnBaggageScanSuccess.visibility = View.VISIBLE
     } else {
       delayTime = ERROR_DELAY_BETWEEN_SCANS
+      playFailAudio()
       barcodeErrorTxt.text = errorMsg
       lnBaggageScanFail.visibility = View.VISIBLE
       barcodeErrorTxt.visibility = View.VISIBLE
     }
     Handler().postDelayed(clearUiAfterBarcodeResponse(), delayTime)
+  }
+
+  private fun playSuccessAudio() {
+    mediaPlayer?.reset()
+    mediaPlayer?.setDataSource(context(), successAudioUri)
+    mediaPlayer?.prepare()
+    mediaPlayer?.seekTo(0)
+    mediaPlayer?.start()
+  }
+
+  private fun playFailAudio() {
+    mediaPlayer?.reset()
+    mediaPlayer?.setDataSource(context(), failAudioUri)
+    mediaPlayer?.prepare()
+    mediaPlayer?.seekTo(0)
+    mediaPlayer?.start()
   }
 
   private fun clearUiAfterBarcodeResponse(): Runnable {
