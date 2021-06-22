@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/text1"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:drawablePadding="@dimen/spacing_medium"
     tools:text="sadşglk"
     android:paddingBottom="@dimen/spacing_small"
-    android:textSize="@dimen/text_size_large"
+    android:textSize="@dimen/text_size_slarge"
     />

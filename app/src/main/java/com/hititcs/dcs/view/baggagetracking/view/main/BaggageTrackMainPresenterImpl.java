@@ -58,12 +58,12 @@ public class BaggageTrackMainPresenterImpl
     request.setTagNo(tagNo.substring(tagNo.length() - 6));
     scanBaggageBarcodeUseCase.execute(new SingleSubscriber<ScanBaggageOutputDto>(this) {
       @Override public void onResponse(ScanBaggageOutputDto data) {
-        view.scannedBaggageTag(tagNo, true);
+        view.scannedBaggageTag(tagNo, true, null);
         view.hideProgressDialog();
       }
 
       @Override public void onError(Throwable e) {
-        view.scannedBaggageTag(tagNo, false);
+        view.scannedBaggageTag(tagNo, false, super.getErrorMessage(e));
         view.hideProgressDialog();
       }
     }, request);

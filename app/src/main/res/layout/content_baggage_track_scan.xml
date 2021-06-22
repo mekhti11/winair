@@ -14,12 +14,50 @@
       app:zxing_scanner_layout="@layout/custom_barcode_scanner"
       ></com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
-  <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/img_switch_flashlight"
+  <TextView
+      android:id="@+id/tv_baggage_scan_flashlight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:src="@drawable/ic_flashlight_white_48dp"
+      style="@style/AppTextStyle.Regular"
+      android:text="@string/baggage_track_scan_flashlight"
+      android:layout_marginTop="@dimen/spacing_mlarge"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:includeFontPadding="false"
+      android:gravity="center_vertical"
+      android:alpha="0.5"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
+      android:drawableStart="@drawable/ic_flashlight"
+      android:drawablePadding="@dimen/spacing_small"
+      />
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_location_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/AppTextStyle.Bold"
+      tools:text="Location Name: CHECK_IN"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="@dimen/spacing_mlarge"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
+      />
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_location_code"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/AppTextStyle.Bold"
+      tools:text="Location Code: GK"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:layout_below="@+id/tv_baggage_scan_location_name"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      android:text="@string/baggage_track_main_last_3_bagtag_no"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
       />
 
   <LinearLayout
@@ -79,14 +117,18 @@
       tools:visibility="visible"
       />
 
-  <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/img_close"
+  <TextView
+      android:id="@+id/tv_baggage_scan_close"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:layout_centerHorizontal="true"
-      android:src="@drawable/ic_close_white_48dp"
+      android:layout_alignParentBottom="true"
+      style="@style/AppTextStyle.Bold"
+      android:text="@string/baggage_track_scan_complete"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      android:textSize="@dimen/text_size_medium"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
       />
 
   <androidx.appcompat.widget.AppCompatImageView

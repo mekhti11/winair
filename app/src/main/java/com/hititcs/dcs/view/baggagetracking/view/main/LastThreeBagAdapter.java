@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hititcs.dcs.R;
+import com.hititcs.dcs.util.StringUtils;
 import com.hititcs.dcs.view.BaseListAdapter;
 import com.hititcs.dcs.view.ItemViewHolder;
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag;
@@ -19,7 +20,10 @@ public class LastThreeBagAdapter
 
   private final int SHOW_NUMBER_OF_BAGTAG_LIMIT = 3;
 
-  public LastThreeBagAdapter() {
+  private boolean isFromMain;
+
+  public LastThreeBagAdapter(Boolean isFromMain) {
+    this.isFromMain = isFromMain;
   }
 
   @NonNull
@@ -33,7 +37,7 @@ public class LastThreeBagAdapter
   @Override
   public void onBindViewHolder(@NonNull @NotNull ScannedTagViewHolder holder, int position) {
     ScannedTag scannedTag = getItem(position);
-    holder.fillData(scannedTag);
+    holder.fillData(scannedTag, position);
   }
 
   @Override
@@ -55,13 +59,24 @@ public class LastThreeBagAdapter
       ButterKnife.bind(this, itemView);
     }
 
-    private void fillData(ScannedTag scannedTag) {
-      textView.setText(scannedTag.getTagNo());
+    private void fillData(ScannedTag scannedTag, int position) {
       if (scannedTag.getSuccess()) {
         textView.setTextColor(
             ContextCompat.getColor(itemView.getContext(), R.color.barcode_success));
+        if (isFromMain) {
+          textView.setText(String.format("%s - %s", scannedTag.getTagNo(),
+              itemView.getContext().getString(R.string.baggage_track_main_success)));
+        } else {
+          textView.setText(scannedTag.getTagNo());
+        }
       } else {
         textView.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.barcode_fail));
+        if (isFromMain) {
+          textView.setText(String.format("%s - %s", scannedTag.getTagNo(), !StringUtils.isEmpty(
+              scannedTag.getErrorMessage()) ? scannedTag.getErrorMessage() : ""));
+        } else {
+          textView.setText(scannedTag.getTagNo());
+        }
       }
     }
   }

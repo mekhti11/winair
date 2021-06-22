@@ -27,7 +27,13 @@
   <string name="baggage_track_main_bagtag_no">Bagtag No</string>
   <string name="baggage_track_main_bagtag_no_hint">Please enter or scan the bagtag no</string>
   <string name="baggage_track_main_last_3_bagtag_no">Last 3 Bagtag Numbers</string>
+  <string name="baggage_track_main_success">Success</string>
   <string name="baggage_track_main_send">Send</string>
+
+  <string name="baggage_track_scan_location_name">Location Name</string>
+  <string name="baggage_track_scan_location_code">Location Code</string>
+  <string name="baggage_track_scan_flashlight">Flashlight</string>
+  <string name="baggage_track_scan_complete">Complete</string>
 
   <string name="home_flights_found">flights found for this day</string>
   <string name="home_today_label">TODAY</string>

@@ -96,7 +96,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
 
   private fun setupLastThreeItems() {
     rcvLastThree.layoutManager = LinearLayoutManager(context)
-    lastThreeBagAdapter = LastThreeBagAdapter()
+    lastThreeBagAdapter = LastThreeBagAdapter(true)
     rcvLastThree.adapter = lastThreeBagAdapter
     lastThreeBagAdapter.itemList = scannedTagList
   }
@@ -196,10 +196,11 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     }
   }
 
-  override fun scannedBaggageTag(tagNo: String, isSuccess: Boolean) {
+  override fun scannedBaggageTag(tagNo: String, isSuccess: Boolean, errorMessage: String?) {
     val scannedTag = ScannedTag()
     scannedTag.success = isSuccess
     scannedTag.tagNo = tagNo
+    scannedTag.errorMessage = errorMessage
     scannedTagList.add(0, scannedTag)
     lastThreeBagAdapter.notifyDataSetChanged()
     AnimUtils.animateShowView(rcvLastThree)

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ScannedTag implements Serializable {
   private String tagNo;
   private Boolean isSuccess;
+  private String errorMessage;
 
   public ScannedTag() {
 
@@ -24,5 +25,13 @@ public class ScannedTag implements Serializable {
 
   public void setSuccess(Boolean success) {
     isSuccess = success;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
   }
 }

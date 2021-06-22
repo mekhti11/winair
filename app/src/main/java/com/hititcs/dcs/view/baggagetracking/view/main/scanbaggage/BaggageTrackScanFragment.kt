@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import com.google.zxing.ResultPoint
 import com.hititcs.dcs.R
-import com.hititcs.dcs.R.layout
 import com.hititcs.dcs.util.AnimUtils
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
@@ -61,12 +60,14 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   @BindView(R.id.zxing_barcode_scanner) lateinit var zxingBarcodeScanner: DecoratedBarcodeView
   @BindView(R.id.img_pause) lateinit var imgPause: AppCompatImageView
-  @BindView(R.id.img_close) lateinit var imgClose: AppCompatImageView
-  @BindView(R.id.img_switch_flashlight) lateinit var imgSwitchFlashlight: AppCompatImageView
+  @BindView(R.id.tv_baggage_scan_close) lateinit var tvClose: TextView
+  @BindView(R.id.tv_baggage_scan_flashlight) lateinit var tvFlashlight: TextView
   @BindView(R.id.ln_baggage_scan_success) lateinit var lnBaggageScanSuccess: LinearLayout
   @BindView(R.id.ln_baggage_scan_fail) lateinit var lnBaggageScanFail: LinearLayout
   @BindView(R.id.barcode_error_txt) lateinit var barcodeErrorTxt: TextView
   @BindView(R.id.rcv_last_three_items_camera) lateinit var rcvLastThree: RecyclerView
+  @BindView(R.id.tv_baggage_scan_location_name) lateinit var tvLocationName: TextView
+  @BindView(R.id.tv_baggage_scan_location_code) lateinit var tvLocationCode: TextView
 
   private var locationCode: String? = null
   private var locationName: String? = null
@@ -124,7 +125,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   private fun setupLastThreeItems() {
     rcvLastThree.layoutManager = LinearLayoutManager(context)
-    lastThreeBagAdapter = LastThreeBagAdapter()
+    lastThreeBagAdapter = LastThreeBagAdapter(false)
     rcvLastThree.adapter = lastThreeBagAdapter
     lastThreeBagAdapter.itemList = scannedTagList
   }
@@ -133,7 +134,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val fragmentView = inflater.inflate(layout.content_baggage_track_scan, container, false)
+    val fragmentView = inflater.inflate(R.layout.content_baggage_track_scan, container, false)
     bindView(fragmentView)
     return fragmentView
   }
@@ -143,8 +144,16 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     initFlash()
     setupLastThreeItems()
     imgPause.setOnClickListener { onClickPause() }
-    imgClose.setOnClickListener { onClickClose() }
+    tvClose.setOnClickListener { onClickClose() }
+    initTextViews()
     zxingBarcodeScanner.decodeContinuous(this)
+  }
+
+  private fun initTextViews() {
+    tvLocationName.text =
+      String.format("%s: %s", getString(R.string.baggage_track_scan_location_name), locationName)
+    tvLocationCode.text =
+      String.format("%s: %s", getString(R.string.baggage_track_scan_location_code), locationCode)
   }
 
   override fun onDestroy() {
@@ -162,9 +171,11 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   fun switchFlashlight() {
     mFlashOpen = if (mFlashOpen) {
+      tvFlashlight.alpha = 0.5f
       zxingBarcodeScanner.setTorchOff()
       false
     } else {
+      tvFlashlight.alpha = 1.0f
       zxingBarcodeScanner.setTorchOn()
       true
     }
@@ -180,9 +191,9 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   private fun initFlash() {
     if (!hasFlash()) {
-      imgSwitchFlashlight.visibility = View.GONE
+      tvFlashlight.visibility = View.GONE
     } else {
-      imgSwitchFlashlight.setOnClickListener { switchFlashlight() }
+      tvFlashlight.setOnClickListener { switchFlashlight() }
     }
   }
 
@@ -292,6 +303,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
     val scannedTag = ScannedTag()
     scannedTag.success = isSuccess
     scannedTag.tagNo = tagNo
+    scannedTag.errorMessage = message
     scannedTagList?.add(0, scannedTag)
     lastThreeBagAdapter.notifyDataSetChanged()
     AnimUtils.animateShowView(rcvLastThree)

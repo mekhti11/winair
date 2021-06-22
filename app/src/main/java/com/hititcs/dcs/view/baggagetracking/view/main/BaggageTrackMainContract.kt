@@ -12,6 +12,6 @@ interface BaggageTrackMainContract {
 
   interface BaggageTrackMainView : LoadView {
     fun setLocationNamesAndCodes(locationAndNameCodes: List<TrackBaggageLocationDto>)
-    fun scannedBaggageTag(tagNo: String, isSuccess: Boolean)
+    fun scannedBaggageTag(tagNo: String, isSuccess: Boolean, errorMessage: String?)
   }
 }
