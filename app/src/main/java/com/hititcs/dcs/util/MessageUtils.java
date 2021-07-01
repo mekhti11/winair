@@ -19,10 +19,12 @@ public class MessageUtils {
         return ErrorMessage.ALREADY_BOARDED.normalizeName();
       } else if (httpResponse.contains("FLIGHT_MATCH_EXCEPTION")) {
         return ErrorMessage.FLIGHT_MISMATCH.normalizeName();
-      } else if(httpResponse.contains("Your seat number has been changed")){
+      } else if (httpResponse.contains("Your seat number has been changed")) {
         return ErrorMessage.SEAT_CHANGED.normalizeName();
-      }else if(httpResponse.contains("Boarding error has already borded")){
+      } else if (httpResponse.contains("Boarding error has already borded")) {
         return ErrorMessage.ALREADY_BOARDED.normalizeName();
+      } else if (httpResponse.contains("Boarding error invalid flight")) {
+        return ErrorMessage.INVALID_FLIGHT.normalizeName();
       }
     }
     return ErrorMessage.UNDEFINED_ERROR.normalizeName();
