@@ -1,5 +1,6 @@
 package com.hititcs.dcs.view.flight.detail;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,9 +18,11 @@ import butterknife.OnClick;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.domain.model.FlightDetail;
 import com.hititcs.dcs.domain.model.FlightSummary;
+import com.hititcs.dcs.model.DeviceEnum;
 import com.hititcs.dcs.util.AnimUtils;
 import com.hititcs.dcs.util.AppUtils;
 import com.hititcs.dcs.util.DateTimeUtils;
+import com.hititcs.dcs.util.DeviceUtils;
 import com.hititcs.dcs.util.ImageUtils;
 import com.hititcs.dcs.util.MessageUtils;
 import com.hititcs.dcs.util.ParcelUtils;
@@ -217,11 +220,43 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
 
   }
 
-  @OnClick(R.id.scan_barcode)
-  public void onScanBarcodeClicked() {
+  private void openScanBarcodeZebra() {
     Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
     intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
     intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.ZEBRA.getValue());
     startActivity(intent);
   }
+
+  private void openScanBarcodeCamera() {
+    Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
+    intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
+    intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.CAMERA.getValue());
+    startActivity(intent);
+  }
+
+  private void showCameraAndZebraDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeZebra();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
+  @OnClick(R.id.scan_barcode)
+  public void onScanBarcodeClicked() {
+    if (DeviceUtils.isManufacturerZebra()) {
+      showCameraAndZebraDeviceSelectionDialog();
+    } else {
+      openScanBarcodeCamera();
+    }
+  }
+
 }

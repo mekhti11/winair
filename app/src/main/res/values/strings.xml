@@ -56,6 +56,12 @@
   <string name="detail_boarding_gate">Boarding Gate: </string>
   <string name="detail_delay_time">Delay Time: </string>
 
+  <string name="dialog_title_select_a_device">Please Select A Device</string>
+
+  <string-array name="barcode_devices_array">
+    <item>Zebra Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
 
   <string name="general_popup_ok">OK</string>
   <string name="general_popup_cancel">CANCEL</string>

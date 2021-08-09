@@ -37,6 +37,8 @@
   <dimen name="spacing_xxxlarge">64dp</dimen>
   <dimen name="spacing_xxxxlarge">96dp</dimen>
   <dimen name="spacing_xxxxxlarge">120dp</dimen>
+  <dimen name="spacing_xxxxxxlarge">256dp</dimen>
+
 
   <dimen name="text_size_xxsmall">8sp</dimen>
   <dimen name="text_size_xlsmall">9sp</dimen>
