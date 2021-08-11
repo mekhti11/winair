@@ -35,8 +35,8 @@ android {
         applicationId "com.hititcs.boarding"
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
-        versionCode 1
-        versionName "1.0"
+        versionCode 20
+        versionName "2.0"
         multiDexEnabled true
         resConfigs 'en'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
