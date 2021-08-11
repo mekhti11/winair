@@ -77,9 +77,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_company"
             style="@style/AppTextInputLayoutStyle"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/spacing_large"
-            android:hint="AIRLINE"
+            app:placeholderText="@string/login_airline_hint"
+            android:hint="Airline"
             >
 
           <com.hititcs.dcs.widget.AutoCompleteDropDown
@@ -89,7 +89,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:dropDownIconColor="@color/colorSecondary"
-          />
+              />
 
         </com.google.android.material.textfield.TextInputLayout>
 
