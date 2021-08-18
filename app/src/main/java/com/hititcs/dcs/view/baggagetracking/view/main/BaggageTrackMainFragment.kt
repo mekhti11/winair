@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog.Builder
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +35,6 @@ import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.B
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragment
 import com.hititcs.dcs.widget.AutoCompleteDropDown
-import com.hititcs.dcs.widget.GeneralTextWatcher
 import java.io.Serializable
 import javax.inject.Inject
 
@@ -117,7 +118,13 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   }
 
   private fun setupBagTagNoListener() {
-    edtBagTagNo.addTextChangedListener(GeneralTextWatcher(edtBagTagNo) { updateSendButtonState() })
+    edtBagTagNo.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+      override fun afterTextChanged(s: Editable) {
+        updateSendButtonState()
+      }
+    })
   }
 
   private fun updateSendButtonState() {
