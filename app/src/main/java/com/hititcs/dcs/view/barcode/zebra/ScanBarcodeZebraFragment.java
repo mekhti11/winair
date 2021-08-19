@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.barcode;
+package com.hititcs.dcs.view.barcode.zebra;
 
 import android.content.ContentResolver;
 import android.media.MediaPlayer;
@@ -53,7 +53,7 @@ import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_CO
 import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.FLIGHT_ID;
 
 public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragment> implements
-    ScanBarcodeView, EMDKListener, ScannerConnectionListener, DataListener, StatusListener {
+    ScanBarcodeZebraView, EMDKListener, ScannerConnectionListener, DataListener, StatusListener {
 
   private static final long SUCCESS_DELAY_BETWEEN_SCANS = 1000L;
   private static final long ERROR_DELAY_BETWEEN_SCANS = 1000L;
@@ -71,7 +71,7 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
   @BindView(R.id.tw_boarded_count)
   TextView boardedCount;
   @Inject
-  ScanBarcodePresenter presenter;
+  ScanBarcodeZebraPresenter presenter;
   private String flightId;
   private String boardedCountStart;
   private MediaPlayer mediaPlayer = new MediaPlayer();
@@ -347,7 +347,7 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
           BoardWithBarcodeRequest boardWithBarcodeRequest = new BoardWithBarcodeRequest();
           boardWithBarcodeRequest.setBarcode(data.getData());
           boardWithBarcodeRequest.setFlightId(flightId);
-          presenter.scanBarcode(boardWithBarcodeRequest, new BarcodeReadListener(this));
+          presenter.scanBarcode(boardWithBarcodeRequest, new BarcodeReadZebraListener(this));
           break;
         }
       }
@@ -489,7 +489,7 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
       imgBarcodeError.setVisibility(View.VISIBLE);
       barcodeErrorTxt.setVisibility(View.VISIBLE);
     }
-    new Handler().postDelayed(new ScanBarcodeZebraFragment.HandleFinish(this), delayTime);
+    new Handler().postDelayed(new HandleFinishZebra(this), delayTime);
   }
 
   private void onError(String errorMessage) {
@@ -524,13 +524,13 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
     void onError(String errorMessage);
   }
 
-  private static class BarcodeReadListener implements
-      ScanBarcodeFragment.ResponseListener<BoardingResponse> {
+  private static class BarcodeReadZebraListener implements
+      ScanBarcodeZebraFragment.ResponseListener<BoardingResponse> {
 
     private final WeakReference<ScanBarcodeZebraFragment>
         mBarcodeScannerProductViewWeakReference;
 
-    public BarcodeReadListener(
+    public BarcodeReadZebraListener(
         ScanBarcodeZebraFragment scanBarcodeZebraFragment) {
       mBarcodeScannerProductViewWeakReference = new WeakReference<>(scanBarcodeZebraFragment);
     }
@@ -553,11 +553,11 @@ public class ScanBarcodeZebraFragment extends BaseFragment<ScanBarcodeZebraFragm
     }
   }
 
-  class HandleFinish implements Runnable {
+  class HandleFinishZebra implements Runnable {
 
     private WeakReference<ScanBarcodeZebraFragment> scanBarcodeFragmentWeakReference;
 
-    public HandleFinish(ScanBarcodeZebraFragment scanBarcodeFragment) {
+    public HandleFinishZebra(ScanBarcodeZebraFragment scanBarcodeFragment) {
       scanBarcodeFragmentWeakReference = new WeakReference<>(scanBarcodeFragment);
     }
 

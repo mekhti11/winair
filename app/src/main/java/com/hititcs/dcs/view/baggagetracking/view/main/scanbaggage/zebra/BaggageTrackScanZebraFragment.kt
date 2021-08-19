@@ -1,4 +1,4 @@
-package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage
+package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra
 
 import android.Manifest.permission
 import android.app.Activity
@@ -31,8 +31,8 @@ import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
 import com.hititcs.dcs.view.baggagetracking.view.main.LastThreeBagAdapter
-import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanPresenter
-import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanContract.BaggageTrackScanView
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraContract.BaggageTrackScanZebraPresenter
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraContract.BaggageTrackScanZebraView
 import com.symbol.emdk.EMDKManager
 import com.symbol.emdk.EMDKManager.EMDKListener
 import com.symbol.emdk.EMDKManager.FEATURE_TYPE.BARCODE
@@ -63,7 +63,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment>(),
-  BaggageTrackScanView, EMDKListener, ScannerConnectionListener, DataListener, StatusListener {
+  BaggageTrackScanZebraView, EMDKListener, ScannerConnectionListener, DataListener, StatusListener {
 
   private val STATE_FLASH_OPEN = "state:flashOpen"
   private val STATE_CAMERA_PAUSE = "state:cameraPause"
@@ -79,7 +79,7 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
   private var mPauseDrawable: Drawable? = null
   private var mPlayDrawable: Drawable? = null
 
-  @Inject lateinit var presenter: BaggageTrackScanPresenter
+  @Inject lateinit var presenter: BaggageTrackScanZebraPresenter
 
   @BindView(R.id.img_pause) lateinit var imgPause: AppCompatImageView
   @BindView(R.id.tv_baggage_scan_close) lateinit var tvClose: TextView
@@ -117,11 +117,11 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
 
   companion object {
     var EXTRA_LOCATION_NAME: String =
-      "EXTRA_LOCATION_NAME." + BaggageTrackScanFragment.javaClass.simpleName
+      "EXTRA_LOCATION_NAME." + BaggageTrackScanZebraFragment.javaClass.simpleName
     var EXTRA_LOCATION_CODE: String =
-      "EXTRA_LOCATION_CODE." + BaggageTrackScanFragment.javaClass.simpleName
+      "EXTRA_LOCATION_CODE." + BaggageTrackScanZebraFragment.javaClass.simpleName
     var EXTRA_SCANNED_TAG_LIST: String =
-      "EXTRA_SCANNED_TAG_LIST." + BaggageTrackScanFragment.javaClass.simpleName
+      "EXTRA_SCANNED_TAG_LIST." + BaggageTrackScanZebraFragment.javaClass.simpleName
 
     fun newInstance(
       locationCode: String,
@@ -129,7 +129,7 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
       scannedTagList: MutableList<ScannedTag>?
     ): Fragment {
       val args = Bundle()
-      val fragment = BaggageTrackScanFragment()
+      val fragment = BaggageTrackScanZebraFragment()
       args.putString(EXTRA_LOCATION_CODE, locationCode)
       args.putString(EXTRA_LOCATION_NAME, locationName)
       args.putSerializable(EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)

@@ -6,8 +6,10 @@ import android.os.Bundle
 import com.hititcs.dcs.R
 import com.hititcs.dcs.R.layout
 import com.hititcs.dcs.model.DeviceEnum
+import com.hititcs.dcs.util.FragmentUtils
 import com.hititcs.dcs.view.BaseActivity
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraFragment
 import com.hititcs.dcs.view.flight.detail.FlightDetailFragment
 import java.io.Serializable
 
@@ -56,7 +58,17 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
 
   override fun onBackPressed() {
     var intent = Intent()
-    intent.putExtra(BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
+    if (FragmentUtils.getVisibleFragment(supportFragmentManager) is BaggageTrackScanFragment) {
+      intent.putExtra(
+        BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST,
+        scannedTagList as Serializable
+      )
+    } else if (FragmentUtils.getVisibleFragment(supportFragmentManager) is BaggageTrackScanZebraFragment) {
+      intent.putExtra(
+        BaggageTrackScanZebraFragment.EXTRA_SCANNED_TAG_LIST,
+        scannedTagList as Serializable
+      )
+    }
     activity?.let { activity?.setResult(Activity.RESULT_OK, intent) }
     activity?.let { activity?.finish() }
   }

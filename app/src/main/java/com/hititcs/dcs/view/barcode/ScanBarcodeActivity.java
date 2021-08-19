@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.model.DeviceEnum;
 import com.hititcs.dcs.view.BaseActivity;
+import com.hititcs.dcs.view.barcode.zebra.ScanBarcodeZebraFragment;
 import com.hititcs.dcs.view.flight.detail.FlightDetailFragment;
 
 import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_COUNT_START;

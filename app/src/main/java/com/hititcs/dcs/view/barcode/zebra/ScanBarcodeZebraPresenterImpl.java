@@ -1,30 +1,30 @@
-package com.hititcs.dcs.view.barcode;
+package com.hititcs.dcs.view.barcode.zebra;
 
 import com.hititcs.dcs.domain.interactor.boarding.ScanBarcodeUseCase;
 import com.hititcs.dcs.domain.model.BoardWithBarcodeRequest;
 import com.hititcs.dcs.domain.model.BoardingResponse;
 import com.hititcs.dcs.subscriber.SingleSubscriber;
 import com.hititcs.dcs.util.MessageUtils;
-import com.hititcs.dcs.view.barcode.ScanBarcodeFragment.ResponseListener;
 
-public class ScanBarcodePresenterImpl implements ScanBarcodePresenter {
+public class ScanBarcodeZebraPresenterImpl implements ScanBarcodeZebraPresenter {
 
-  private ScanBarcodeView scanBarcodeView;
   private final ScanBarcodeUseCase scanBarcodeUseCase;
+  private ScanBarcodeZebraView scanBarcodeZebraView;
 
-  public ScanBarcodePresenterImpl(ScanBarcodeView scanBarcodeView, ScanBarcodeUseCase scanBarcodeUseCase) {
-    this.scanBarcodeView = scanBarcodeView;
+  public ScanBarcodeZebraPresenterImpl(ScanBarcodeZebraView scanBarcodeZebraView,
+      ScanBarcodeUseCase scanBarcodeUseCase) {
+    this.scanBarcodeZebraView = scanBarcodeZebraView;
     this.scanBarcodeUseCase = scanBarcodeUseCase;
   }
 
   @Override
-  public ScanBarcodeView getView() {
-    return scanBarcodeView;
+  public ScanBarcodeZebraView getView() {
+    return scanBarcodeZebraView;
   }
 
   @Override
-  public void setView(ScanBarcodeView view) {
-    this.scanBarcodeView = view;
+  public void setView(ScanBarcodeZebraView view) {
+    this.scanBarcodeZebraView = view;
   }
 
   @Override
@@ -36,19 +36,19 @@ public class ScanBarcodePresenterImpl implements ScanBarcodePresenter {
 
   @Override
   public void scanBarcode(BoardWithBarcodeRequest request,
-      ResponseListener<BoardingResponse> responseListener) {
-    scanBarcodeView.showProgressDialog();
+      ScanBarcodeZebraFragment.ResponseListener<BoardingResponse> responseListener) {
+    scanBarcodeZebraView.showProgressDialog();
     scanBarcodeUseCase.execute(new SingleSubscriber<BoardingResponse>(this) {
       @Override
       public void onResponse(BoardingResponse data) {
         responseListener.onResponse(data);
-        scanBarcodeView.hideProgressDialog();
+        scanBarcodeZebraView.hideProgressDialog();
       }
 
       @Override
       public void onError(Throwable e) {
         responseListener.onError(MessageUtils.getMessage(super.getErrorMessage(e)));
-        scanBarcodeView.hideProgressDialog();
+        scanBarcodeZebraView.hideProgressDialog();
       }
     }, request);
   }

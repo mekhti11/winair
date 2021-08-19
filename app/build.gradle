@@ -106,7 +106,7 @@ dependencies {
     implementation rootProject.ext.MODULE_UI_IMPL_DEPS
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.android.support:appcompat-v7:25.3.1'   // Minimum 23+ is required
-    compileOnly 'com.symbol:emdk:7.6.10'
+    implementation 'com.symbol:emdk:+'
 
     kapt dependencies.roomCompiler
     kapt dependencies.parcelerProcessor

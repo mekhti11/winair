@@ -34,6 +34,7 @@ import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.B
 import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.BaggageTrackMainView
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragment
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraFragment
 import com.hititcs.dcs.widget.AutoCompleteDropDown
 import java.io.Serializable
 import javax.inject.Inject
@@ -42,6 +43,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   BaggageTrackMainView {
 
   private val SCAN_WITH_CAMERA_REQUEST_CODE = 1255;
+  private val SCAN_WITH_ZEBRA_REQUEST_CODE = 1256;
 
   @BindView(R.id.dropdown_bag_area_location)
   lateinit var dropdownBagAreaLocation: AutoCompleteDropDown
@@ -246,7 +248,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       scannedTagList as Serializable
     )
     intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.ZEBRA.value)
-    startActivityForResult(intent, SCAN_WITH_CAMERA_REQUEST_CODE)
+    startActivityForResult(intent, SCAN_WITH_ZEBRA_REQUEST_CODE)
   }
 
   private fun openScanBarcodeCamera() {
@@ -286,6 +288,13 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     if (requestCode == SCAN_WITH_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
       scannedTagList =
         data!!.getSerializableExtra(BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>)
+      rcvLastThree.adapter = lastThreeBagAdapter
+      lastThreeBagAdapter.itemList = scannedTagList
+      lastThreeBagAdapter.notifyDataSetChanged()
+      AnimUtils.animateShowView(rcvLastThree)
+    } else if (requestCode == SCAN_WITH_ZEBRA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      scannedTagList =
+        data!!.getSerializableExtra(BaggageTrackScanZebraFragment.EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>)
       rcvLastThree.adapter = lastThreeBagAdapter
       lastThreeBagAdapter.itemList = scannedTagList
       lastThreeBagAdapter.notifyDataSetChanged()
