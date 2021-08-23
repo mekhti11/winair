@@ -228,6 +228,8 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     AppUtils.hideKeyboardFrom(context(), this.view)
     if (DeviceUtils.isManufacturerZebra()) {
       showCameraAndZebraDeviceSelectionDialog()
+    } else if (DeviceUtils.isManufacturerKranger()) {
+      showCameraAndKrangerDeviceSelectionDialog()
     } else {
       openScanBarcodeCamera()
     }
@@ -248,6 +250,24 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       scannedTagList as Serializable
     )
     intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.ZEBRA.value)
+    startActivityForResult(intent, SCAN_WITH_ZEBRA_REQUEST_CODE)
+  }
+
+  private fun openScanBarcodeKranger() {
+    var intent = Intent(context(), BaggageTrackScanActivity::class.java)
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_NAME,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[0].locationName
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_CODE,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[selectedLocationCodeIndex].locationCode
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_SCANNED_TAG_LIST,
+      scannedTagList as Serializable
+    )
+    intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.K_RANGER.value)
     startActivityForResult(intent, SCAN_WITH_ZEBRA_REQUEST_CODE)
   }
 
@@ -275,6 +295,20 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       .setItems(array.barcode_devices_array_zebra) { dialog, selectedPosition ->
         if (selectedPosition === 0) {
           openScanBarcodeZebra()
+        } else if (selectedPosition === 1) {
+          openScanBarcodeCamera()
+        }
+      }
+    builder.create()
+    builder.show()
+  }
+
+  private fun showCameraAndKrangerDeviceSelectionDialog() {
+    val builder = Builder(activity)
+    builder.setTitle(string.dialog_title_select_a_device)
+      .setItems(array.barcode_devices_array_kranger) { dialog, selectedPosition ->
+        if (selectedPosition === 0) {
+          openScanBarcodeKranger()
         } else if (selectedPosition === 1) {
           openScanBarcodeCamera()
         }

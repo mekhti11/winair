@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
@@ -74,16 +73,10 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
   private var mFlashOpen = false
   private var mCameraPause = false
 
-  private var mOpenFlashDrawable: Drawable? = null
-  private var mCloseFlashDrawable: Drawable? = null
-  private var mPauseDrawable: Drawable? = null
-  private var mPlayDrawable: Drawable? = null
-
   @Inject lateinit var presenter: BaggageTrackScanZebraPresenter
 
   @BindView(R.id.img_pause) lateinit var imgPause: AppCompatImageView
   @BindView(R.id.tv_baggage_scan_close) lateinit var tvClose: TextView
-  @BindView(R.id.tv_baggage_scan_flashlight) lateinit var tvFlashlight: TextView
   @BindView(R.id.ln_baggage_scan_success) lateinit var lnBaggageScanSuccess: LinearLayout
   @BindView(R.id.ln_baggage_scan_fail) lateinit var lnBaggageScanFail: LinearLayout
   @BindView(R.id.barcode_error_txt) lateinit var barcodeErrorTxt: TextView
@@ -472,11 +465,6 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
     mediaPlayer?.release()
     mediaPlayer = null
     super.onDestroy()
-  }
-
-  private fun hasFlash(): Boolean {
-    return activity!!.applicationContext.packageManager
-      .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
   }
 
   private fun onClickClose() {

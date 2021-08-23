@@ -9,6 +9,7 @@ import com.hititcs.dcs.model.DeviceEnum
 import com.hititcs.dcs.util.FragmentUtils
 import com.hititcs.dcs.view.BaseActivity
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.kranger.BaggageTrackScanKrangerFragment
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraFragment
 import com.hititcs.dcs.view.flight.detail.FlightDetailFragment
 import java.io.Serializable
@@ -53,6 +54,8 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
       setUpCameraFragment()
     } else if (selectedDevice!!.equals(DeviceEnum.ZEBRA.value)) {
       setUpZebraFragment()
+    } else if (selectedDevice!!.equals(DeviceEnum.K_RANGER.value)) {
+      setUpKrangerFragment()
     }
   }
 
@@ -66,6 +69,11 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
     } else if (FragmentUtils.getVisibleFragment(supportFragmentManager) is BaggageTrackScanZebraFragment) {
       intent.putExtra(
         BaggageTrackScanZebraFragment.EXTRA_SCANNED_TAG_LIST,
+        scannedTagList as Serializable
+      )
+    } else if (FragmentUtils.getVisibleFragment(supportFragmentManager) is BaggageTrackScanKrangerFragment) {
+      intent.putExtra(
+        BaggageTrackScanKrangerFragment.EXTRA_SCANNED_TAG_LIST,
         scannedTagList as Serializable
       )
     }
@@ -97,6 +105,24 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
         R.id.content_frame,
         BaggageTrackScanZebraFragment.newInstance(locationCode!!, locationName!!, scannedTagList!!),
         BaggageTrackScanZebraFragment::class.java.simpleName
+      )
+      .commit()
+  }
+
+  private fun setUpKrangerFragment() {
+    if (scannedTagList == null) {
+      scannedTagList = mutableListOf()
+    }
+    supportFragmentManager
+      .beginTransaction()
+      .replace(
+        R.id.content_frame,
+        BaggageTrackScanKrangerFragment.newInstance(
+          locationCode!!,
+          locationName!!,
+          scannedTagList!!
+        ),
+        BaggageTrackScanKrangerFragment::class.java.simpleName
       )
       .commit()
   }
