@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.model.DeviceEnum;
 import com.hititcs.dcs.view.BaseActivity;
+import com.hititcs.dcs.view.barcode.kranger.ScanBarcodeKrangerFragment;
 import com.hititcs.dcs.view.barcode.zebra.ScanBarcodeZebraFragment;
 import com.hititcs.dcs.view.flight.detail.FlightDetailFragment;
 
@@ -34,6 +35,8 @@ public class ScanBarcodeActivity extends BaseActivity<ScanBarcodeActivity> {
             setUpCameraFragment();
         } else if (selectedDevice.equalsIgnoreCase(DeviceEnum.ZEBRA.getValue())) {
             setUpZebraFragment();
+        } else if (selectedDevice.equalsIgnoreCase(DeviceEnum.K_RANGER.getValue())) {
+            setUpKrangerFragment();
         }
     }
 
@@ -52,6 +55,15 @@ public class ScanBarcodeActivity extends BaseActivity<ScanBarcodeActivity> {
             .replace(R.id.content_frame,
                 ScanBarcodeZebraFragment.newInstance(flightId, boardedCountStart),
                 ScanBarcodeZebraFragment.class.getSimpleName())
+            .commit();
+    }
+
+    private void setUpKrangerFragment() {
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.content_frame,
+                ScanBarcodeKrangerFragment.newInstance(flightId, boardedCountStart),
+                ScanBarcodeKrangerFragment.class.getSimpleName())
             .commit();
     }
 

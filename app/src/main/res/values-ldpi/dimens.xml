@@ -64,6 +64,8 @@
   <dimen name="text_size_card">2.25sp</dimen>
   <dimen name="text_size_input">2.1sp</dimen>
 
+  <dimen name="board_pax_service_message_margin_top">40dp</dimen>
+
   <dimen name="main_logo_width">36.0dp</dimen>
   <dimen name="main_logo_height">6.75dp</dimen>
 </resources>

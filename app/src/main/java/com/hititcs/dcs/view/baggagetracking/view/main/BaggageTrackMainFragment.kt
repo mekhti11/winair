@@ -272,7 +272,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   private fun showCameraAndZebraDeviceSelectionDialog() {
     val builder = Builder(activity)
     builder.setTitle(string.dialog_title_select_a_device)
-      .setItems(array.barcode_devices_array) { dialog, selectedPosition ->
+      .setItems(array.barcode_devices_array_zebra) { dialog, selectedPosition ->
         if (selectedPosition === 0) {
           openScanBarcodeZebra()
         } else if (selectedPosition === 1) {

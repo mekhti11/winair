@@ -36,9 +36,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
 
   public static final String FLIGHT_ID = "FLIGHT_ID";
   public static final String BOARDED_COUNT_START = "BOARDED_COUNT_START";
-
-  private String boardedCount;
-
+  public static final String EXTRA_FLIGHT = "extra:flight";
   @Inject
   FlightDetailPresenter flightDetailPresenter;
 
@@ -85,9 +83,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   TextView tvFlightStatus;
   @BindView(R.id.iv_company_logo)
   ImageView ivCompanyLogo;
-
-  public static final String EXTRA_FLIGHT = "extra:flight";
-
+  private String boardedCount;
   private FlightSummary flightSummary;
   private Drawable companyLogo;
 
@@ -228,6 +224,14 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     startActivity(intent);
   }
 
+  private void openScanBarcodeKranger() {
+    Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
+    intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
+    intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.K_RANGER.getValue());
+    startActivity(intent);
+  }
+
   private void openScanBarcodeCamera() {
     Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
     intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
@@ -239,9 +243,23 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   private void showCameraAndZebraDeviceSelectionDialog() {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle(R.string.dialog_title_select_a_device)
-        .setItems(R.array.barcode_devices_array, (dialog, selectedPosition) -> {
+        .setItems(R.array.barcode_devices_array_zebra, (dialog, selectedPosition) -> {
           if (selectedPosition == 0) {
             openScanBarcodeZebra();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
+  private void showCameraAndKrangerDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array_kranger, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeKranger();
           } else if (selectedPosition == 1) {
             openScanBarcodeCamera();
           }
@@ -254,9 +272,10 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   public void onScanBarcodeClicked() {
     if (DeviceUtils.isManufacturerZebra()) {
       showCameraAndZebraDeviceSelectionDialog();
+    } else if (DeviceUtils.isManufacturerKranger()) {
+      showCameraAndKrangerDeviceSelectionDialog();
     } else {
       openScanBarcodeCamera();
     }
   }
-
 }

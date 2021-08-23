@@ -59,8 +59,13 @@
 
   <string name="dialog_title_select_a_device">Please Select A Device</string>
 
-  <string-array name="barcode_devices_array">
+  <string-array name="barcode_devices_array_zebra">
     <item>Zebra Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
+
+  <string-array name="barcode_devices_array_kranger">
+    <item>K-Ranger Scanner</item>
     <item>Device Camera</item>
   </string-array>
 
