@@ -109,21 +109,30 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     locationName = arguments?.getString(EXTRA_LOCATION_NAME)
     scannedTagList =
       arguments?.getSerializable(EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>?)
-    setupBroadcastReceiver()
   }
 
   private fun setupBroadcastReceiver() {
     mReceiver = object : BroadcastReceiver() {
       override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == ACTION_BARCODE) {
-          val barcode = intent.getStringExtra(EXTRA_BARCODE)
-          if (barcode != null) {
+        val action = intent.action
+        if (action == ACTION_BARCODE) {
+          val str = intent.getStringExtra(EXTRA_BARCODE)
+          if (str != null) {
+            val barcode: String = str
             stopBarcodeService()
             presenter.scanBaggageBarcode(locationName!!, locationCode!!, barcode.takeLast(6))
           }
         }
       }
     }
+  }
+
+  private fun enableTrigger() {
+    activity!!.sendBroadcast(Intent(ACTION_TRIGGER_ON))
+  }
+
+  private fun disableTrigger() {
+    activity!!.sendBroadcast(Intent(ACTION_TRIGGER_OFF))
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -181,6 +190,7 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   fun pressedScanBtn() {
     hideStartScanningBtn()
     startBarcodeService()
+    enableTrigger()
   }
 
   private fun showStartScanningBtn() {
@@ -201,11 +211,13 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
 
   override fun onResume() {
     super.onResume()
+    setupBroadcastReceiver()
     activity!!.registerReceiver(mReceiver, IntentFilter(ACTION_BARCODE))
   }
 
   override fun onPause() {
     super.onPause()
+    disableTrigger()
     stopBarcodeService()
     showStartScanningBtn()
     activity!!.unregisterReceiver(mReceiver)

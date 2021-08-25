@@ -136,6 +136,14 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
         .build();
   }
 
+  private void enableTrigger() {
+    getActivity().sendBroadcast(new Intent(ACTION_TRIGGER_ON));
+  }
+
+  private void disableTrigger() {
+    getActivity().sendBroadcast(new Intent(ACTION_TRIGGER_OFF));
+  }
+
   @Override
   protected ScanBarcodeKrangerFragment getFragment() {
     return this;
@@ -180,9 +188,12 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   @Override
   public void onPause() {
     super.onPause();
+    disableTrigger();
     stopBarcodeService();
     showStartScanningBtn();
-    getActivity().unregisterReceiver(mReceiver);
+    if (mReceiver != null) {
+      getActivity().unregisterReceiver(mReceiver);
+    }
   }
 
   private void playSuccessAudio() {
@@ -219,6 +230,7 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   public void onPressedStartScanning(View view) {
     hideStartScanningBtn();
     startBarcodeService();
+    enableTrigger();
   }
 
   public void startBarcodeService() {

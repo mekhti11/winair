@@ -228,7 +228,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     AppUtils.hideKeyboardFrom(context(), this.view)
     if (DeviceUtils.isManufacturerZebra()) {
       showCameraAndZebraDeviceSelectionDialog()
-    } else if (DeviceUtils.isManufacturerKranger()) {
+    } else if (DeviceUtils.isModelKrangerRow()) {
       showCameraAndKrangerDeviceSelectionDialog()
     } else {
       openScanBarcodeCamera()

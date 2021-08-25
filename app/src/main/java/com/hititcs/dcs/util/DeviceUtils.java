@@ -9,12 +9,7 @@ public class DeviceUtils {
         || Build.MANUFACTURER.contains("Zebra") || Build.MANUFACTURER.contains("ZEBRA"));
   }
 
-  public static boolean isManufacturerKranger() {
-    return !StringUtils.isEmpty(Build.MANUFACTURER) && (Build.MANUFACTURER.contains("kranger")
-        || Build.MANUFACTURER.contains("Kranger")
-        || Build.MANUFACTURER.contains("KRANGER")
-        || Build.MANUFACTURER.contains("k-ranger")
-        || Build.MANUFACTURER.contains("K-ranger")
-        || Build.MANUFACTURER.contains("K-RANGER"));
+  public static boolean isModelKrangerRow() {
+    return !StringUtils.isEmpty(Build.MODEL) && Build.MODEL.contains("K-Ranger_ROW");
   }
 }

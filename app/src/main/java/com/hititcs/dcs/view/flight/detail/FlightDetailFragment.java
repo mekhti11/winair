@@ -272,7 +272,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   public void onScanBarcodeClicked() {
     if (DeviceUtils.isManufacturerZebra()) {
       showCameraAndZebraDeviceSelectionDialog();
-    } else if (DeviceUtils.isManufacturerKranger()) {
+    } else if (DeviceUtils.isModelKrangerRow()) {
       showCameraAndKrangerDeviceSelectionDialog();
     } else {
       openScanBarcodeCamera();
