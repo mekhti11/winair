@@ -190,7 +190,7 @@
   <style name="AppPlaceHolderTextStyle" parent="TextAppearance.AppCompat.Medium">
     <item name="android:fontFamily">@font/poppins_extra_light</item>
     <item name="android:textColor">@color/grey_inactive_text</item>
-    <item name="android:textSize">@dimen/text_size_small</item>
+    <item name="android:textSize">@dimen/text_size_msmall</item>
   </style>
 
   <style name="AppHelperTextStyle" parent="TextAppearance.AppCompat.Medium">

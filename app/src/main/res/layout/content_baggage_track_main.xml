@@ -32,8 +32,8 @@
           android:layout_height="wrap_content"
           android:focusable="true"
           android:focusableInTouchMode="true"
-          android:layout_marginStart="@dimen/spacing_large"
-          android:layout_marginEnd="@dimen/spacing_large"
+          android:layout_marginStart="@dimen/spacing_slarge"
+          android:layout_marginEnd="@dimen/spacing_slarge"
           android:orientation="vertical"
           >
 
@@ -94,40 +94,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="10"
             >
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/til_bagtag_no"
-              style="@style/AppTextInputLayoutStyle"
-              android:layout_weight="9"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_below="@+id/txt_input_company"
-              android:hint="@string/baggage_track_main_bagtag_no"
-              app:hintTextColor="@color/text_color_primary"
-              android:layout_marginEnd="@dimen/spacing_large"
-              app:placeholderText="@string/baggage_track_main_bagtag_no_hint"
-              app:placeholderTextColor="@color/text_color_hint_primary"
-              app:hintEnabled="true"
+          <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_bagtag_no"
-                style="@style/AppTextInputEditTextGeneral"
-                android:inputType="number"
-                android:maxLines="1"
-                />
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_bagtag_no"
+                style="@style/AppTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_input_company"
+                android:hint="@string/baggage_track_main_bagtag_no"
+                app:hintTextColor="@color/text_color_primary"
+                app:placeholderText="@string/baggage_track_main_bagtag_no_hint"
+                app:placeholderTextColor="@color/text_color_hint_primary"
+                app:hintEnabled="true"
+                >
 
-          <androidx.appcompat.widget.AppCompatImageView
-              android:id="@+id/iv_scan_baggage"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              app:srcCompat="@drawable/ic_barcode_qr"
-              android:layout_gravity="center_horizontal"
-              android:layout_weight="1"
-              />
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/edt_bagtag_no"
+                  style="@style/AppTextInputEditTextGeneral"
+                  android:inputType="number"
+                  android:maxLines="1"
+                  />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_scan_baggage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_barcode_qr"
+                android:layout_marginEnd="@dimen/spacing_smedium"
+                android:layout_gravity="center_vertical|end"
+                />
+
+          </FrameLayout>
 
         </LinearLayout>
 
