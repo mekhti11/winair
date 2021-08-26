@@ -279,6 +279,11 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     }
   }
 
+  override fun onResume() {
+    super.onResume()
+    edtBarcode.requestFocus()
+  }
+
   override fun getFragment(): BaggageTrackScanKrangerFragment {
     return this
   }
