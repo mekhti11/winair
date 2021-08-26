@@ -73,6 +73,43 @@
       android:textSize="@dimen/text_size_xxlarge"
       />
 
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btn_trigger_on"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/btn_trigger_off"
+      android:padding="@dimen/spacing_large"
+      android:layout_centerHorizontal="true"
+      android:clickable="true"
+      android:text="TRIGGER ON"
+      android:textSize="@dimen/text_size_xxlarge"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btn_trigger_off"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/spacing_large"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:clickable="true"
+      android:text="TRIGGER OFF"
+      android:textSize="@dimen/text_size_xxlarge"
+      />
+
+  <EditText
+      android:id="@+id/edt_barcode"
+      android:layout_width="1dp"
+      android:layout_height="1dp"
+      android:padding="@dimen/spacing_large"
+      android:layout_alignParentBottom="true"
+      android:textColor="@color/white"
+      android:clickable="false"
+      android:background="@color/black"
+      android:cursorVisible="false"
+      android:textSize="1sp"
+      />
+
   <androidx.appcompat.widget.AppCompatImageView
       android:id="@+id/img_pause"
       android:layout_width="wrap_content"

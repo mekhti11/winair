@@ -2,20 +2,20 @@ package com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.kranger
 
 import android.Manifest.permission
 import android.app.Activity
-import android.content.BroadcastReceiver
 import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
@@ -56,6 +56,7 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   @BindView(R.id.tv_baggage_scan_location_name) lateinit var tvLocationName: TextView
   @BindView(R.id.tv_baggage_scan_location_code) lateinit var tvLocationCode: TextView
   @BindView(R.id.btn_scan) lateinit var startScanningBtn: AppCompatButton
+  @BindView(R.id.edt_barcode) lateinit var edtBarcode: EditText
 
   private var locationCode: String? = null
   private var locationName: String? = null
@@ -63,7 +64,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   private lateinit var lastThreeBagAdapter: LastThreeBagAdapter
   private lateinit var successAudioUri: Uri
   private lateinit var failAudioUri: Uri
-  private lateinit var mReceiver: BroadcastReceiver
   private var mediaPlayer: MediaPlayer? = MediaPlayer().apply {
     setAudioAttributes(
       AudioAttributes.Builder()
@@ -111,22 +111,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
       arguments?.getSerializable(EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>?)
   }
 
-  private fun setupBroadcastReceiver() {
-    mReceiver = object : BroadcastReceiver() {
-      override fun onReceive(context: Context, intent: Intent) {
-        val action = intent.action
-        if (action == ACTION_BARCODE) {
-          val str = intent.getStringExtra(EXTRA_BARCODE)
-          if (str != null) {
-            val barcode: String = str
-            stopBarcodeService()
-            presenter.scanBaggageBarcode(locationName!!, locationCode!!, barcode.takeLast(6))
-          }
-        }
-      }
-    }
-  }
-
   private fun enableTrigger() {
     activity!!.sendBroadcast(Intent(ACTION_TRIGGER_ON))
   }
@@ -171,6 +155,20 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     setupLastThreeItems()
     tvClose.setOnClickListener { onClickClose() }
     initTextViews()
+    setupBarcodeEditText();
+  }
+
+  private fun setupBarcodeEditText() {
+    edtBarcode.setTextIsSelectable(false)
+    edtBarcode.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+      override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+        receivedBarcode(charSequence.toString())
+      }
+
+      override fun afterTextChanged(editable: Editable) {}
+    })
+    edtBarcode.requestFocus()
   }
 
   private fun setupAudios() {
@@ -190,7 +188,13 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   fun pressedScanBtn() {
     hideStartScanningBtn()
     startBarcodeService()
-    enableTrigger()
+  }
+
+  private fun receivedBarcode(barcode: String?) {
+    barcode?.let {
+      stopBarcodeService()
+      presenter.scanBaggageBarcode(locationName!!, locationCode!!, barcode.takeLast(6))
+    }
   }
 
   private fun showStartScanningBtn() {
@@ -209,18 +213,10 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     activity!!.sendBroadcast(Intent(ACTION_STOP_BCR_SERVICE))
   }
 
-  override fun onResume() {
-    super.onResume()
-    setupBroadcastReceiver()
-    activity!!.registerReceiver(mReceiver, IntentFilter(ACTION_BARCODE))
-  }
-
   override fun onPause() {
     super.onPause()
-    disableTrigger()
     stopBarcodeService()
     showStartScanningBtn()
-    activity!!.unregisterReceiver(mReceiver)
   }
 
   private fun initTextViews() {
@@ -304,6 +300,7 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     scannedTagList?.add(0, scannedTag)
     lastThreeBagAdapter.notifyDataSetChanged()
     AnimUtils.animateShowView(rcvLastThree)
+    startBarcodeService()
   }
 
   override fun showError(message: String?) {

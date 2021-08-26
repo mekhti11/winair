@@ -1,17 +1,17 @@
 package com.hititcs.dcs.view.barcode.kranger;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +28,7 @@ import com.hititcs.dcs.view.Presenter;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 import timber.log.Timber;
 
 import static com.hititcs.dcs.view.flight.detail.FlightDetailFragment.BOARDED_COUNT_START;
@@ -61,9 +62,9 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   TextView barcodeErrorTxt;
   @BindView(R.id.tw_boarded_count)
   TextView boardedCount;
+  @BindView(R.id.edt_barcode) EditText edtBarcode;
   @Inject
   ScanBarcodeKrangerContract.ScanBarcodeKrangerPresenter presenter;
-  BroadcastReceiver mReceiver;
   private String flightId;
   private String boardedCountStart;
   private MediaPlayer mediaPlayer = new MediaPlayer();
@@ -85,26 +86,18 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
     super.onCreate(savedInstanceState);
     flightId = getArguments().getString(FLIGHT_ID);
     boardedCountStart = getArguments().getString(BOARDED_COUNT_START);
-    setupBroadcastReceiver();
   }
 
-  private void setupBroadcastReceiver() {
-    mReceiver = new BroadcastReceiver() {
-      @Override
-      public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ACTION_BARCODE)) {
-          String barcode = intent.getStringExtra(EXTRA_BARCODE);
-          if (barcode != null) {
-            stopBarcodeService();
-            BoardWithBarcodeRequest boardWithBarcodeRequest = new BoardWithBarcodeRequest();
-            boardWithBarcodeRequest.setBarcode(barcode);
-            boardWithBarcodeRequest.setFlightId(flightId);
-            presenter.scanBarcode(boardWithBarcodeRequest,
-                new ScanBarcodeKrangerFragment.BarcodeReadKrangerListener(getFragment()));
-          }
-        }
-      }
-    };
+  private void receivedBarcode(String barcode) {
+    stopBarcodeService();
+    if (barcode != null) {
+      BoardWithBarcodeRequest boardWithBarcodeRequest = new BoardWithBarcodeRequest();
+      boardWithBarcodeRequest.setBarcode(barcode);
+      boardWithBarcodeRequest.setFlightId(flightId);
+      edtBarcode.getText().clear();
+      presenter.scanBarcode(boardWithBarcodeRequest,
+          new ScanBarcodeKrangerFragment.BarcodeReadKrangerListener(getFragment()));
+    }
   }
 
   @Nullable
@@ -114,6 +107,30 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
     final View fragmentView = inflater.inflate(R.layout.content_kranger_scan, container, false);
     bindView(fragmentView);
     return fragmentView;
+  }
+
+  @Override public void onViewCreated(@NonNull @NotNull View view,
+      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    setupBarcodeEditText();
+  }
+
+  private void setupBarcodeEditText() {
+    edtBarcode.setTextIsSelectable(false);
+    edtBarcode.addTextChangedListener(new TextWatcher() {
+      @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        receivedBarcode(charSequence.toString());
+      }
+
+      @Override public void afterTextChanged(Editable editable) {
+
+      }
+    });
+    edtBarcode.requestFocus();
   }
 
   @Override
@@ -182,18 +199,24 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   @Override
   public void onResume() {
     super.onResume();
-    getActivity().registerReceiver(mReceiver, new IntentFilter(ACTION_BARCODE));
+    edtBarcode.requestFocus();
   }
 
   @Override
   public void onPause() {
     super.onPause();
-    disableTrigger();
     stopBarcodeService();
     showStartScanningBtn();
-    if (mReceiver != null) {
-      getActivity().unregisterReceiver(mReceiver);
-    }
+  }
+
+  @OnClick(R.id.btn_trigger_on)
+  public void onPressedTriggerOn() {
+    enableTrigger();
+  }
+
+  @OnClick(R.id.btn_trigger_off)
+  public void onPressedTriggerOff() {
+    disableTrigger();
   }
 
   private void playSuccessAudio() {
@@ -230,7 +253,6 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   public void onPressedStartScanning(View view) {
     hideStartScanningBtn();
     startBarcodeService();
-    enableTrigger();
   }
 
   public void startBarcodeService() {
