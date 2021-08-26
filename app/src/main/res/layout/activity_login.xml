@@ -32,11 +32,11 @@
             android:id="@+id/rlt_logo_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxxlarge"
+            android:layout_marginTop="@dimen/login_logo_margin"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="@dimen/spacing_xxxlarge"
+            android:layout_marginBottom="@dimen/login_logo_margin"
             >
 
           <androidx.appcompat.widget.AppCompatImageView
@@ -80,7 +80,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_company"
             style="@style/AppTextInputLayoutStyle"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
             app:placeholderText="@string/login_airline_hint"
             android:hint="Airline"
             >
@@ -100,7 +100,7 @@
             android:id="@+id/txt_input_username"
             style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_company"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
             android:hint="@string/login_username"
             app:hintTextColor="@color/text_color_primary"
             app:placeholderText="@string/login_username_hint"
@@ -120,7 +120,7 @@
             android:id="@+id/txt_input_password"
             style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_username"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
             android:hint="@string/login_password"
             app:hintTextColor="@color/text_color_primary"
             app:placeholderText="@string/login_password_hint"

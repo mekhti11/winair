@@ -59,6 +59,8 @@
 
   <dimen name="button_height_primary">60dp</dimen>
 
+  <dimen name="login_logo_margin">14dp</dimen>
+
   <dimen name="text_size_toolbar">@dimen/text_size_mlarge</dimen>
   <dimen name="text_size_title">@dimen/text_size_slarge</dimen>
   <dimen name="text_size_card">@dimen/text_size_lmedium</dimen>
