@@ -13,21 +13,23 @@
       android:background="@drawable/bg_content"
       >
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_above="@+id/btn_baggage_track_send"
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginStart="@dimen/spacing_large"
         android:orientation="vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
         android:scrollbarFadeDuration="60000"
         >
 
       <LinearLayout
           android:id="@+id/ln_baggage_track_main"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_alignParentTop="true"
+          android:layout_height="wrap_content"
           android:focusable="true"
           android:focusableInTouchMode="true"
           android:layout_marginStart="@dimen/spacing_large"
@@ -148,7 +150,7 @@
 
       </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
     <androidx.appcompat.widget.AppCompatButton

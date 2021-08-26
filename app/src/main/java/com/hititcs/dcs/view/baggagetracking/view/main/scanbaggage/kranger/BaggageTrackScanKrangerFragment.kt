@@ -276,6 +276,7 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
       lnBaggageScanSuccess.visibility = View.GONE
       lnBaggageScanFail.visibility = View.GONE
       barcodeErrorTxt.visibility = View.INVISIBLE
+      startBarcodeService()
     }
   }
 
@@ -305,7 +306,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     scannedTagList?.add(0, scannedTag)
     lastThreeBagAdapter.notifyDataSetChanged()
     AnimUtils.animateShowView(rcvLastThree)
-    startBarcodeService()
   }
 
   override fun showError(message: String?) {
