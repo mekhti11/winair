@@ -29,6 +29,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.hititcs.dcs.R
 import com.hititcs.dcs.util.AnimUtils
+import com.hititcs.dcs.util.DeviceUtils
 import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
@@ -57,6 +58,8 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   @BindView(R.id.tv_baggage_scan_location_code) lateinit var tvLocationCode: TextView
   @BindView(R.id.btn_scan) lateinit var startScanningBtn: AppCompatButton
   @BindView(R.id.edt_barcode) lateinit var edtBarcode: EditText
+  @BindView(R.id.btn_trigger_on) lateinit var btnTriggerOn: AppCompatButton
+  @BindView(R.id.btn_trigger_off) lateinit var btnTriggerOff: AppCompatButton
 
   private var locationCode: String? = null
   private var locationName: String? = null
@@ -216,7 +219,9 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   override fun onPause() {
     super.onPause()
     stopBarcodeService()
-    showStartScanningBtn()
+    if (!DeviceUtils.isModelRangerPro()) {
+      showStartScanningBtn()
+    }
   }
 
   private fun initTextViews() {
@@ -282,7 +287,16 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
 
   override fun onResume() {
     super.onResume()
+    if (DeviceUtils.isModelRangerPro()) {
+      hideButtonsForRangerProDevice()
+    }
     edtBarcode.requestFocus()
+  }
+
+  private fun hideButtonsForRangerProDevice() {
+    hideStartScanningBtn()
+    btnTriggerOn.visibility = View.GONE
+    btnTriggerOff.visibility = View.GONE
   }
 
   override fun getFragment(): BaggageTrackScanKrangerFragment {

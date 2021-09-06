@@ -69,6 +69,11 @@
     <item>Device Camera</item>
   </string-array>
 
+  <string-array name="barcode_devices_array_pranger">
+    <item>P-Ranger Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
+
   <string name="general_popup_ok">OK</string>
   <string name="general_popup_cancel">CANCEL</string>
   <string name="general_token_error_popup_title">Warning</string>

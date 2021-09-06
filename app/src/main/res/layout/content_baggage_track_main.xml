@@ -119,6 +119,7 @@
                   style="@style/AppTextInputEditTextGeneral"
                   android:inputType="number"
                   android:maxLines="1"
+                  android:maxLength="31"
                   />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,6 +130,7 @@
                 app:srcCompat="@drawable/ic_barcode_qr"
                 android:layout_marginEnd="@dimen/spacing_smedium"
                 android:layout_gravity="center_vertical|end"
+                android:translationZ="1dp"
                 />
 
           </FrameLayout>

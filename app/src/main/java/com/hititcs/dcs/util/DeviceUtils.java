@@ -12,4 +12,8 @@ public class DeviceUtils {
   public static boolean isModelKrangerRow() {
     return !StringUtils.isEmpty(Build.MODEL) && Build.MODEL.contains("K-Ranger_ROW");
   }
+
+  public static boolean isModelRangerPro() {
+    return !StringUtils.isEmpty(Build.MODEL) && Build.MODEL.contains("Ranger_Pro");
+  }
 }

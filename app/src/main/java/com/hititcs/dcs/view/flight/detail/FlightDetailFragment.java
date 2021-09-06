@@ -268,12 +268,28 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     builder.show();
   }
 
+  private void showCameraAndPrangerDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array_pranger, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeKranger();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
   @OnClick(R.id.scan_barcode)
   public void onScanBarcodeClicked() {
     if (DeviceUtils.isManufacturerZebra()) {
       showCameraAndZebraDeviceSelectionDialog();
     } else if (DeviceUtils.isModelKrangerRow()) {
       showCameraAndKrangerDeviceSelectionDialog();
+    } else if (DeviceUtils.isModelRangerPro()) {
+      showCameraAndPrangerDeviceSelectionDialog();
     } else {
       openScanBarcodeCamera();
     }

@@ -22,7 +22,9 @@ import butterknife.OnClick;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.domain.model.BoardWithBarcodeRequest;
 import com.hititcs.dcs.domain.model.BoardingResponse;
+import com.hititcs.dcs.util.DeviceUtils;
 import com.hititcs.dcs.util.MessageUtils;
+import com.hititcs.dcs.util.StringUtils;
 import com.hititcs.dcs.view.BaseFragment;
 import com.hititcs.dcs.view.Presenter;
 import java.io.IOException;
@@ -63,6 +65,8 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   @BindView(R.id.tw_boarded_count)
   TextView boardedCount;
   @BindView(R.id.edt_barcode) EditText edtBarcode;
+  @BindView(R.id.btn_trigger_on) AppCompatButton btnTriggerOn;
+  @BindView(R.id.btn_trigger_off) AppCompatButton btnTriggerOff;
   @Inject
   ScanBarcodeKrangerContract.ScanBarcodeKrangerPresenter presenter;
   private String flightId;
@@ -90,7 +94,7 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
 
   private void receivedBarcode(String barcode) {
     stopBarcodeService();
-    if (barcode != null) {
+    if (!StringUtils.isEmpty(barcode)) {
       BoardWithBarcodeRequest boardWithBarcodeRequest = new BoardWithBarcodeRequest();
       boardWithBarcodeRequest.setBarcode(barcode);
       boardWithBarcodeRequest.setFlightId(flightId);
@@ -199,14 +203,25 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   @Override
   public void onResume() {
     super.onResume();
+    if (DeviceUtils.isModelRangerPro()) {
+      hideButtonsForRangerProDevice();
+    }
     edtBarcode.requestFocus();
+  }
+
+  private void hideButtonsForRangerProDevice() {
+    hideStartScanningBtn();
+    btnTriggerOn.setVisibility(View.GONE);
+    btnTriggerOff.setVisibility(View.GONE);
   }
 
   @Override
   public void onPause() {
     super.onPause();
     stopBarcodeService();
-    showStartScanningBtn();
+    if (!DeviceUtils.isModelRangerPro()) {
+      showStartScanningBtn();
+    }
   }
 
   @OnClick(R.id.btn_trigger_on)

@@ -230,6 +230,8 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       showCameraAndZebraDeviceSelectionDialog()
     } else if (DeviceUtils.isModelKrangerRow()) {
       showCameraAndKrangerDeviceSelectionDialog()
+    } else if (DeviceUtils.isModelRangerPro()) {
+      showCameraAndPrangerDeviceSelectionDialog()
     } else {
       openScanBarcodeCamera()
     }
@@ -307,6 +309,20 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     val builder = Builder(activity)
     builder.setTitle(string.dialog_title_select_a_device)
       .setItems(array.barcode_devices_array_kranger) { dialog, selectedPosition ->
+        if (selectedPosition === 0) {
+          openScanBarcodeKranger()
+        } else if (selectedPosition === 1) {
+          openScanBarcodeCamera()
+        }
+      }
+    builder.create()
+    builder.show()
+  }
+
+  private fun showCameraAndPrangerDeviceSelectionDialog() {
+    val builder = Builder(activity)
+    builder.setTitle(string.dialog_title_select_a_device)
+      .setItems(array.barcode_devices_array_pranger) { dialog, selectedPosition ->
         if (selectedPosition === 0) {
           openScanBarcodeKranger()
         } else if (selectedPosition === 1) {
