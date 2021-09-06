@@ -58,8 +58,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
   @BindView(R.id.tv_baggage_scan_location_code) lateinit var tvLocationCode: TextView
   @BindView(R.id.btn_scan) lateinit var startScanningBtn: AppCompatButton
   @BindView(R.id.edt_barcode) lateinit var edtBarcode: EditText
-  @BindView(R.id.btn_trigger_on) lateinit var btnTriggerOn: AppCompatButton
-  @BindView(R.id.btn_trigger_off) lateinit var btnTriggerOff: AppCompatButton
 
   private var locationCode: String? = null
   private var locationName: String? = null
@@ -112,14 +110,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
     locationName = arguments?.getString(EXTRA_LOCATION_NAME)
     scannedTagList =
       arguments?.getSerializable(EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>?)
-  }
-
-  private fun enableTrigger() {
-    activity!!.sendBroadcast(Intent(ACTION_TRIGGER_ON))
-  }
-
-  private fun disableTrigger() {
-    activity!!.sendBroadcast(Intent(ACTION_TRIGGER_OFF))
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -295,8 +285,6 @@ class BaggageTrackScanKrangerFragment : BaseFragment<BaggageTrackScanKrangerFrag
 
   private fun hideButtonsForRangerProDevice() {
     hideStartScanningBtn()
-    btnTriggerOn.visibility = View.GONE
-    btnTriggerOff.visibility = View.GONE
   }
 
   override fun getFragment(): BaggageTrackScanKrangerFragment {

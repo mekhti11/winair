@@ -65,8 +65,6 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
   @BindView(R.id.tw_boarded_count)
   TextView boardedCount;
   @BindView(R.id.edt_barcode) EditText edtBarcode;
-  @BindView(R.id.btn_trigger_on) AppCompatButton btnTriggerOn;
-  @BindView(R.id.btn_trigger_off) AppCompatButton btnTriggerOff;
   @Inject
   ScanBarcodeKrangerContract.ScanBarcodeKrangerPresenter presenter;
   private String flightId;
@@ -157,14 +155,6 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
         .build();
   }
 
-  private void enableTrigger() {
-    getActivity().sendBroadcast(new Intent(ACTION_TRIGGER_ON));
-  }
-
-  private void disableTrigger() {
-    getActivity().sendBroadcast(new Intent(ACTION_TRIGGER_OFF));
-  }
-
   @Override
   protected ScanBarcodeKrangerFragment getFragment() {
     return this;
@@ -211,8 +201,6 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
 
   private void hideButtonsForRangerProDevice() {
     hideStartScanningBtn();
-    btnTriggerOn.setVisibility(View.GONE);
-    btnTriggerOff.setVisibility(View.GONE);
   }
 
   @Override
@@ -222,16 +210,6 @@ public class ScanBarcodeKrangerFragment extends BaseFragment<ScanBarcodeKrangerF
     if (!DeviceUtils.isModelRangerPro()) {
       showStartScanningBtn();
     }
-  }
-
-  @OnClick(R.id.btn_trigger_on)
-  public void onPressedTriggerOn() {
-    enableTrigger();
-  }
-
-  @OnClick(R.id.btn_trigger_off)
-  public void onPressedTriggerOff() {
-    disableTrigger();
   }
 
   private void playSuccessAudio() {

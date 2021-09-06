@@ -83,6 +83,7 @@
       android:clickable="true"
       android:text="TRIGGER ON"
       android:textSize="@dimen/text_size_xxlarge"
+      android:visibility="gone"
       />
 
   <androidx.appcompat.widget.AppCompatButton
@@ -95,6 +96,7 @@
       android:clickable="true"
       android:text="TRIGGER OFF"
       android:textSize="@dimen/text_size_xxlarge"
+      android:visibility="gone"
       />
 
   <EditText

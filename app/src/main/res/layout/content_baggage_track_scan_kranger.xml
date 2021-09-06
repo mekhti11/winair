@@ -114,6 +114,7 @@
       android:layout_centerHorizontal="true"
       android:clickable="true"
       android:text="TRIGGER ON"
+      android:visibility="gone"
       android:textSize="@dimen/text_size_small"
       />
 
@@ -127,6 +128,7 @@
       android:clickable="true"
       android:text="TRIGGER OFF"
       android:textSize="@dimen/text_size_small"
+      android:visibility="gone"
       />
 
   <androidx.appcompat.widget.AppCompatImageView
