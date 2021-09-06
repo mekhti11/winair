@@ -38,6 +38,7 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
   var locationCode: String? = null
   var scannedTagList: MutableList<ScannedTag>? = null
   var selectedDevice: String? = null
+  var isExitedFlagForRunnable: Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class BaggageTrackScanActivity : BaseActivity<BaggageTrackScanActivity>() {
   }
 
   override fun onBackPressed() {
+    isExitedFlagForRunnable = true
     var intent = Intent()
     if (FragmentUtils.getVisibleFragment(supportFragmentManager) is BaggageTrackScanFragment) {
       intent.putExtra(

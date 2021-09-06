@@ -30,6 +30,7 @@ import com.hititcs.dcs.view.BaseFragment
 import com.hititcs.dcs.view.Presenter
 import com.hititcs.dcs.view.baggagetracking.domain.model.ScannedTag
 import com.hititcs.dcs.view.baggagetracking.view.main.LastThreeBagAdapter
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraContract.BaggageTrackScanZebraPresenter
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraContract.BaggageTrackScanZebraView
 import com.symbol.emdk.EMDKManager
@@ -468,6 +469,7 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
   }
 
   private fun onClickClose() {
+    (activity as BaggageTrackScanActivity).isExitedFlagForRunnable = true
     var intent = Intent()
     intent.putExtra(EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
     activity?.let { activity?.setResult(Activity.RESULT_OK, intent) }
@@ -514,9 +516,11 @@ class BaggageTrackScanZebraFragment : BaseFragment<BaggageTrackScanZebraFragment
 
   private fun clearUiAfterBarcodeResponse(): Runnable {
     return Runnable {
-      lnBaggageScanSuccess.visibility = View.GONE
-      lnBaggageScanFail.visibility = View.GONE
-      barcodeErrorTxt.visibility = View.INVISIBLE
+      if (activity != null && !(activity as BaggageTrackScanActivity).isExitedFlagForRunnable) {
+        lnBaggageScanSuccess.visibility = View.GONE
+        lnBaggageScanFail.visibility = View.GONE
+        barcodeErrorTxt.visibility = View.INVISIBLE
+      }
     }
   }
 
