@@ -251,6 +251,7 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
   }
 
   private fun onClickClose() {
+    (activity as BaggageTrackScanActivity).isExitedFlagForRunnable = true
     var intent = Intent()
     intent.putExtra(EXTRA_SCANNED_TAG_LIST, scannedTagList as Serializable)
     activity?.let { activity?.setResult(Activity.RESULT_OK, intent) }
@@ -308,10 +309,12 @@ class BaggageTrackScanFragment : BaseFragment<BaggageTrackScanFragment>(),
 
   private fun clearUiAfterBarcodeResponse(): Runnable {
     return Runnable {
-      lnBaggageScanSuccess.visibility = View.GONE
-      lnBaggageScanFail.visibility = View.GONE
-      barcodeErrorTxt.visibility = View.INVISIBLE
-      toggleBarcodeView(false)
+      if (activity != null && !(activity as BaggageTrackScanActivity).isExitedFlagForRunnable) {
+        lnBaggageScanSuccess.visibility = View.GONE
+        lnBaggageScanFail.visibility = View.GONE
+        barcodeErrorTxt.visibility = View.INVISIBLE
+        toggleBarcodeView(false)
+      }
     }
   }
 

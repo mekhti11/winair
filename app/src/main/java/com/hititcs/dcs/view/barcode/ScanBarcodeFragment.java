@@ -2,9 +2,12 @@ package com.hititcs.dcs.view.barcode;
 
 import android.Manifest;
 import android.Manifest.permission;
+import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -29,6 +32,7 @@ import com.hititcs.dcs.view.Presenter;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,11 +45,9 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     ScanBarcodeView,
     DecoratedBarcodeView.TorchListener {
 
+  public static final int MY_PERMISSIONS_REQUEST_CAMERA = 124;
   private static final String STATE_FLASH_OPEN = "state:flashOpen";
   private static final String STATE_CAMERA_PAUSE = "state:cameraPause";
-
-  public static final int MY_PERMISSIONS_REQUEST_CAMERA = 124;
-
   private static final long SUCCESS_DELAY_BETWEEN_SCANS = 1000L;
   private static final long ERROR_DELAY_BETWEEN_SCANS = 3000L;
 
@@ -69,21 +71,19 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   TextView barcodeErrorTxt;
   @BindView(R.id.tw_boarded_count)
   TextView boardedCount;
-
-  private String flightId;
-  private String boardedCountStart;
-  private MediaPlayer successSound;
-  private MediaPlayer failSound;
   boolean mFlashOpen = false;
   boolean mCameraPause = false;
-
   Drawable mOpenFlashDrawable;
   Drawable mCloseFlashDrawable;
   Drawable mPauseDrawable;
   Drawable mPlayDrawable;
-
   @Inject
   ScanBarcodePresenter scanBarcodePresenter;
+  private String flightId;
+  private String boardedCountStart;
+  private MediaPlayer mediaPlayer = new MediaPlayer();
+  private Uri successAudioUri;
+  private Uri failAudioUri;
 
   public static ScanBarcodeFragment newInstance(String flightId, String boardedCountStart) {
     Bundle args = new Bundle();
@@ -124,10 +124,14 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
+    mediaPlayer.setAudioAttributes(
+        new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .build());
     if (ContextCompat.checkSelfPermission(getActivity(), permission.CAMERA)
         != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat
-          .requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
+          .requestPermissions(getActivity(), new String[] { Manifest.permission.CAMERA },
               MY_PERMISSIONS_REQUEST_CAMERA);
     }
     if (savedInstanceState != null) {
@@ -138,8 +142,22 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
     }
 
     initFlash();
+    setupAudios();
 
     boardedCount.setText(boardedCountStart);
+  }
+
+  private void setupAudios() {
+    successAudioUri = new Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(context().getPackageName())
+        .path(String.valueOf(R.raw.success))
+        .build();
+    failAudioUri = new Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(context().getPackageName())
+        .path(String.valueOf(R.raw.error))
+        .build();
   }
 
   private boolean hasFlash() {
@@ -180,7 +198,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
       mCameraPause = pause;
       if (pause) {
         barcodeScannerView.pause();
-
       } else {
         barcodeScannerView.resume();
       }
@@ -234,7 +251,33 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
       barcodeScannerView.getBarcodeView().stopDecoding();
       barcodeScannerView = null;
     }
+    mediaPlayer.release();
+    mediaPlayer = null;
     super.onDestroy();
+  }
+
+  private void playSuccessAudio() {
+    mediaPlayer.reset();
+    try {
+      mediaPlayer.setDataSource(context(), successAudioUri);
+      mediaPlayer.prepare();
+    } catch (IOException e) {
+      Timber.e(e);
+    }
+    mediaPlayer.seekTo(0);
+    mediaPlayer.start();
+  }
+
+  private void playFailAudio() {
+    mediaPlayer.reset();
+    try {
+      mediaPlayer.setDataSource(context(), failAudioUri);
+      mediaPlayer.prepare();
+    } catch (IOException e) {
+      Timber.e(e);
+    }
+    mediaPlayer.seekTo(0);
+    mediaPlayer.start();
   }
 
   @Override
@@ -246,11 +289,11 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   private void showResultIcon(boolean success, String errorMsg) {
     long delayTime = SUCCESS_DELAY_BETWEEN_SCANS;
     if (success) {
-      successSound.start();
+      playSuccessAudio();
       imgBarcodeSuccess.setVisibility(View.VISIBLE);
     } else {
       delayTime = ERROR_DELAY_BETWEEN_SCANS;
-      failSound.start();
+      playFailAudio();
       barcodeErrorTxt.setText(errorMsg);
       imgBarcodeError.setVisibility(View.VISIBLE);
       barcodeErrorTxt.setVisibility(View.VISIBLE);
@@ -271,7 +314,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
       Timber.e(e);
     }
     showResultIcon(true, null);
-
   }
 
   @Override
@@ -282,6 +324,23 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
   @Override
   public void showError(int messageId) {
 
+  }
+
+  public interface ResponseListener<T> {
+
+    /**
+     * Fired when request is successful
+     *
+     * @param response result
+     */
+    void onResponse(@Nullable T response);
+
+    /**
+     * Fired when request is failed
+     *
+     * @param errorMessage error message or null
+     */
+    void onError(String errorMessage);
   }
 
   static class BarcodeCallbackImpl implements BarcodeCallback {
@@ -348,23 +407,6 @@ public class ScanBarcodeFragment extends BaseFragment<ScanBarcodeFragment> imple
         mBarcodeScannerProductViewWeakReference.get().onError(errorMessage);
       }
     }
-  }
-
-  public interface ResponseListener<T> {
-
-    /**
-     * Fired when request is successful
-     *
-     * @param response result
-     */
-    void onResponse(@Nullable T response);
-
-    /**
-     * Fired when request is failed
-     *
-     * @param errorMessage error message or null
-     */
-    void onError(String errorMessage);
   }
 
   class HandleFinish implements Runnable {

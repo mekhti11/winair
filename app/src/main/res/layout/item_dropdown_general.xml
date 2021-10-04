@@ -12,5 +12,6 @@
     android:paddingStart="@dimen/spacing_lmedium"
     android:paddingTop="@dimen/spacing_lmedium"
     android:paddingBottom="@dimen/spacing_lmedium"
+    android:textSize="@dimen/text_size_medium"
     tools:text="Test"
     />

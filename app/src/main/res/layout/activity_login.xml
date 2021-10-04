@@ -29,29 +29,32 @@
           >
 
         <RelativeLayout
-          android:id="@+id/rlt_logo_2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxxxlarge"
-            android:layout_marginBottom="@dimen/spacing_xxxxlarge"
-          >
+            android:id="@+id/rlt_logo_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/login_logo_margin"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/login_logo_margin"
+            >
 
           <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="35dp"
-            android:layout_height="34dp"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/tv_logo"
-            app:srcCompat="@drawable/ic_logo_login"
-            />
+              android:id="@+id/iv_logo"
+              android:layout_width="35dp"
+              android:layout_height="34dp"
+              android:layout_centerVertical="true"
+              app:srcCompat="@drawable/ic_logo_login"
+              />
 
           <TextView
               android:id="@+id/tv_logo"
               style="@style/AppTextStyle.Bold"
               android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:paddingTop="@dimen/spacing_large"
+              android:layout_marginStart="@dimen/spacing_medium"
+              android:layout_toEndOf="@+id/iv_logo"
+              android:paddingTop="@dimen/spacing_large"
             android:paddingBottom="@dimen/spacing_large"
             android:text="Airport DCS"
             android:textColor="@color/white"
@@ -64,7 +67,7 @@
       <RelativeLayout
           android:id="@+id/rlt_login"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:layout_below="@+id/rlt_logo"
           android:layout_marginTop="@dimen/spacing_sxlarge"
           android:background="@drawable/ic_login_background"
@@ -77,9 +80,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_company"
             style="@style/AppTextInputLayoutStyle"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:hint="AIRLINE"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
+            app:placeholderText="@string/login_airline_hint"
+            android:hint="Airline"
             >
 
           <com.hititcs.dcs.widget.AutoCompleteDropDown
@@ -89,7 +92,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:dropDownIconColor="@color/colorSecondary"
-          />
+              />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +100,7 @@
             android:id="@+id/txt_input_username"
             style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_company"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
             android:hint="@string/login_username"
             app:hintTextColor="@color/text_color_primary"
             app:placeholderText="@string/login_username_hint"
@@ -117,7 +120,7 @@
             android:id="@+id/txt_input_password"
             style="@style/AppTextInputLayoutStyle"
             android:layout_below="@+id/txt_input_username"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_sxlarge"
             android:hint="@string/login_password"
             app:hintTextColor="@color/text_color_primary"
             app:placeholderText="@string/login_password_hint"
@@ -137,21 +140,30 @@
         </com.google.android.material.textfield.TextInputLayout>
       </RelativeLayout>
 
-      <androidx.appcompat.widget.AppCompatButton
-          android:id="@+id/btn_login"
-          style="@style/TextAppearance.App.Medium.Bold"
+      <RelativeLayout
           android:layout_width="match_parent"
-          android:layout_height="@dimen/button_height_primary"
+          android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
-          android:layout_marginStart="@dimen/spacing_large"
-          android:layout_marginEnd="@dimen/spacing_large"
-          android:layout_marginBottom="@dimen/spacing_large"
-          android:background="@drawable/bg_button_tertiary"
-          android:textAllCaps="false"
-          android:text="@string/login_button"
-          android:textColor="@color/white"
-          android:textSize="@dimen/text_size_mlarge"
-          />
+          android:layout_below="@+id/rlt_login"
+          android:background="@color/white"
+          >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            style="@style/TextAppearance.App.Medium.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_primary"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginEnd="@dimen/spacing_large"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:background="@drawable/bg_button_tertiary"
+            android:textAllCaps="false"
+            android:text="@string/login_button"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_mlarge"
+            />
+      </RelativeLayout>
     </RelativeLayout>
   </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

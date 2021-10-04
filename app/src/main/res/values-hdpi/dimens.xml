@@ -1,0 +1,73 @@
+<resources>
+  <dimen name="activity_horizontal_margin">14dp</dimen>
+  <dimen name="activity_vertical_margin">14dp</dimen>
+  <dimen name="main_logo_card_radius">9dp</dimen>
+  <dimen name="all_card_radius_7">6dp</dimen>
+
+  <dimen name="spacing_shadow">1.5dp</dimen>
+  <dimen name="spacing_xxsmall">1dp</dimen>
+  <dimen name="spacing_xsmall">1.5dp</dimen>
+  <dimen name="spacing_msmall">2dp</dimen>
+  <dimen name="spacing_small">3dp</dimen>
+  <dimen name="spacing_lsmall">4dp</dimen>
+  <dimen name="spacing_smedium">5dp</dimen>
+  <dimen name="spacing_medium">7dp</dimen>
+  <dimen name="spacing_9">9dp</dimen>
+  <dimen name="spacing_lmedium">9dp</dimen>
+  <dimen name="spacing_slarge">10dp</dimen>
+  <dimen name="spacing_sxlarge">12dp</dimen>
+  <dimen name="spacing_large">14dp</dimen>
+  <dimen name="spacing_mslarge">16dp</dimen>
+  <dimen name="spacing_mxlarge">18dp</dimen>
+  <dimen name="spacing_22">22dp</dimen>
+  <dimen name="spacing_mlarge">22dp</dimen>
+  <dimen name="spacing_26">24dp</dimen>
+  <dimen name="spacing_28">26dp</dimen>
+  <dimen name="spacing_xslarge">28dp</dimen>
+  <dimen name="spacing_xlarge">30dp</dimen>
+  <dimen name="spacing_xmlarge">34dp</dimen>
+  <dimen name="spacing_xxsslarge">36dp</dimen>
+  <dimen name="spacing_xxslarge">38dp</dimen>
+  <dimen name="spacing_xxmlarge">40dp</dimen>
+  <dimen name="spacing_xxmmlarge">42dp</dimen>
+  <dimen name="spacing_45">45dp</dimen>
+  <dimen name="spacing_xxlarge">46dp</dimen>
+  <dimen name="spacing_xxxslarge">54dp</dimen>
+  <dimen name="spacing_xxxlarge">62dp</dimen>
+  <dimen name="spacing_xxxxlarge">90dp</dimen>
+  <dimen name="spacing_xxxxxlarge">110dp</dimen>
+  <dimen name="spacing_xxxxxxlarge">246dp</dimen>
+
+
+  <dimen name="text_size_xxsmall">7sp</dimen>
+  <dimen name="text_size_xlsmall">8sp</dimen>
+  <dimen name="text_size_xsmall">9sp</dimen>
+  <dimen name="text_size_msmall">10sp</dimen>
+  <dimen name="text_size_small">11sp</dimen>
+  <dimen name="text_size_smedium">12sp</dimen>
+  <dimen name="text_size_medium">13sp</dimen>
+  <dimen name="text_size_lmedium">14sp</dimen>
+  <dimen name="text_size_slarge">15sp</dimen>
+  <dimen name="text_size_large">17sp</dimen>
+  <dimen name="text_size_mlarge">19sp</dimen>
+  <dimen name="text_size_mxlarge">20sp</dimen>
+  <dimen name="text_size_xlarge">21sp</dimen>
+  <dimen name="text_size_xxlarge">23sp</dimen>
+  <dimen name="text_size_xxxlarge">31sp</dimen>
+  <dimen name="text_size_xxxxlarge">34sp</dimen>
+  <dimen name="text_size_xxxxxlarge">40sp</dimen>
+
+  <dimen name="button_height_primary">60dp</dimen>
+
+  <dimen name="login_logo_margin">14dp</dimen>
+
+  <dimen name="text_size_toolbar">@dimen/text_size_mlarge</dimen>
+  <dimen name="text_size_title">@dimen/text_size_slarge</dimen>
+  <dimen name="text_size_card">@dimen/text_size_lmedium</dimen>
+  <dimen name="text_size_input">@dimen/text_size_medium</dimen>
+
+  <dimen name="board_pax_service_message_margin_top">120dp</dimen>
+
+  <dimen name="main_logo_width">240dp</dimen>
+  <dimen name="main_logo_height">45dp</dimen>
+</resources>

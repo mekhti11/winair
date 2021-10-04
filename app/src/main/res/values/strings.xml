@@ -7,6 +7,7 @@
   <string name="page_title_baggage_tracking">Baggage Tracking</string>
 
   <string name="login_welcome_logo_text">Welcome To Airport DCS</string>
+  <string name="login_airline_hint">Please select your airline</string>
   <string name="login_username">Username</string>
   <string name="login_username_hint">Please enter your username</string>
   <string name="login_password">Password</string>
@@ -56,6 +57,22 @@
   <string name="detail_boarding_gate">Boarding Gate: </string>
   <string name="detail_delay_time">Delay Time: </string>
 
+  <string name="dialog_title_select_a_device">Please Select A Device</string>
+
+  <string-array name="barcode_devices_array_zebra">
+    <item>Zebra Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
+
+  <string-array name="barcode_devices_array_kranger">
+    <item>K-Ranger Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
+
+  <string-array name="barcode_devices_array_pranger">
+    <item>P-Ranger Scanner</item>
+    <item>Device Camera</item>
+  </string-array>
 
   <string name="general_popup_ok">OK</string>
   <string name="general_popup_cancel">CANCEL</string>

@@ -35,9 +35,8 @@ android {
         applicationId "com.hititcs.boarding"
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
-        buildConfigField "String", "COMPANY_CODE", companyCode
-        versionCode 1
-        versionName "1.0"
+        versionCode 20
+        versionName "2.0"
         multiDexEnabled true
         resConfigs 'en'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -101,12 +100,13 @@ dependencies {
     implementation project(':cache')
     implementation project(':remote')
 
-    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:1.6.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation rootProject.ext.MODULE_UI_IMPL_DEPS
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.android.support:appcompat-v7:25.3.1'   // Minimum 23+ is required
+    implementation 'com.symbol:emdk:+'
 
     kapt dependencies.roomCompiler
     kapt dependencies.parcelerProcessor

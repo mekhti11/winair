@@ -1,8 +1,11 @@
 package com.hititcs.dcs.view.baggagetracking.view.main
 
 import android.app.Activity
+import android.app.AlertDialog.Builder
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +18,12 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.google.android.material.textfield.TextInputLayout
 import com.hititcs.dcs.R
+import com.hititcs.dcs.R.array
+import com.hititcs.dcs.R.string
+import com.hititcs.dcs.model.DeviceEnum
 import com.hititcs.dcs.util.AnimUtils
 import com.hititcs.dcs.util.AppUtils
+import com.hititcs.dcs.util.DeviceUtils
 import com.hititcs.dcs.util.FontUtils
 import com.hititcs.dcs.util.StringUtils
 import com.hititcs.dcs.view.BaseFragment
@@ -27,8 +34,8 @@ import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.B
 import com.hititcs.dcs.view.baggagetracking.view.main.BaggageTrackMainContract.BaggageTrackMainView
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanActivity
 import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.BaggageTrackScanFragment
+import com.hititcs.dcs.view.baggagetracking.view.main.scanbaggage.zebra.BaggageTrackScanZebraFragment
 import com.hititcs.dcs.widget.AutoCompleteDropDown
-import com.hititcs.dcs.widget.GeneralTextWatcher
 import java.io.Serializable
 import javax.inject.Inject
 
@@ -36,6 +43,7 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   BaggageTrackMainView {
 
   private val SCAN_WITH_CAMERA_REQUEST_CODE = 1255;
+  private val SCAN_WITH_ZEBRA_REQUEST_CODE = 1256;
 
   @BindView(R.id.dropdown_bag_area_location)
   lateinit var dropdownBagAreaLocation: AutoCompleteDropDown
@@ -112,7 +120,13 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
   }
 
   private fun setupBagTagNoListener() {
-    edtBagTagNo.addTextChangedListener(GeneralTextWatcher(edtBagTagNo) { updateSendButtonState() })
+    edtBagTagNo.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+      override fun afterTextChanged(s: Editable) {
+        updateSendButtonState()
+      }
+    })
   }
 
   private fun updateSendButtonState() {
@@ -212,6 +226,18 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       return
     }
     AppUtils.hideKeyboardFrom(context(), this.view)
+    if (DeviceUtils.isManufacturerZebra()) {
+      showCameraAndZebraDeviceSelectionDialog()
+    } else if (DeviceUtils.isModelKrangerRow()) {
+      showCameraAndKrangerDeviceSelectionDialog()
+    } else if (DeviceUtils.isModelRangerPro()) {
+      showCameraAndPrangerDeviceSelectionDialog()
+    } else {
+      openScanBarcodeCamera()
+    }
+  }
+
+  private fun openScanBarcodeZebra() {
     var intent = Intent(context(), BaggageTrackScanActivity::class.java)
     intent.putExtra(
       BaggageTrackScanActivity.EXTRA_LOCATION_NAME,
@@ -225,7 +251,86 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
       BaggageTrackScanActivity.EXTRA_SCANNED_TAG_LIST,
       scannedTagList as Serializable
     )
+    intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.ZEBRA.value)
+    startActivityForResult(intent, SCAN_WITH_ZEBRA_REQUEST_CODE)
+  }
+
+  private fun openScanBarcodeKranger() {
+    var intent = Intent(context(), BaggageTrackScanActivity::class.java)
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_NAME,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[0].locationName
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_CODE,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[selectedLocationCodeIndex].locationCode
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_SCANNED_TAG_LIST,
+      scannedTagList as Serializable
+    )
+    intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.K_RANGER.value)
+    startActivityForResult(intent, SCAN_WITH_ZEBRA_REQUEST_CODE)
+  }
+
+  private fun openScanBarcodeCamera() {
+    var intent = Intent(context(), BaggageTrackScanActivity::class.java)
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_NAME,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[0].locationName
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_LOCATION_CODE,
+      locationAndNameCodes[selectedLocationNameIndex].locationNameCodes[selectedLocationCodeIndex].locationCode
+    )
+    intent.putExtra(
+      BaggageTrackScanActivity.EXTRA_SCANNED_TAG_LIST,
+      scannedTagList as Serializable
+    )
+    intent.putExtra(BaggageTrackScanActivity.EXTRA_SELECTED_DEVICE, DeviceEnum.CAMERA.value)
     startActivityForResult(intent, SCAN_WITH_CAMERA_REQUEST_CODE)
+  }
+
+  private fun showCameraAndZebraDeviceSelectionDialog() {
+    val builder = Builder(activity)
+    builder.setTitle(string.dialog_title_select_a_device)
+      .setItems(array.barcode_devices_array_zebra) { dialog, selectedPosition ->
+        if (selectedPosition === 0) {
+          openScanBarcodeZebra()
+        } else if (selectedPosition === 1) {
+          openScanBarcodeCamera()
+        }
+      }
+    builder.create()
+    builder.show()
+  }
+
+  private fun showCameraAndKrangerDeviceSelectionDialog() {
+    val builder = Builder(activity)
+    builder.setTitle(string.dialog_title_select_a_device)
+      .setItems(array.barcode_devices_array_kranger) { dialog, selectedPosition ->
+        if (selectedPosition === 0) {
+          openScanBarcodeKranger()
+        } else if (selectedPosition === 1) {
+          openScanBarcodeCamera()
+        }
+      }
+    builder.create()
+    builder.show()
+  }
+
+  private fun showCameraAndPrangerDeviceSelectionDialog() {
+    val builder = Builder(activity)
+    builder.setTitle(string.dialog_title_select_a_device)
+      .setItems(array.barcode_devices_array_pranger) { dialog, selectedPosition ->
+        if (selectedPosition === 0) {
+          openScanBarcodeKranger()
+        } else if (selectedPosition === 1) {
+          openScanBarcodeCamera()
+        }
+      }
+    builder.create()
+    builder.show()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -233,6 +338,13 @@ class BaggageTrackMainFragment : BaseFragment<BaggageTrackMainFragment>(),
     if (requestCode == SCAN_WITH_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
       scannedTagList =
         data!!.getSerializableExtra(BaggageTrackScanFragment.EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>)
+      rcvLastThree.adapter = lastThreeBagAdapter
+      lastThreeBagAdapter.itemList = scannedTagList
+      lastThreeBagAdapter.notifyDataSetChanged()
+      AnimUtils.animateShowView(rcvLastThree)
+    } else if (requestCode == SCAN_WITH_ZEBRA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      scannedTagList =
+        data!!.getSerializableExtra(BaggageTrackScanZebraFragment.EXTRA_SCANNED_TAG_LIST) as (MutableList<ScannedTag>)
       rcvLastThree.adapter = lastThreeBagAdapter
       lastThreeBagAdapter.itemList = scannedTagList
       lastThreeBagAdapter.notifyDataSetChanged()

@@ -21,11 +21,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.hititcs.dcs.BuildConfig;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.domain.interactor.airline.GetCompaniesUseCase;
 import com.hititcs.dcs.domain.interactor.login.LoginUseCase;
 import com.hititcs.dcs.domain.model.Airline;
+import com.hititcs.dcs.domain.model.AirlineListResponse;
 import com.hititcs.dcs.domain.model.AuthModel;
 import com.hititcs.dcs.domain.model.LoginRequest;
 import com.hititcs.dcs.util.AppUtils;
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   @BindView(R.id.auto_drop)
   AutoCompleteDropDown dropDown;
   @BindView(R.id.txt_input_company)
-  TextInputLayout txtInputCompany;
+  TextInputLayout tilInputCompany;
   @BindView(R.id.txt_input_username)
   TextInputLayout tilInputUsername;
   @BindView(R.id.txt_input_password)
@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     firebaseStorage = FirebaseStorage.getInstance();
     firebaseStorageRef = firebaseStorage.getReference();
     dropDown.setOnClickListener(v -> {
-          txtInputCompany.setErrorEnabled(false);
+      tilInputCompany.setErrorEnabled(false);
           if (adapter == null) {
             getCompanies();
           }
@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private boolean validate() {
-    return !StringUtils.isEmpty(twUsername.getText().toString())
+    return dropDown.getPosition() >= 0 && !StringUtils.isEmpty(twUsername.getText().toString())
         && !StringUtils.isEmpty(twPassword.getText().toString());
   }
 
@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     request.setAirline("test");
     request.setUsername(twUsername.getText().toString());
     request.setPassword(twPassword.getText().toString());
-    request.setAirlineCode(BuildConfig.COMPANY_CODE);
+    request.setAirlineCode(adapter.getItem(dropDown.getPosition()).getAirlineCode());
     loginUseCase.execute(new SingleObserver<AuthModel>() {
       @Override
       public void onSubscribe(Disposable d) {
@@ -158,7 +158,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
     StorageReference tempStorageReference;
     tempStorageReference = firebaseStorageRef
-        .child(String.format("%s.png", BuildConfig.COMPANY_CODE));
+        .child(String.format("%s.png", adapter.getItem(dropDown.getPosition()).getAirlineCode()));
     File finalLocalFile = localFile;
     tempStorageReference.getFile(localFile).addOnSuccessListener(uri -> {
       hideProgressDialog();
@@ -173,7 +173,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private void getCompanies() {
-/*    showProgressDialog();
+    showProgressDialog();
     getCompaniesUseCase.execute(new SingleObserver<AirlineListResponse>() {
       @Override
       public void onSubscribe(Disposable d) {
@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
       public void onError(Throwable e) {
         hideProgressDialog();
       }
-    });*/
+    });
   }
 
   private void showCompanies(List<Airline> activeCompanies) {
@@ -209,6 +209,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     FontUtils.setTextInputLayoutHintBold(
         context(),
         R.font.poppins_bold,
+        tilInputCompany,
         tilInputUsername,
         tilInputPassword
     );
@@ -230,6 +231,15 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   private void jump() {
     startActivity(new Intent(this, HomeActivity.class));
     finish();
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (isTaskRoot()) {
+      moveTaskToBack(true);
+    } else {
+      super.onBackPressed();
+    }
   }
 
   static class CompanyArrayAdapter extends ArrayAdapter<Airline> {
@@ -262,15 +272,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         textView.setTypeface(extraLight);
       }
       return view;
-    }
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (isTaskRoot()) {
-      moveTaskToBack(true);
-    } else {
-      super.onBackPressed();
     }
   }
 }
