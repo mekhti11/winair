@@ -1,0 +1,39 @@
+def getVersionCode = {
+  def versionPropsFile = file('../version.properties')
+  Properties versionProps = new Properties()
+  versionProps.load(new FileInputStream(versionPropsFile))
+  def versionName = System.getProperty("GITLAB_TAG", "")
+  def versionCode
+  if(versionName == "") {
+    versionCode = Integer.valueOf(System.getProperty("GITLAB_VERSION_CODE", versionProps['version.code']))
+  }
+  else
+  {
+    def versionArr = versionName.split("-")
+    versionCode = Integer.valueOf(versionArr[1])
+  }
+  println("versionCode $versionCode")
+  return versionCode
+}
+
+def getVersionName = {
+  def versionPropsFile = file('../version.properties')
+  Properties versionProps = new Properties()
+  versionProps.load(new FileInputStream(versionPropsFile))
+  def versionName = System.getProperty("GITLAB_TAG", "")
+  if(versionName == "") {
+    versionName = versionProps['version.name']
+  }
+  else {
+    def versionArr = versionName.split("-")
+    versionName = versionArr[0].substring(1)
+  }
+  println("versionName $versionName")
+  return versionName
+}
+
+ext{
+  verConsts = [:]
+  verConsts['name'] = getVersionName()
+  verConsts['code'] = getVersionCode()
+}

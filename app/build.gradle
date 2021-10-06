@@ -6,6 +6,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+apply from: "../version.gradle"
+
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -22,10 +24,10 @@ android {
             storePassword 'boarding123'
         }
         boardingProd {
-            keyAlias 'boarding'
-            keyPassword 'boarding20191605'
-            storeFile file('boarding-global-prod.jsk')
-            storePassword 'boarding_g_2020'
+            keyAlias 'dsc-bhs'
+            keyPassword 'dcs-bhs2020'
+            storeFile file('boarding-prod.jks')
+            storePassword 'dcs-bhs2020'
         }
     }
 
@@ -35,8 +37,8 @@ android {
         applicationId "com.hititcs.boarding"
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
-        versionCode 20
-        versionName "2.0"
+        versionCode verConsts["code"]
+        versionName verConsts["name"]
         multiDexEnabled true
         resConfigs 'en'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -76,6 +78,18 @@ android {
             }
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        bhs {
+            applicationId "com.hititcs.boarding.bahamas"
+            signingConfig signingConfigs.boardingProd
+        }
+        others {
+
+        }
+    }
+
 
     kotlinOptions {
         freeCompilerArgs += '-Xjvm-default=enable'
