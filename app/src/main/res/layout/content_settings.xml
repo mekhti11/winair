@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/bg_main"
+    android:orientation="vertical"
+    >
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fillViewport="true"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/spacing_mslarge"
+        android:paddingEnd="@dimen/spacing_mslarge"
+        android:orientation="vertical"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          android:layout_marginTop="@dimen/spacing_mslarge"
+          >
+
+        <RelativeLayout
+            android:id="@+id/rlt_manufacturer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_primary"
+            android:background="@drawable/bg_btn_radius"
+            android:text="@string/home_flights"
+            android:textAlignment="viewStart"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:drawableStart="@drawable/ic_flight"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toEndOf="@+id/iv_flight"
+              android:layout_centerVertical="true"
+              style="@style/AppTextStyle.Bold"
+              android:layout_marginStart="@dimen/spacing_sxlarge"
+              android:textColor="@color/text_color_primary"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/text_size_msmall"
+              android:text="Device Manufacturer"
+              />
+
+          <TextView
+              android:id="@+id/tv_manufacturer"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toEndOf="@+id/iv_flight"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              style="@style/AppTextStyle.Regular"
+              android:layout_marginEnd="@dimen/spacing_sxlarge"
+              android:textColor="@color/text_color_primary"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/text_size_msmall"
+              />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_model"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_primary"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@drawable/bg_btn_radius"
+            android:text="@string/home_flights"
+            android:textAlignment="viewStart"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:drawableStart="@drawable/ic_flight"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toEndOf="@+id/iv_flight"
+              android:layout_centerVertical="true"
+              style="@style/AppTextStyle.Bold"
+              android:layout_marginStart="@dimen/spacing_sxlarge"
+              android:textColor="@color/text_color_primary"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/text_size_msmall"
+              android:text="Device Model"
+              />
+
+          <TextView
+              android:id="@+id/tv_model"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_toEndOf="@+id/iv_flight"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              style="@style/AppTextStyle.Regular"
+              android:layout_marginEnd="@dimen/spacing_sxlarge"
+              android:textColor="@color/text_color_primary"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/text_size_msmall"
+              />
+
+        </RelativeLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+</LinearLayout>

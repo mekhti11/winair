@@ -1,38 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg_main"
+    android:fitsSystemWindows="true"
     >
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:orientation="vertical"
-      app:layout_constraintBottom_toTopOf="@+id/navigation"
-      app:layout_constraintTop_toTopOf="@+id/container"
       >
 
     <include layout="@layout/toolbar" />
 
     <FrameLayout
-        android:id="@+id/content_frame_bottom_nav"
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
   </LinearLayout>
-
-  <com.google.android.material.bottomnavigation.BottomNavigationView
-      android:id="@+id/navigation"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/buttom_navigation_background"
-      app:itemIconTint="@color/white"
-      app:itemTextColor="@color/white"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:menu="@menu/navigation"
-      />
 </androidx.constraintlayout.widget.ConstraintLayout>

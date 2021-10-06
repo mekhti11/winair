@@ -1,7 +1,6 @@
 package com.hititcs.dcs.view;
 
 import android.view.View;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +10,10 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder {
 
   public ItemViewHolder(View itemView) {
     super(itemView);
-    mCardView = (CardView) itemView;
+    if (itemView instanceof CardView) {
+      mCardView = (CardView) itemView;
+    } else {
+      mCardView = null;
+    }
   }
 }

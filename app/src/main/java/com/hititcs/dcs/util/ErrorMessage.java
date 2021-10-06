@@ -5,10 +5,10 @@ public enum ErrorMessage {
   BOARDING_ERROR,
   FLIGHT_MISMATCH,
   SEAT_CHANGED,
+  INVALID_FLIGHT,
   ALREADY_BOARDED;
 
   public String normalizeName() {
     return super.name().replace("_", " ");
   }
-
 }

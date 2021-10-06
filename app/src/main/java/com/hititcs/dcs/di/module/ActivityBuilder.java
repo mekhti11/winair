@@ -3,16 +3,14 @@ package com.hititcs.dcs.di.module;
 import com.hititcs.dcs.di.scope.FlightDetailScope;
 import com.hititcs.dcs.di.scope.FlightListScope;
 import com.hititcs.dcs.di.scope.LoginScope;
-import com.hititcs.dcs.di.scope.ScanBarcodeScope;
 import com.hititcs.dcs.view.barcode.ScanBarcodeActivity;
 import com.hititcs.dcs.view.barcode.ScanBarcodeModule;
 import com.hititcs.dcs.view.flight.FlightListActivity;
 import com.hititcs.dcs.view.flight.FlightListModule;
 import com.hititcs.dcs.view.flight.detail.FlightDetailActivity;
 import com.hititcs.dcs.view.flight.detail.FlightDetailModule;
-import com.hititcs.dcs.view.main.LoginModule;
-import com.hititcs.dcs.view.main.MainActivity;
-
+import com.hititcs.dcs.view.login.LoginActivity;
+import com.hititcs.dcs.view.login.LoginModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -21,7 +19,7 @@ public abstract class ActivityBuilder {
 
   @LoginScope
   @ContributesAndroidInjector(modules = LoginModule.class)
-  abstract MainActivity bindLoginActivity();
+  abstract LoginActivity bindLoginActivity();
 
   @FlightListScope
   @ContributesAndroidInjector(modules = FlightListModule.class)
@@ -31,7 +29,6 @@ public abstract class ActivityBuilder {
   @ContributesAndroidInjector(modules = FlightDetailModule.class)
   abstract FlightDetailActivity bindFlightDetailActivity();
 
-  @ScanBarcodeScope
   @ContributesAndroidInjector(modules = ScanBarcodeModule.class)
   abstract ScanBarcodeActivity bindScanBarcodeActivity();
 

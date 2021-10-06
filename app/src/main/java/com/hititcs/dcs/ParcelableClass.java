@@ -1,12 +1,11 @@
 package com.hititcs.dcs;
 
 import com.hititcs.dcs.domain.model.FlightSummary;
-
 import org.parceler.ParcelClass;
 import org.parceler.ParcelClasses;
 
 @ParcelClasses({
-    @ParcelClass(FlightSummary.class),
+    @ParcelClass(FlightSummary.class)
 })
 public class ParcelableClass {
 

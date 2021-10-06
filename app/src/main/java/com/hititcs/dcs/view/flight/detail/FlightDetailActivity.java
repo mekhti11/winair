@@ -24,13 +24,14 @@ public class FlightDetailActivity extends BaseActivity<FlightDetailActivity> {
       flightSummary = ParcelUtils.unwrap(getIntent(), FLIGHT_SUMMARY);
       setUpFragment();
     }
-    setTitle(getString(R.string.title_flight_details));
+    setToolbar();
+    setTitle(getString(R.string.page_title_flight_details));
   }
 
   private void setUpFragment() {
     getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.content_frame_bottom_nav,
+        .replace(R.id.content_frame,
             FlightDetailFragment.newInstance(flightSummary),
             FlightDetailFragment.class.getSimpleName())
         .commit();

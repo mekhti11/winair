@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
@@ -18,12 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hititcs.dcs.Injectable;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.data.shared.AuthManager;
-import com.hititcs.dcs.view.flight.FlightListActivity;
-import com.hititcs.dcs.view.main.MainActivity;
+import com.hititcs.dcs.view.home.view.HomeActivity;
+import com.hititcs.dcs.view.login.LoginActivity;
 import com.hititcs.dcs.widget.CustomCircleLoading;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
@@ -44,15 +42,12 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
   @Nullable
   @butterknife.BindView(R.id.app_bar)
   public AppBarLayout appBarLayout;
-
-  @Inject
-  DispatchingAndroidInjector<Fragment> supportFragmentInjector;
-
-  @Inject
-  AuthManager authManager;
-
   protected ProgressDialog progressDialog;
   protected CustomCircleLoading customCircleLoading;
+  @Inject
+  DispatchingAndroidInjector<Fragment> supportFragmentInjector;
+  @Inject
+  AuthManager authManager;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +58,6 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     }
     setContentView(R.layout.activity_content);
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
   }
 
   protected abstract T getActivity();
@@ -92,7 +85,7 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     super.onSaveInstanceState(outState);
   }
 
-  protected AuthManager getAuthManager(){
+  protected AuthManager getAuthManager() {
     return authManager;
   }
 
@@ -104,14 +97,30 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     }
   }
 
+  protected void setToolbar() {
+    setSupportActionBar(toolbar);
+    getSupportActionBar()
+        .setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+  }
+
   protected void hideToolbar() {
     toolbar.setMinimumHeight(0);
     toolbar.setVisibility(View.GONE);
   }
 
-  protected void setTitle(String title) {
+  protected void hideBackButton() {
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+  }
+
+  public void setTitle(@StringRes int resourceId) {
+    twToolbarTitle.setText(getString(resourceId));
     toolbar.setVisibility(View.VISIBLE);
+  }
+
+  protected void setTitle(String title) {
     twToolbarTitle.setText(title);
+    toolbar.setVisibility(View.VISIBLE);
   }
 
   public void showProgressDialog(@StringRes int title, @StringRes int message) {
@@ -147,8 +156,8 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     }
   }
 
-  public void navigateToFlightListActivity() {
-    Intent intent = new Intent(context(), FlightListActivity.class);
+  public void navigateToHomeActivity() {
+    Intent intent = new Intent(context(), HomeActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
         | Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
@@ -170,7 +179,18 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
     return super.onOptionsItemSelected(item);
   }
 
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+  public void logout() {
+    authManager.clear();
+    Intent intent = new Intent(getActivity(), LoginActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+    if (getActivity() != null) {
+      getActivity().finish();
+    }
+  }
+
+/*  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
       = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
     @Override
@@ -186,7 +206,7 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
           return true;
         case R.id.navigation_sign_out:
           authManager.clear();
-          Intent intent3 = new Intent(getActivity(), MainActivity.class);
+          Intent intent3 = new Intent(getActivity(), LoginActivity.class);
           intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
               | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent3);
@@ -195,6 +215,5 @@ public abstract class BaseActivity<T extends Activity> extends AppCompatActivity
       }
       return false;
     }
-  };
-
+  };*/
 }

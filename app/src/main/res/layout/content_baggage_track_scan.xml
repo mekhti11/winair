@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/grey_inactive_text"
+    >
+
+  <com.journeyapps.barcodescanner.DecoratedBarcodeView
+      android:id="@+id/zxing_barcode_scanner"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:zxing_scanner_layout="@layout/custom_barcode_scanner"
+      ></com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_flashlight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/AppTextStyle.Regular"
+      android:text="@string/baggage_track_scan_flashlight"
+      android:layout_marginTop="@dimen/spacing_mlarge"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:includeFontPadding="false"
+      android:gravity="center_vertical"
+      android:alpha="0.5"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
+      android:drawableStart="@drawable/ic_flashlight"
+      android:drawablePadding="@dimen/spacing_small"
+      />
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_location_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/AppTextStyle.Bold"
+      tools:text="Location Name: CHECK_IN"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="@dimen/spacing_mlarge"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
+      />
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_location_code"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/AppTextStyle.Bold"
+      tools:text="Location Code: GK"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:layout_below="@+id/tv_baggage_scan_location_name"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      android:text="@string/baggage_track_main_last_3_bagtag_no"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_medium"
+      />
+
+  <LinearLayout
+      android:id="@+id/ln_baggage_scan_success"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_baggage_scan_success"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/spacing_xxxxxlarge"
+      android:layout_below="@+id/img_switch_flashlight"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+  <LinearLayout
+      android:id="@+id/ln_baggage_scan_fail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_baggage_scan_fail"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/spacing_xxxxxlarge"
+      android:layout_below="@+id/img_switch_flashlight"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_barcode_success"
+      android:layout_width="256dp"
+      android:layout_height="256dp"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_check_white_48dp"
+      app:tint="@color/barcode_success"
+      />
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_barcode_error"
+      android:layout_width="256dp"
+      android:layout_height="256dp"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_close_white_48dp"
+      app:tint="@color/barcode_fail"
+      />
+  <TextView
+      android:id="@+id/barcode_error_txt"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      style="@style/AppTextStyle.Regular"
+      android:text="Test"
+      android:layout_below="@+id/ln_baggage_scan_fail"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:textColor="@color/text_color_secondary"
+      android:textSize="@dimen/text_size_xxlarge"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/tv_baggage_scan_close"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentBottom="true"
+      style="@style/AppTextStyle.Bold"
+      android:text="@string/baggage_track_scan_complete"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      android:textSize="@dimen/text_size_medium"
+      android:layout_marginEnd="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_complete"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/img_pause"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_centerHorizontal="true"
+      android:visibility="gone"
+      android:src="@drawable/ic_check_white_48dp"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_pause"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_pause_white_48dp"
+      android:visibility="gone"
+      />
+
+  <View
+      android:id="@+id/centerHorizont"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_centerHorizontal="true"
+      android:layout_toLeftOf="@+id/barcodePreview"
+      android:layout_toStartOf="@+id/barcodePreview"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/barcodePreview"
+      android:layout_width="128dp"
+      android:layout_height="128dp"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      />
+
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tintableTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:text="Barkod Tarama"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="36dp"
+      android:visibility="gone"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/rcv_last_three_items_camera"
+      android:text="@string/baggage_track_main_last_3_bagtag_no"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:textColor="@color/text_color_secondary"
+      android:layout_marginTop="@dimen/spacing_medium"
+      android:textSize="@dimen/text_size_lmedium"
+      style="@style/AppTextStyle.Bold"
+      />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rcv_last_three_items_camera"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_mlarge"
+      android:layout_marginBottom="@dimen/spacing_xxxxlarge"
+      tools:itemCount="3"
+      tools:listitem="@layout/item_last_three_bagtag"
+      android:layout_alignParentBottom="true"
+      />
+</RelativeLayout>

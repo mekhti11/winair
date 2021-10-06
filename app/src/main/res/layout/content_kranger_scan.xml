@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_barcode_success"
+      android:layout_width="@dimen/spacing_xxxxxxlarge"
+      android:layout_height="@dimen/spacing_xxxxxxlarge"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_check_white_48dp"
+      app:tint="@color/barcode_success"
+      />
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_barcode_error"
+      android:layout_width="@dimen/spacing_xxxxxxlarge"
+      android:layout_height="@dimen/spacing_xxxxxxlarge"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:srcCompat="@drawable/ic_close_white_48dp"
+      app:tint="@color/barcode_fail"
+      />
+  <TextView
+      android:id="@+id/barcode_error_txt"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/board_pax_service_message_margin_top"
+      android:gravity="center"
+      android:text="Test"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="@dimen/text_size_xxxlarge"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_close"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_close_white_48dp"
+      />
+
+  <TextView
+      android:id="@+id/tw_boarded_count"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:paddingStart="@dimen/spacing_medium"
+      android:paddingRight="@dimen/spacing_medium"
+      android:background="@color/black"
+      android:textColor="@color/white"
+      android:textSize="@dimen/text_size_xxlarge"
+      tools:text="Y1"
+      />
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/img_complete"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/img_pause"
+      android:padding="@dimen/spacing_large"
+      android:layout_centerInParent="true"
+      android:clickable="true"
+      android:text="START SCANNING"
+      android:textSize="@dimen/text_size_xxlarge"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btn_trigger_on"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/btn_trigger_off"
+      android:padding="@dimen/spacing_large"
+      android:layout_centerHorizontal="true"
+      android:clickable="true"
+      android:text="TRIGGER ON"
+      android:textSize="@dimen/text_size_xxlarge"
+      android:visibility="gone"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/btn_trigger_off"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/spacing_large"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:clickable="true"
+      android:text="TRIGGER OFF"
+      android:textSize="@dimen/text_size_xxlarge"
+      android:visibility="gone"
+      />
+
+  <EditText
+      android:id="@+id/edt_barcode"
+      android:layout_width="1dp"
+      android:layout_height="1dp"
+      android:padding="@dimen/spacing_large"
+      android:layout_alignParentBottom="true"
+      android:textColor="@color/white"
+      android:clickable="false"
+      android:background="@color/black"
+      android:cursorVisible="false"
+      android:textSize="1sp"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/img_pause"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_pause_white_48dp"
+      android:visibility="gone"
+      />
+
+  <View
+      android:id="@+id/centerHorizont"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_centerHorizontal="true"
+      android:layout_toLeftOf="@+id/barcodePreview"
+      android:layout_toStartOf="@+id/barcodePreview"
+      />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/barcodePreview"
+      android:layout_width="@dimen/spacing_smedium"
+      android:layout_height="@dimen/spacing_xxxxxlarge"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      />
+
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tintableTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:text="Barkod Tarama"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="@dimen/text_size_xxxlarge"
+      android:visibility="gone"
+      />
+</RelativeLayout>

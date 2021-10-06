@@ -16,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.DrawableRes;
-import com.hititcs.dcs.view.main.MainActivity;
+import com.hititcs.dcs.view.login.LoginActivity;
 import timber.log.Timber;
 
 public class AppUtils {
@@ -43,7 +43,7 @@ public class AppUtils {
   }
 
   public static void openHomeActivity(Activity activity) {
-    Intent intent = new Intent(activity, MainActivity.class);
+    Intent intent = new Intent(activity, LoginActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     activity.startActivity(intent);
     activity.finish();

@@ -1,5 +1,6 @@
 package com.hititcs.dcs.view.flight.detail;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +18,11 @@ import butterknife.OnClick;
 import com.hititcs.dcs.R;
 import com.hititcs.dcs.domain.model.FlightDetail;
 import com.hititcs.dcs.domain.model.FlightSummary;
+import com.hititcs.dcs.model.DeviceEnum;
 import com.hititcs.dcs.util.AnimUtils;
 import com.hititcs.dcs.util.AppUtils;
 import com.hititcs.dcs.util.DateTimeUtils;
+import com.hititcs.dcs.util.DeviceUtils;
 import com.hititcs.dcs.util.ImageUtils;
 import com.hititcs.dcs.util.MessageUtils;
 import com.hititcs.dcs.util.ParcelUtils;
@@ -32,9 +36,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
 
   public static final String FLIGHT_ID = "FLIGHT_ID";
   public static final String BOARDED_COUNT_START = "BOARDED_COUNT_START";
-
-  private String boardedCount;
-
+  public static final String EXTRA_FLIGHT = "extra:flight";
   @Inject
   FlightDetailPresenter flightDetailPresenter;
 
@@ -73,17 +75,15 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   TextView tvBoardingGate;
   @BindView(R.id.tv_delay_time)
   TextView tvDelayTime;
-  @BindView(R.id.ln_boarding)
-  LinearLayout lnBoarding;
+  @BindView(R.id.rlt_flight_detail)
+  RelativeLayout rltFlightDetail;
   @BindView(R.id.tv_flight_status)
   TextView tvTopFlightStatus;
   @BindView(R.id.tv_flight_status_data)
   TextView tvFlightStatus;
   @BindView(R.id.iv_company_logo)
   ImageView ivCompanyLogo;
-
-  public static final String EXTRA_FLIGHT = "extra:flight";
-
+  private String boardedCount;
   private FlightSummary flightSummary;
   private Drawable companyLogo;
 
@@ -126,7 +126,7 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
   }
 
   public void hideBoarding() {
-    lnBoarding.setVisibility(View.GONE);
+    rltFlightDetail.setVisibility(View.GONE);
   }
 
   @Override
@@ -191,8 +191,8 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
     tvTopFlightStatus.setText(String.format("%s: %s", getString(R.string.item_flight_flight_status),
         flightsOutputDto.getFlightSummary().getFlightStatus()));
     tvFlightStatus.setText(flightsOutputDto.getFlightSummary().getFlightStatus());
-    lnBoarding.setVisibility(View.VISIBLE);
-    AnimUtils.animateShowView(lnBoarding);
+    rltFlightDetail.setVisibility(View.VISIBLE);
+    AnimUtils.animateShowView(rltFlightDetail);
   }
 
   @Override
@@ -216,11 +216,82 @@ public class FlightDetailFragment extends BaseFragment<FlightDetailFragment> imp
 
   }
 
-  @OnClick(R.id.scan_barcode)
-  public void onScanBarcodeClicked() {
+  private void openScanBarcodeZebra() {
     Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
     intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
     intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.ZEBRA.getValue());
     startActivity(intent);
+  }
+
+  private void openScanBarcodeKranger() {
+    Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
+    intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
+    intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.K_RANGER.getValue());
+    startActivity(intent);
+  }
+
+  private void openScanBarcodeCamera() {
+    Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
+    intent.putExtra(FLIGHT_ID, flightSummary.getFlightId());
+    intent.putExtra(BOARDED_COUNT_START, boardedCount);
+    intent.putExtra(ScanBarcodeActivity.SELECTED_DEVICE, DeviceEnum.CAMERA.getValue());
+    startActivity(intent);
+  }
+
+  private void showCameraAndZebraDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array_zebra, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeZebra();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
+  private void showCameraAndKrangerDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array_kranger, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeKranger();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
+  private void showCameraAndPrangerDeviceSelectionDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.dialog_title_select_a_device)
+        .setItems(R.array.barcode_devices_array_pranger, (dialog, selectedPosition) -> {
+          if (selectedPosition == 0) {
+            openScanBarcodeKranger();
+          } else if (selectedPosition == 1) {
+            openScanBarcodeCamera();
+          }
+        });
+    builder.create();
+    builder.show();
+  }
+
+  @OnClick(R.id.scan_barcode)
+  public void onScanBarcodeClicked() {
+    if (DeviceUtils.isManufacturerZebra()) {
+      showCameraAndZebraDeviceSelectionDialog();
+    } else if (DeviceUtils.isModelKrangerRow()) {
+      showCameraAndKrangerDeviceSelectionDialog();
+    } else if (DeviceUtils.isModelRangerPro()) {
+      showCameraAndPrangerDeviceSelectionDialog();
+    } else {
+      openScanBarcodeCamera();
+    }
   }
 }
