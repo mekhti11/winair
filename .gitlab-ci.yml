@@ -47,7 +47,7 @@ distribute:
     - gradle assembleOthersRelease -DGITLAB_TAG=$CI_COMMIT_TAG
   artifacts:
     paths:
-      - app/build/outputs/others/release
+      - app/build/outputs/apk/others/release
   only:
     - tags
 
