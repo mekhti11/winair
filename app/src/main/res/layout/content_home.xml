@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:background="@drawable/bg_main"
+    tools:background="@color/main"
     android:orientation="vertical"
     >
 
@@ -145,7 +145,7 @@
               >
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_flight"
+                android:id="@+id/iv_baggage_track"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_baggage_tracking"
@@ -156,7 +156,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/iv_flight"
+                android:layout_toEndOf="@+id/iv_baggage_track"
                 android:layout_centerVertical="true"
                 style="@style/AppTextStyle.Bold"
                 android:layout_marginStart="@dimen/spacing_sxlarge"

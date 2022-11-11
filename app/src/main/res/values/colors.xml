@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="purple_200">#FFBB86FC</color>
+  <color name="purple_500">#FF6200EE</color>
+  <color name="purple_700">#FF3700B3</color>
+  <color name="teal_200">#FF03DAC5</color>
+  <color name="teal_700">#FF018786</color>
+  <color name="black">#FF000000</color>
+  <color name="white">#FFFFFFFF</color>
+  <color name="main">#17345B</color>
+  <color name="text_login_title">#ffffff</color>
   <color name="colorPrimary">#F26575</color>
   <color name="colorPrimaryDark">#F26575</color>
   <color name="colorSecondary">#30454E</color>
@@ -9,13 +18,11 @@
   <color name="button_color_primary">@color/colorSecondary</color>
   <color name="button_color_secondary">@color/white</color>
   <color name="button_color_tertiary">@color/colorPrimary</color>
-  <color name="text_color_primary">@color/black</color>
+  <color name="text_color_primary">#242D36</color>
   <color name="text_color_hint_primary">#C2C5C9</color>
   <color name="text_color_secondary">@color/white</color>
   <color name="company_dropdown_bg_not_selected">@color/colorSecondary</color>
   <color name="company_dropdown_bg_selected">@color/colorPrimary</color>
-  <color name="white">#FFFFFF</color>
-  <color name="black">#000000</color>
   <color name="orange">#EEB040</color>
   <color name="transparent">#00000000</color>
   <color name="grey_inactive_text">#c4c4c4</color>
@@ -34,4 +41,5 @@
 
   <color name="main_logo_bg_color">@color/white</color>
   <color name="main_welcome_text_color">@color/white</color>
+
 </resources>

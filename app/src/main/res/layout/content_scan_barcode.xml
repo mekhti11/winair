@@ -29,16 +29,16 @@
     app:srcCompat="@drawable/ic_check_white_48dp"
     app:tint="@color/barcode_success"
     />
+
   <androidx.appcompat.widget.AppCompatImageView
-    android:id="@+id/img_barcode_error"
-    android:layout_width="256dp"
-    android:layout_height="256dp"
-    android:layout_centerInParent="true"
-      app:srcCompat="@drawable/ic_close_white_48dp"
+      android:id="@+id/img_barcode_error"
+      android:layout_width="256dp"
+      android:layout_height="256dp"
+      android:layout_centerInParent="true"
       android:visibility="gone"
+      app:srcCompat="@drawable/ic_close_white_48dp"
       app:tint="@color/barcode_fail"
-      tools:visibility="visible"
-    />
+      tools:visibility="visible" />
   <TextView
     android:id="@+id/barcode_error_txt"
     android:layout_width="match_parent"

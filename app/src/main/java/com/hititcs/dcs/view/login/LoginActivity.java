@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
   }
 
   private boolean validate() {
-    return dropDown.getPosition() >= 0 && !StringUtils.isEmpty(twUsername.getText().toString())
+    return !StringUtils.isEmpty(twUsername.getText().toString())
         && !StringUtils.isEmpty(twPassword.getText().toString());
   }
 
@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     request.setAirline("test");
     request.setUsername(twUsername.getText().toString());
     request.setPassword(twPassword.getText().toString());
-    request.setAirlineCode(adapter.getItem(dropDown.getPosition()).getAirlineCode());
+    request.setAirlineCode("WIA");
     loginUseCase.execute(new SingleObserver<AuthModel>() {
       @Override
       public void onSubscribe(Disposable d) {
@@ -202,7 +202,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
       adapter.setSelectedItemPosition(dropDown.getPosition());
       return false;
     });
-    dropDown.showDropDown();
+//    dropDown.showDropDown();
   }
 
   private void setupTextInputLayoutsTitles() {

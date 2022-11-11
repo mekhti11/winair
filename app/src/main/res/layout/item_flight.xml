@@ -28,15 +28,14 @@
           android:id="@+id/iv_company_logo"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/spacing_26"
-          android:layout_marginEnd="@dimen/spacing_smedium"
-          android:layout_marginStart="@dimen/spacing_smedium"
-          android:maxWidth="@dimen/spacing_xxxxlarge"
-          android:adjustViewBounds="true"
           android:layout_centerInParent="true"
-          app:srcCompat="@drawable/logo_main"
+          android:layout_marginStart="@dimen/spacing_smedium"
+          android:layout_marginEnd="@dimen/spacing_smedium"
+          android:adjustViewBounds="true"
+          android:maxWidth="@dimen/spacing_xxxxlarge"
           android:visibility="invisible"
-          tools:visibility="visible"
-          />
+          app:srcCompat="@drawable/logo_main"
+          tools:visibility="visible" />
 
     </RelativeLayout>
 
@@ -222,8 +221,7 @@
             android:layout_height="10dp"
             android:layout_alignParentStart="true"
             android:background="@drawable/ic_circle"
-            tools:text="VIE"
-            />
+            tools:text="VIE" />
 
         <ImageView
             android:id="@+id/line"

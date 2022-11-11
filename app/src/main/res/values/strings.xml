@@ -80,4 +80,6 @@
   <string name="general_token_error_popup_message">Token expired, please login again.</string>
 
   <string name="list_hint_search_flight_no">Search Flight No</string>
+    <string name="welcome_to">Welcome to</string>
+  <string name="airport_dcs">Airport DCS</string>
 </resources>

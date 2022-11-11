@@ -3,12 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle"   >
 
-    <solid android:color="@color/button_color_primary"></solid>
+    <solid android:color="#CC0000" />
 
     <corners
         android:topRightRadius="@dimen/spacing_slarge"
-        android:topLeftRadius="@dimen/spacing_slarge"
-        android:bottomLeftRadius="@dimen/spacing_slarge"
-        android:bottomRightRadius="@dimen/spacing_slarge"></corners>
+        android:topLeftRadius="@dimen/spacing_slarge" />
 
 </shape>
