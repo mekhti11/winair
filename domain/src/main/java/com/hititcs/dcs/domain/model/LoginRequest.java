@@ -21,9 +21,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
 
-  @SerializedName("airline")
-  private String airline = null;
-
   @SerializedName("password")
   private String password = null;
 
@@ -33,18 +30,6 @@ public class LoginRequest {
   @SerializedName("airlineCode")
   private String airlineCode = null;
 
-  public LoginRequest airline(String airline) {
-    this.airline = airline;
-    return this;
-  }
-
-  public String getAirline() {
-    return airline;
-  }
-
-  public void setAirline(String airline) {
-    this.airline = airline;
-  }
 
   public LoginRequest password(String password) {
     this.password = password;
