@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/text_color_primary"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_large"
         tools:text="Toolbar Title"/>

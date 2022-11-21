@@ -82,11 +82,12 @@ android {
     flavorDimensions "default"
     productFlavors {
         bhs {
-            applicationId "com.hititcs.boarding.bahamas"
+            applicationId "com.hititcs.boarding.wia"
             signingConfig signingConfigs.boardingProd
         }
-        others {
-
+        wia {
+            applicationId "com.hititcs.boarding.wia"
+            signingConfig signingConfigs.boardingProd
         }
     }
 

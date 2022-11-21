@@ -149,6 +149,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
   private void downloadCompanyLogoFromStorage() {
     this.showProgressDialog();
+    jump();
     File rootPath = new File(context().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
     File localFile = new File(rootPath, "companyLogo.png");
     if (localFile != null && localFile.exists()) {
@@ -161,7 +162,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     File finalLocalFile = localFile;
     tempStorageReference.getFile(localFile).addOnSuccessListener(uri -> {
       hideProgressDialog();
-      jump();
+//      jump();
     }).addOnFailureListener(
         e -> {
           Timber.e("Error getting companyLogo from firebase");
