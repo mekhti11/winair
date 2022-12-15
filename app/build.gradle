@@ -80,15 +80,7 @@ android {
     }
 
     flavorDimensions "default"
-    productFlavors {
-        bhs {
-            applicationId "com.hititcs.boarding.bahamas"
-            signingConfig signingConfigs.boardingProd
-        }
-        others {
 
-        }
-    }
 
 
     kotlinOptions {
