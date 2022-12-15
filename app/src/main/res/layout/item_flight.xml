@@ -34,7 +34,7 @@
           android:adjustViewBounds="true"
           android:maxWidth="@dimen/spacing_xxxxlarge"
           android:visibility="invisible"
-          app:srcCompat="@drawable/logo_main"
+          app:srcCompat="@drawable/ic_logo_wia"
           tools:visibility="visible" />
 
     </RelativeLayout>
