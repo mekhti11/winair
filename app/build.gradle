@@ -34,7 +34,7 @@ android {
     compileSdkVersion globalConfiguration["compileSdkVersion"]
     buildToolsVersion globalConfiguration["buildToolsVersion"]
     defaultConfig {
-        applicationId "com.hititcs.boarding"
+        applicationId "com.hititcs.boarding.winair"
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
         versionCode verConsts["code"]
@@ -70,6 +70,7 @@ android {
         release {
             resValue "string", "app_name", "Crane DCS"
             buildConfigField "String", "API_BASE_URL", releaseUrl
+            applicationIdSuffix ".release"
             useProguard false
             signingConfig signingConfigs.boardingProd
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
