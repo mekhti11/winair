@@ -9,10 +9,10 @@ import retrofit2.http.POST;
 
 public interface UserApi {
 
-  @POST("public/users/login")
+  @POST("airport/public/users/login")
   Single<LoginResponse> loginRx(@Body LoginRequest request);
 
-  @POST("public/users/login")
+  @POST("airport/public/users/login")
   Call<LoginResponse> login(@Body LoginRequest request);
 
 }
