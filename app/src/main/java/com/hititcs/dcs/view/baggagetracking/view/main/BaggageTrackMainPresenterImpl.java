@@ -35,6 +35,12 @@ public class BaggageTrackMainPresenterImpl
             view.setLocationNamesAndCodes(filterNoisyData(data.getTrackBaggageLocationDtoList()));
             view.hideProgressDialog();
           }
+
+          @Override
+          public void onError(Throwable e) {
+            super.onError(e);
+            view.hideProgressDialog();
+          }
         });
   }
 

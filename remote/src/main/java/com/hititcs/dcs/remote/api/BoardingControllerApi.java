@@ -8,6 +8,6 @@ import retrofit2.http.POST;
 
 public interface BoardingControllerApi {
 
-  @POST("api/v1/boarding/withBarcode")
+  @POST("airport/api/v1/boarding/withBarcode")
   Single<BoardingResponse> withBarcode(@Body BoardWithBarcodeRequest request);
 }

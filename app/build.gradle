@@ -72,6 +72,7 @@ android {
             buildConfigField "String", "API_BASE_URL", releaseUrl
             applicationIdSuffix ".release"
             useProguard false
+            debuggable true
             signingConfig signingConfigs.boardingProd
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             lintOptions {
