@@ -10,9 +10,9 @@ import retrofit2.http.POST;
 
 public interface BaggageTrackService {
 
-  @GET("airport/api/v1/trackingBaggage/getLocationNames")
+  @GET("api/v1/trackingBaggage/getLocationNames")
   Single<GetTrackingBaggageLocationNamesOutputDto> getLocationNames();
 
-  @POST("airport/api/v1/trackingBaggage/scan")
+  @POST("api/v1/trackingBaggage/scan")
   Single<ScanBaggageOutputDto> scanBaggageBarcode(@Body ScanBaggageRequest scanBaggageRequest);
 }

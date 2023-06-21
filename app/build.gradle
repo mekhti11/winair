@@ -57,7 +57,7 @@ android {
         beta {
             resValue "string", "app_name", "Crane DCS Beta"
             buildConfigField "String", "API_BASE_URL", debugUrl
-            applicationIdSuffix ".debug"
+            applicationIdSuffix ".beta"
             versionNameSuffix ".release"
             debuggable true
             signingConfig signingConfigs.boardingBeta

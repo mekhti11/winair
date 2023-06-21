@@ -11,13 +11,13 @@ import retrofit2.http.Query;
 
 public interface FlightResourceApi {
 
-  @GET("airport/api/v1/flights/{id}")
+  @GET("api/v1/flights/{id}")
   Single<FlightDetail> getFlightDetail(@Path("id") String id);
 
-  @GET("airport/api/v1/flights")
+  @GET("api/v1/flights")
   Single<GetFlightsOutputDto> getFlights(@Query("endDate") String endDate, @Query("startDate") String startDate);
 
-  @GET("airport/api/v1/flights/{id}/seatMap")
+  @GET("api/v1/flights/{id}/seatMap")
   Single<GetSeatMapOutputDto> getSeatMap(@Path("id") String id);
 
 }

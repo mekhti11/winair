@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 
 public interface AirlineApi {
 
-  @GET("airport/public/airlines")
+  @GET("airlines")
   Single<AirlineListResponse> getAirlines();
 
 }
