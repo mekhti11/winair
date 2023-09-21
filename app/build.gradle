@@ -50,7 +50,7 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-            applicationIdSuffix ".release"
+            applicationIdSuffix ".beta"
             versionNameSuffix "-debug"
             ext.enableCrashlytics = false
         }
